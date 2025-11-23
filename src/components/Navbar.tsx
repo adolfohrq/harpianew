@@ -37,9 +37,6 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
         {/* Logo */}
         <Link to="/" className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
           <img src="/harpia-logo.png" alt="Harpia Logo" className="h-8 w-auto" />
-          <span className="font-serif font-bold text-xl tracking-widest text-white hidden sm:inline">
-            HARPIA
-          </span>
         </Link>
 
         {/* Desktop Nav */}
