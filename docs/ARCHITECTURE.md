@@ -646,7 +646,7 @@ Animações customizadas definidas em CSS:
 
 1. **Utility-First**: Priorizar classes Tailwind
 2. **Responsive**: Mobile-first com breakpoints `md:`, `lg:`
-3. **Dark Theme**: Todo o site usa tema escuro
+3. **Hybrid Theme**: Site usa tema híbrido (Dark Mode dominante com seções Light Mode para contraste)
 4. **Spacing**: Usar escala Tailwind (px-6, py-32, gap-12)
 5. **Typography**: `font-serif` para títulos, `font-sans` para corpo
 6. **Transitions**: `transition-all duration-300` para hover effects

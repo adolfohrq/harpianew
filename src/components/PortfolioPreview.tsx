@@ -7,7 +7,7 @@ import { OptimizedImage } from './ui/OptimizedImage';
 
 export const PortfolioPreview = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-white selection:bg-harpia-black selection:text-white">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -38,7 +38,7 @@ export const PortfolioPreview = () => {
             <Reveal key={project.id} delay={idx * 100}>
               <Link
                 to={`/portfolio/${project.slug}`}
-                className="block relative group overflow-hidden aspect-[16/10] border border-gray-100"
+                className="block relative group overflow-hidden aspect-[16/10] border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-500"
               >
                 {/* Image Layer */}
                 <OptimizedImage

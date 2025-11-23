@@ -8,29 +8,52 @@ Este documento descreve os padrões visuais implementados no projeto Harpia. Use
 
 ## 1. Paleta de Cores
 
-### Backgrounds
+### Estratégia Híbrida (Dark & Light)
+
+O Harpia alterna entre temas escuros e claros para criar ritmo visual.
+
+#### Dark Mode (Padrão)
+
+Para seções de impacto (Hero, Manifesto, Footer).
 
 ```
-bg-harpia-black    #050505  (Fundo principal - muito escuro)
-bg-harpia-carbon   #121212  (Cartões, seções, contrastes suaves)
-bg-harpia-gray     #2a2a2a  (Bordas, divisores, desabilitados)
+bg-harpia-black    #050505  (Fundo principal)
+bg-harpia-carbon   #121212  (Cartões, detalhes)
+text-harpia-white  #f5f5f7  (Texto principal)
 ```
 
-### Textos
+#### Light Mode (Respiro)
+
+Para seções informativas (Serviços, Diferenciais).
 
 ```
-text-harpia-white  #f5f5f7  (Texto primário - off-white confortável)
-text-harpia-accent #ffffff  (Destaque, hover states - branco puro)
+bg-white           #ffffff  (Fundo de seção)
+bg-gray-50         #f9fafb  (Fundo de cards)
+text-harpia-black  #050505  (Títulos)
+text-gray-600      #4b5563  (Corpo de texto)
+```
+
+### Textos & Acentos
+
+```
+text-harpia-white  #f5f5f7  (Texto em fundo escuro)
+text-harpia-black  #050505  (Texto em fundo claro)
+text-harpia-accent #ffffff  (Destaque, hover states em fundo escuro)
 ```
 
 ### Usar em Novos Componentes
 
-✅ **Sempre** use as CSS variables definidas em `src/index.css`
+✅ **Use variáveis do Tailwind e CSS Variables**
 
 ```css
-.my-component {
-  background-color: var(--color-harpia-black);
-  color: var(--color-harpia-white);
+/* Dark Component */
+.dark-section {
+  @apply bg-harpia-black text-harpia-white;
+}
+
+/* Light Component */
+.light-section {
+  @apply bg-white text-harpia-black;
 }
 ```
 
@@ -289,7 +312,9 @@ import { OptimizedImage } from '@/components/ui/OptimizedImage';
 - Transições suaves
 - Responsive images
 
-### Background Images
+### Backgrounds (Imagem e Vídeo)
+
+#### Imagem de Fundo
 
 ```jsx
 <div
@@ -299,6 +324,20 @@ import { OptimizedImage } from '@/components/ui/OptimizedImage';
   }}
 >
   {/* Conteúdo */}
+</div>
+```
+
+#### Vídeo de Fundo (Hero)
+
+Utilize a tag `<video>` com fallback e otimizações:
+
+```jsx
+<div className="absolute inset-0 z-0">
+  <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-40">
+    <source src="/video.mp4" type="video/mp4" />
+  </video>
+  {/* Overlay para legibilidade */}
+  <div className="absolute inset-0 bg-black/60" />
 </div>
 ```
 
@@ -376,7 +415,7 @@ Esta textura:
 
 ## 14. Exemplos de Componentes Comuns
 
-### Seção Hero
+### Seção Hero (Dark)
 
 ```jsx
 <section className="relative w-full h-screen bg-harpia-black flex items-center justify-center overflow-hidden">
@@ -390,23 +429,43 @@ Esta textura:
 </section>
 ```
 
-### Seção de Conteúdo
+### Seção Informativa (Light)
+
+Exemplo: "Por que Harpia" ou "Serviços".
 
 ```jsx
-<section className="bg-harpia-carbon py-16 px-6">
-  <div className="max-w-6xl mx-auto">
-    <h2 className="font-serif text-4xl text-harpia-white mb-12 text-center">Título da Seção</h2>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">{/* Cards */}</div>
+<section className="bg-white py-24 px-6 relative">
+  <div className="max-w-7xl mx-auto">
+    <div className="text-center mb-20">
+      <span className="block font-sans text-xs uppercase tracking-widest text-gray-500 mb-4">
+        Label
+      </span>
+      <h2 className="font-serif text-5xl text-harpia-black mb-6">Título Escuro</h2>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* Card Light */}
+      <div className="p-8 bg-gray-50 border border-gray-100 hover:border-gray-300 transition-all">
+        <h3 className="font-serif text-2xl text-harpia-black mb-4">Item</h3>
+        <p className="font-sans text-gray-600">Descrição em cinza escuro para leitura.</p>
+      </div>
+    </div>
   </div>
 </section>
 ```
 
-### Card de Serviço
+### Card de Serviço (Visual)
 
 ```jsx
-<div className="bg-harpia-black border border-harpia-gray rounded-lg p-8 hover:border-harpia-white transition-colors">
-  <h3 className="font-serif text-2xl text-harpia-white mb-4">Nome do Serviço</h3>
-  <p className="font-sans text-base text-harpia-white leading-relaxed">Descrição do serviço...</p>
+<div className="group relative aspect-[3/4] overflow-hidden bg-gray-100">
+  <OptimizedImage
+    src={image}
+    className="w-full h-full object-cover transition-transform group-hover:scale-110"
+  />
+  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+  <div className="absolute bottom-0 p-8 text-white">
+    <h3 className="font-serif text-2xl">Título</h3>
+  </div>
 </div>
 ```
 

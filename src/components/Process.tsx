@@ -36,7 +36,7 @@ const STEPS = [
 
 export const Process: React.FC = () => {
   return (
-    <section className="py-32 bg-white border-t border-black/5 relative">
+    <section className="py-32 bg-white border-t border-black/5 relative selection:bg-harpia-black selection:text-white">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <div className="mb-24 max-w-2xl">

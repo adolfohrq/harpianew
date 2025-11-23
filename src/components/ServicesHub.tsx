@@ -7,7 +7,7 @@ import { OptimizedImage } from './ui/OptimizedImage';
 
 export const ServicesHub: React.FC = () => {
   return (
-    <section className="py-24 bg-white relative">
+    <section className="py-24 bg-white relative selection:bg-harpia-black selection:text-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-black/10 pb-8">
           <Reveal>
@@ -33,13 +33,13 @@ export const ServicesHub: React.FC = () => {
             <Reveal key={service.id} delay={index * 100}>
               <Link
                 to="/servicos"
-                className="group relative block aspect-[9/16] md:aspect-[3/4] overflow-hidden bg-gray-100 border border-gray-200"
+                className="group relative block aspect-[9/16] md:aspect-[3/4] overflow-hidden bg-gray-100 border border-gray-200 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-1 transition-all duration-500"
               >
                 {/* Background Image */}
                 <OptimizedImage
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110 opacity-50 group-hover:opacity-80 grayscale group-hover:grayscale-0"
+                  className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110 opacity-80 group-hover:opacity-100 grayscale-[0.5] group-hover:grayscale-0"
                   loading="lazy"
                 />
 

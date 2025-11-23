@@ -23,7 +23,7 @@ export const Testimonials: React.FC = () => {
   }, [handleNext]);
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden border-t border-gray-100">
+    <section className="py-32 bg-white relative overflow-hidden border-t border-gray-100 selection:bg-harpia-black selection:text-white">
       {/* Background Decorative Quote */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black/[0.02] pointer-events-none select-none">
         <Quote size={400} />
