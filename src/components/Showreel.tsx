@@ -27,7 +27,7 @@ export const Showreel: React.FC = () => {
     <>
       <section className="py-24 bg-harpia-black border-y border-white/5">
         <div className="max-w-5xl mx-auto px-6">
-          
+
           {/* Header Compacto */}
           <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
             <Reveal>
@@ -44,13 +44,13 @@ export const Showreel: React.FC = () => {
 
           {/* Video Card - Simples e Direto */}
           <Reveal delay={300}>
-            <div 
+            <div
               className="relative w-full aspect-video md:aspect-[21/9] bg-harpia-carbon rounded-sm overflow-hidden group cursor-pointer shadow-2xl shadow-black/50 border border-white/10"
               onClick={() => setIsOpen(true)}
             >
               {/* Thumbnail - Optimized with lazy loading */}
-              <img 
-                src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
+              <img
+                src={`https://img.youtube.com/vi/${VIDEO_ID}/hqdefault.jpg`}
                 alt="Harpia Showreel"
                 loading="lazy"
                 decoding="async"
@@ -58,16 +58,16 @@ export const Showreel: React.FC = () => {
                 height="720"
                 className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100 grayscale group-hover:grayscale-0"
               />
-              
+
               {/* Overlay Gradient */}
               <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-500"></div>
 
               {/* Play Button - Centralizado e Óbvio */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:border-white">
-                  <Play 
-                    className="w-6 h-6 md:w-8 md:h-8 text-white ml-1 transition-colors duration-300 group-hover:text-black" 
-                    fill="currentColor" 
+                  <Play
+                    className="w-6 h-6 md:w-8 md:h-8 text-white ml-1 transition-colors duration-300 group-hover:text-black"
+                    fill="currentColor"
                   />
                 </div>
               </div>
@@ -79,29 +79,29 @@ export const Showreel: React.FC = () => {
 
       {/* Standard Modal */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300"
           onClick={() => setIsOpen(false)}
         >
-          <button 
+          <button
             className="absolute top-4 right-4 z-50 text-white/70 hover:text-white p-2 transition-colors"
             onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
           >
             <X size={32} />
           </button>
 
-          <div 
+          <div
             className="w-full max-w-6xl aspect-video bg-black rounded-lg overflow-hidden shadow-2xl border border-white/10"
             onClick={(e) => e.stopPropagation()}
           >
-            <iframe 
-              width="560" 
-              height="315" 
+            <iframe
+              width="560"
+              height="315"
               src={`https://www.youtube.com/embed/${VIDEO_ID}?si=P4VXAXV7tyevU1s_&autoplay=1`}
-              title="YouTube video player" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-              referrerPolicy="strict-origin-when-cross-origin" 
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
               className="w-full h-full"
             ></iframe>
