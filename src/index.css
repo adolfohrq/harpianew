@@ -17,6 +17,17 @@
   body {
     @apply bg-harpia-black text-harpia-white antialiased;
   }
+
+  /* Global text selection styles */
+  ::selection {
+    background-color: #050505;
+    color: #ffffff;
+  }
+
+  ::-moz-selection {
+    background-color: #050505;
+    color: #ffffff;
+  }
 }
 
 /* Custom scrollbar */
@@ -119,4 +130,14 @@
 .group:hover .animate-marquee,
 .group:hover .animate-marquee-reverse {
   animation-play-state: paused;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }

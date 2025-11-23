@@ -7,7 +7,7 @@ import { OptimizedImage } from './ui/OptimizedImage';
 
 export const PortfolioPreview = () => {
   return (
-    <section className="py-32 bg-harpia-black border-y border-white/5 relative overflow-hidden selection:bg-white selection:text-harpia-black">
+    <section className="py-32 bg-harpia-black border-y border-white/5 relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none opacity-20">
         <div

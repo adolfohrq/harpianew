@@ -28,7 +28,7 @@ export const Showreel: React.FC = () => {
 
   return (
     <>
-      <section className="py-24 bg-harpia-black border-y border-white/5 relative overflow-hidden selection:bg-white selection:text-harpia-black">
+      <section className="py-24 bg-harpia-black border-y border-white/5 relative overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute top-1/4 left-0 w-96 h-96 bg-white/5 rounded-full blur-[120px]" />

@@ -23,7 +23,7 @@ const CLIENT_LOGOS: ClientLogo[] = [
 
 export const ClientLogos: React.FC = () => {
   return (
-    <section className="py-32 bg-white relative border-t border-black/5 overflow-hidden selection:bg-harpia-black selection:text-white">
+    <section className="py-32 bg-white relative border-t border-black/5 overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <div

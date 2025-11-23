@@ -76,7 +76,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
 
 export const ServicesHub: React.FC = () => {
   return (
-    <section className="py-20 md:py-24 bg-white relative selection:bg-harpia-black selection:text-white">
+    <section className="py-20 md:py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <SectionHeader
           label="O que fazemos"

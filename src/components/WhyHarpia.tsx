@@ -50,7 +50,7 @@ export const WhyHarpia: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden selection:bg-harpia-black selection:text-white">
+    <section className="py-32 bg-white relative overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
         <div

@@ -37,7 +37,7 @@ const STEPS = [
 
 export const Process: React.FC = () => {
   return (
-    <section className="py-32 bg-white border-t border-black/5 relative selection:bg-harpia-black selection:text-white">
+    <section className="py-32 bg-white border-t border-black/5 relative">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           title="MÉTODO DE VOO"

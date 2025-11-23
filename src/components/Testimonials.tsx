@@ -32,7 +32,7 @@ export const Testimonials: React.FC = () => {
 
   return (
     <section
-      className="py-32 bg-white relative overflow-hidden border-t border-gray-100 selection:bg-harpia-black selection:text-white"
+      className="py-32 bg-white relative overflow-hidden border-t border-gray-100"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Customer testimonials"
