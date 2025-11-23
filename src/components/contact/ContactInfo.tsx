@@ -37,10 +37,10 @@ export const ContactInfo: React.FC = () => {
         <div className="space-y-12">
           {/* Header */}
           <div>
-            <h2 className="font-serif text-3xl md:text-4xl mb-4 leading-tight">
+            <h2 className="font-serif text-3xl md:text-4xl mb-4 leading-tight text-harpia-black">
               Entre em <span className="italic text-gray-400">Contato</span>
             </h2>
-            <p className="text-gray-500 font-light leading-relaxed">
+            <p className="text-gray-600 font-light leading-relaxed">
               Preencha o formulário ou utilize nossos canais diretos.
             </p>
           </div>
@@ -50,20 +50,22 @@ export const ContactInfo: React.FC = () => {
             {contactInfo.map((item, index) => (
               <Reveal key={item.label} delay={index * 100}>
                 <div className="group">
-                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-gray-500 mb-2">
+                  <p className="font-sans text-xs uppercase tracking-[0.3em] text-gray-400 mb-2">
                     {item.label}
                   </p>
                   {item.href ? (
                     <a
                       href={item.href}
-                      className="font-sans text-lg text-harpia-white hover:text-gray-400 transition-colors flex items-center gap-3"
+                      className="font-sans text-lg text-harpia-black hover:text-gray-600 transition-colors flex items-center gap-3"
                     >
-                      {item.icon}
+                      <span className="text-harpia-black group-hover:text-gray-600 transition-colors">
+                        {item.icon}
+                      </span>
                       {item.value}
                     </a>
                   ) : (
-                    <p className="font-sans text-lg text-harpia-white flex items-center gap-3">
-                      {item.icon}
+                    <p className="font-sans text-lg text-harpia-black flex items-center gap-3">
+                      <span className="text-harpia-black">{item.icon}</span>
                       {item.value}
                     </p>
                   )}

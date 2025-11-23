@@ -1,19 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  ArrowRight,
-  Camera,
-  Box,
-  PenTool,
-  Monitor,
-  Check,
-  Sparkles,
-  TrendingUp,
-} from 'lucide-react';
+import { ArrowRight, Camera, Box, PenTool, Monitor, Check, TrendingUp } from 'lucide-react';
 import { SERVICES } from '../data';
 import { useMetaTags } from '../hooks/useMetaTags';
 import { Reveal } from '../components/Reveal';
-import { OptimizedImage } from '../components/ui';
+import { OptimizedImage, HeroSection } from '../components/ui';
 
 interface ServiceCardProps {
   service: (typeof SERVICES)[0];
@@ -62,7 +53,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
   return (
     <Reveal delay={index * 100}>
       <div
-        className="group relative h-[600px] overflow-hidden bg-harpia-carbon border border-white/5 hover:border-white/20 transition-all duration-700 rounded-sm"
+        className="group relative h-[600px] overflow-hidden bg-harpia-carbon border border-black/5 hover:border-harpia-black/20 hover:shadow-2xl transition-all duration-700 rounded-sm"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -223,100 +214,44 @@ export const Services: React.FC = () => {
   ];
 
   return (
-    <div className="w-full relative bg-harpia-black">
+    <div className="w-full relative bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-32 md:py-40">
-        {/* Decorative Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 w-[600px] h-[600px] bg-white/2 rounded-full blur-[120px] animate-pulse" />
-          <div
-            className="absolute bottom-20 left-10 w-[500px] h-[500px] bg-white/1.5 rounded-full blur-[100px] animate-pulse"
-            style={{ animationDelay: '2s' }}
-          />
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-harpia-accent/[0.02] rounded-full blur-[150px] animate-pulse"
-            style={{ animationDelay: '4s', animationDuration: '8s' }}
-          />
-        </div>
-
-        {/* Grid Pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.015]"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 1px 1px, rgb(255 255 255) 1px, transparent 0)',
-            backgroundSize: '40px 40px',
-          }}
-        />
-
-        {/* Diagonal Lines Decoration */}
-        <div className="absolute top-20 left-0 w-64 h-px bg-linear-to-r from-white/10 to-transparent" />
-        <div className="absolute bottom-20 right-0 w-64 h-px bg-linear-to-l from-white/10 to-transparent" />
-
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          <Reveal>
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full mb-8">
-              <Sparkles size={14} className="text-harpia-accent" />
-              <span className="font-sans text-xs text-harpia-white/90 tracking-[0.2em] uppercase">
-                Excelência em Cada Detalhe
-              </span>
-            </div>
-          </Reveal>
-
-          <Reveal delay={100}>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[1.1] mb-8 text-harpia-accent">
-              SERVIÇOS QUE
-              <br />
-              <span className="italic text-harpia-white/70">ELEVAM SUA MARCA</span>
-            </h1>
-          </Reveal>
-
-          <Reveal delay={200}>
-            <p className="font-sans font-light text-lg md:text-xl text-harpia-white/80 max-w-3xl mx-auto mb-12 leading-relaxed">
-              Combinamos estética refinada, estratégia de dados e execução impecável para criar
-              experiências que transformam marcas em referências de mercado.
-            </p>
-          </Reveal>
-
-          <Reveal delay={300}>
-            <Link
-              to="/contato"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-harpia-accent text-harpia-black font-sans font-semibold tracking-widest uppercase text-sm hover:bg-harpia-white hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-harpia-accent focus:ring-offset-2 focus:ring-offset-harpia-black rounded-sm shadow-xl hover:shadow-2xl"
-            >
-              Iniciar Projeto
-              <ArrowRight
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300"
-                strokeWidth={2.5}
-              />
-            </Link>
-          </Reveal>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white/20 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-2 bg-white/40 rounded-full" />
-          </div>
-        </div>
-      </section>
+      <HeroSection
+        subtitle="Excelência em Cada Detalhe"
+        title={
+          <>
+            SERVIÇOS QUE <br />
+            <span className="italic text-gray-400">ELEVAM SUA MARCA</span>
+          </>
+        }
+        description="Combinamos estética refinada, estratégia de dados e execução impecável para criar experiências que transformam marcas em referências de mercado."
+        imageSrc="/2.jpeg"
+        imageAlt="Serviços Harpia"
+        floatingBadge={
+          <>
+            <p className="font-serif text-2xl mb-1">+250</p>
+            <p className="text-xs uppercase tracking-widest text-gray-500">Projetos</p>
+          </>
+        }
+      />
 
       {/* Services Grid */}
-      <section className="py-24 md:py-32 relative bg-harpia-black">
+      <section className="py-24 md:py-32 relative bg-white">
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Header */}
           <div className="max-w-3xl mb-20">
             <Reveal>
-              <span className="font-sans text-xs text-harpia-white/50 tracking-[0.3em] uppercase mb-4 block">
+              <span className="font-sans text-xs text-harpia-black/50 tracking-[0.3em] uppercase mb-4 block">
                 O Que Fazemos
               </span>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="font-serif text-4xl md:text-6xl text-harpia-accent leading-tight mb-6">
+              <h2 className="font-serif text-4xl md:text-6xl text-harpia-black leading-tight mb-6">
                 NOSSOS SERVIÇOS
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="font-sans text-lg text-harpia-white/70 leading-relaxed font-light">
+              <p className="font-sans text-lg text-gray-600 leading-relaxed font-light">
                 Cada serviço é pensado estrategicamente para gerar impacto real e resultados
                 mensuráveis.
               </p>

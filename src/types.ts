@@ -37,3 +37,24 @@ export interface Testimonial {
   author: string;
   company: string;
 }
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+}
+
+export interface AboutValue {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface MilestoneItem {
+  year: string;
+  title: string;
+  description: string;
+}

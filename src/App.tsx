@@ -6,6 +6,8 @@ const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })
 const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })));
 const Packages = lazy(() => import('./pages/Packages').then((m) => ({ default: m.Packages })));
 const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
+const AboutPage = lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })));
+const About2 = lazy(() => import('./pages/About2').then((m) => ({ default: m.About2 })));
 const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })));
 import { NAV_LINKS } from './data';
 import { Send } from 'lucide-react';
@@ -52,6 +54,8 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/servicos" element={<Services />} />
               <Route path="/pacotes" element={<Packages />} />
+              <Route path="/sobre" element={<AboutPage />} />
+              <Route path="/about2" element={<About2 />} />
               <Route path="/contato" element={<Contact />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

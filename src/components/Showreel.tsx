@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Play, Film, Volume2, VolumeX } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { X, Play, Film, Volume2, VolumeX, Sparkles } from 'lucide-react';
 import { Reveal } from './Reveal';
 
 const VIDEO_ID = 'TvZY7BofuX0';
 
-export const Showreel: React.FC = () => {
+export const Showreel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpening, setIsOpening] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -69,7 +69,19 @@ export const Showreel: React.FC = () => {
 
   return (
     <>
-      <section className="py-32 bg-harpia-black border-y border-white/5 relative overflow-hidden">
+      <section className="py-24 md:py-32 bg-harpia-black border-y border-white/5 relative overflow-hidden">
+        {/* Background Decorative Elements */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <div
+            className="absolute top-1/3 right-1/3 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse"
+            style={{ animationDuration: '8s' }}
+          />
+          <div
+            className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-white/5 rounded-full blur-[120px] animate-pulse"
+            style={{ animationDuration: '10s' }}
+          />
+        </div>
+
         {/* Film grain texture */}
         <div
           className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay"
@@ -79,41 +91,61 @@ export const Showreel: React.FC = () => {
           }}
         />
 
-        <div className="max-w-5xl mx-auto px-6 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
           {/* Header Cinematográfico */}
-          <div className="mb-16 text-center">
+          <div className="mb-16 md:mb-20 text-center">
             <Reveal>
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-16 h-px bg-white/20" />
-                <Film className="w-5 h-5 text-white/40" strokeWidth={1.5} />
-                <div className="w-16 h-px bg-white/20" />
-              </div>
+              <span className="inline-block font-sans text-xs font-medium uppercase tracking-[0.4em] text-gray-500 mb-8 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
+                Showreel
+              </span>
             </Reveal>
 
             <Reveal delay={100}>
-              <h2 className="font-serif text-4xl md:text-6xl text-white mb-4 tracking-tight">
-                Showreel <span className="italic text-white/50">2024</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-tight leading-tight">
+                NOSSO TRABALHO
+                <br />
+                <span className="italic text-gray-400 font-light">em Movimento</span>
               </h2>
             </Reveal>
 
             <Reveal delay={200}>
-              <p className="text-white/40 text-sm uppercase tracking-[0.3em] font-light">
-                45 Segundos de Impacto
+              <p className="text-gray-400 font-sans text-base md:text-lg leading-relaxed font-light max-w-2xl mx-auto mb-3">
+                45 segundos de pura criatividade. Uma jornada visual pelos nossos projetos mais
+                impactantes de 2024.
               </p>
+            </Reveal>
+
+            <Reveal delay={300}>
+              <div className="flex items-center justify-center gap-3 text-white/40">
+                <Film className="w-4 h-4" strokeWidth={1.5} />
+                <span className="text-xs uppercase tracking-[0.3em] font-light">
+                  Cinema de Marca
+                </span>
+                <Sparkles className="w-4 h-4" strokeWidth={1.5} />
+              </div>
             </Reveal>
           </div>
 
           {/* Video Card Premium */}
-          <Reveal delay={300}>
+          <Reveal delay={400}>
             <div
               ref={cardRef}
-              className="relative w-full aspect-video md:aspect-21/9 bg-harpia-carbon overflow-hidden group cursor-pointer"
+              className="relative w-full aspect-video md:aspect-21/9 bg-harpia-carbon overflow-hidden group cursor-pointer rounded-sm border border-white/10 hover:border-white/30 transition-all duration-500 hover:shadow-2xl hover:shadow-black/50"
               onClick={handleOpen}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{
                 transform: `perspective(1000px) rotateX(${-mousePosition.y * 0.05}deg) rotateY(${mousePosition.x * 0.05}deg)`,
                 transition: 'transform 0.1s ease-out',
+              }}
+              role="button"
+              tabIndex={0}
+              aria-label="Abrir showreel em tela cheia"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleOpen();
+                }
               }}
             >
               {/* Floating light orb */}
@@ -158,15 +190,22 @@ export const Showreel: React.FC = () => {
               </div>
 
               {/* Center Play Button */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative group/play">
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
+                <div className="relative">
                   {/* Outer glow ring */}
-                  <div className="absolute inset-0 w-20 h-20 md:w-24 md:h-24 bg-white/10 rounded-full blur-xl group-hover/play:bg-white/20 transition-all duration-500" />
+                  <div className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 bg-white/10 rounded-full blur-xl group-hover:bg-white/20 transition-all duration-500" />
 
                   {/* Play button */}
-                  <div className="relative w-20 h-20 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center transform group-hover/play:scale-110 transition-all duration-500 shadow-2xl">
-                    <Play className="w-8 h-8 md:w-10 md:h-10 text-black ml-1" fill="currentColor" />
+                  <div className="relative w-20 h-20 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-500 shadow-2xl">
+                    <Play className="w-8 h-8 md:w-12 md:h-12 text-black ml-1" fill="currentColor" />
                   </div>
+                </div>
+
+                {/* Call to Action Text */}
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                  <p className="text-white font-sans text-sm md:text-base uppercase tracking-[0.3em] font-light">
+                    Assistir Showreel
+                  </p>
                 </div>
               </div>
 
@@ -186,12 +225,32 @@ export const Showreel: React.FC = () => {
             </div>
           </Reveal>
 
-          {/* Hint */}
-          <Reveal delay={400}>
-            <div className="mt-8 text-center">
-              <p className="text-white/30 text-xs uppercase tracking-[0.2em]">
-                Clique para iniciar • ESC para sair
-              </p>
+          {/* Hint & Stats */}
+          <Reveal delay={500}>
+            <div className="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+              {/* Duration */}
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-white/30 rounded-full" />
+                <span className="text-white/40 text-xs uppercase tracking-[0.25em] font-light">
+                  Duração: 45s
+                </span>
+              </div>
+
+              {/* Quality */}
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-white/30 rounded-full" />
+                <span className="text-white/40 text-xs uppercase tracking-[0.25em] font-light">
+                  4K • 60fps
+                </span>
+              </div>
+
+              {/* Hint */}
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 bg-white/30 rounded-full" />
+                <span className="text-white/40 text-xs uppercase tracking-[0.25em] font-light">
+                  Clique para assistir
+                </span>
+              </div>
             </div>
           </Reveal>
         </div>
@@ -229,28 +288,28 @@ export const Showreel: React.FC = () => {
           >
             {/* Close Button */}
             <button
-              className="absolute top-8 right-8 z-50 w-12 h-12 flex items-center justify-center text-white/50 hover:text-white transition-all duration-300 hover:rotate-90 group/close"
+              className="absolute top-6 right-6 md:top-8 md:right-8 z-50 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 hover:rotate-90 group/close backdrop-blur-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 handleClose();
               }}
               aria-label="Fechar vídeo"
             >
-              <div className="absolute inset-0 border border-white/10 group-hover/close:border-white/30 transition-colors rounded-full" />
-              <X size={20} strokeWidth={1.5} />
+              <div className="absolute inset-0 border border-white/10 group-hover/close:border-white/40 group-hover/close:bg-white/5 transition-all rounded-full" />
+              <X size={20} strokeWidth={2} />
             </button>
 
             {/* Mute Toggle */}
             <button
-              className="absolute top-8 left-8 z-50 w-12 h-12 flex items-center justify-center text-white/50 hover:text-white transition-all duration-300 group/mute"
+              className="absolute top-6 left-6 md:top-8 md:left-8 z-50 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 group/mute backdrop-blur-sm"
               onClick={toggleMute}
               aria-label={isMuted ? 'Ativar som' : 'Silenciar'}
             >
-              <div className="absolute inset-0 border border-white/10 group-hover/mute:border-white/30 transition-colors rounded-full" />
+              <div className="absolute inset-0 border border-white/10 group-hover/mute:border-white/40 group-hover/mute:bg-white/5 transition-all rounded-full" />
               {isMuted ? (
-                <VolumeX size={18} strokeWidth={1.5} />
+                <VolumeX size={18} strokeWidth={2} />
               ) : (
-                <Volume2 size={18} strokeWidth={1.5} />
+                <Volume2 size={18} strokeWidth={2} />
               )}
             </button>
 
@@ -285,13 +344,17 @@ export const Showreel: React.FC = () => {
               <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/30" />
             </div>
 
-            {/* Bottom text hint */}
+            {/* Bottom hint */}
             <div
-              className={`absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 text-xs uppercase tracking-[0.3em] transition-all duration-700 delay-500 ${
+              className={`absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 transition-all duration-700 delay-500 ${
                 isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
               }`}
             >
-              Pressione ESC ou clique fora para fechar
+              <div className="w-2 h-2 bg-white/20 rounded-full" />
+              <span className="text-white/30 text-xs uppercase tracking-[0.3em] font-light">
+                Pressione ESC ou clique fora para fechar
+              </span>
+              <div className="w-2 h-2 bg-white/20 rounded-full" />
             </div>
           </div>
         </div>
