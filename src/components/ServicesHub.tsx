@@ -31,7 +31,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
       <OptimizedImage
         src={service.image}
         alt={`${service.title} - Serviço da Harpia Agência`}
-        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110 opacity-80 group-hover:opacity-100 grayscale-[0.5] group-hover:grayscale-0"
+        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110 opacity-80 group-hover:opacity-100 grayscale-[0.5] group-hover:grayscale-0"
         loading="lazy"
       />
 
@@ -68,15 +68,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
         </div>
       </div>
 
-      {/* Hover Border Effect */}
-      <div className="absolute inset-0 border border-white/0 group-hover:border-white/40 transition-colors duration-500 pointer-events-none rounded-sm" />
+      {/* Hover Border & Glow Effect */}
+      <div className="absolute inset-0 border border-white/0 group-hover:border-white/40 group-hover:shadow-[inset_0_0_60px_rgba(255,255,255,0.1)] transition-all duration-500 pointer-events-none rounded-sm" />
     </Link>
   );
 };
 
 export const ServicesHub: React.FC = () => {
   return (
-    <section className="py-20 md:py-24 bg-white relative">
+    <section className="py-24 md:py-32 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <SectionHeader
           label="O que fazemos"
@@ -99,7 +99,7 @@ export const ServicesHub: React.FC = () => {
         </div>
 
         {/* Mobile CTA Button */}
-        <footer className="mt-12 md:mt-16 text-center md:hidden">
+        <footer className="mt-16 md:mt-20 text-center md:hidden">
           <Link
             to="/servicos"
             aria-label="Ver página completa de serviços"

@@ -78,15 +78,6 @@ export const ClientLogos: React.FC = () => {
             </Reveal>
           ))}
         </div>
-
-        {/* CTA Footer */}
-        <Reveal delay={400}>
-          <div className="text-center mt-20 pt-12 border-t border-black/5">
-            <p className="font-sans text-sm text-gray-500 uppercase tracking-wider">
-              + Dezenas de outras empresas que confiam na nossa visão
-            </p>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
