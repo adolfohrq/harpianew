@@ -1,6 +1,7 @@
 import React from 'react';
 import { Reveal } from './Reveal';
 import { Scan, Compass, Plane, BarChart2 } from 'lucide-react';
+import { SectionHeader } from './ui';
 
 const STEPS = [
   {
@@ -38,17 +39,13 @@ export const Process: React.FC = () => {
   return (
     <section className="py-32 bg-white border-t border-black/5 relative selection:bg-harpia-black selection:text-white">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Section Header */}
-        <div className="mb-24 max-w-2xl">
-          <Reveal>
-            <h2 className="font-serif text-4xl md:text-5xl mb-6 text-harpia-black">
-              MÉTODO DE VOO
-            </h2>
-            <p className="text-gray-600 font-light text-lg border-l border-black/20 pl-6">
-              Nossa metodologia proprietária para tirar ideias do papel e colocá-las em órbita.
-            </p>
-          </Reveal>
-        </div>
+        <SectionHeader
+          title="MÉTODO DE VOO"
+          description="Nossa metodologia proprietária para tirar ideias do papel e colocá-las em órbita."
+          align="left"
+          descriptionMaxWidth="2xl"
+          className="mb-24"
+        />
 
         {/* Timeline Container */}
         <div className="relative">

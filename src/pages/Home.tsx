@@ -26,7 +26,7 @@ export const Home: React.FC = () => {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full relative">
       {/* Hero Section */}
       <Hero />
 
