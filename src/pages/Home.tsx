@@ -7,6 +7,9 @@ import { Testimonials } from '../components/Testimonials';
 import { Marquee } from '../components/Marquee';
 import { Process } from '../components/Process';
 import { Showreel } from '../components/Showreel';
+import { Stats } from '../components/Stats';
+import { WhyHarpia } from '../components/WhyHarpia';
+import { ClientLogos } from '../components/ClientLogos';
 
 export const Home: React.FC = () => {
   // Changed ref type to HTMLVideoElement
@@ -113,8 +116,14 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Stats Section */}
+      <Stats />
+
       {/* Infinite Marquee */}
       <Marquee items={['Strategy', 'Vision', 'Motion', 'Design', 'Impact', 'Culture', 'Growth']} />
+
+      {/* Why Harpia Section */}
+      <WhyHarpia />
 
       {/* Services Hub Preview */}
       <section className="py-32 bg-harpia-carbon relative">
@@ -250,6 +259,9 @@ export const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Client Logos Section */}
+      <ClientLogos />
 
       {/* Testimonials Section */}
       <Testimonials />

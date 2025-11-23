@@ -1,0 +1,23 @@
+---
+alwaysApply: true
+---
+
+# Regra: Commits por Tarefa
+
+Cada tarefa deve gerar **um commit claro e isolado**.
+
+## Formato da mensagem
+Use sempre:
+
+- Para novas funcionalidades:
+  feat: [ação realizada]
+
+- Para correções de bugs:
+  fix: [problema resolvido]
+
+## Exemplos
+feat: adicionar autenticação de usuários  
+fix: corrigir erro ao validar senha inválida
+
+## Por que fazer assim
+Esse padrão deixa o histórico fácil de entender, facilita revisões, criação de changelog e rastreamento de mudanças entre tarefas.
