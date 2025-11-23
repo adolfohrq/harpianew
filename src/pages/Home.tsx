@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { PROJECTS, SERVICES } from '../constants';
+import { PROJECTS, SERVICES } from '../data';
 import { Reveal } from '../components/Reveal';
 import { Testimonials } from '../components/Testimonials';
 import { Marquee } from '../components/Marquee';
@@ -57,7 +57,10 @@ export const Home: React.FC = () => {
             className="w-full h-full object-cover opacity-40 grayscale contrast-150 will-change-transform"
             style={{ transform: 'scale(1.1)' }}
           >
-            <source src="https://cdn.pixabay.com/video/2024/02/09/199958-911694865_large.mp4" type="video/mp4" />
+            <source
+              src="https://cdn.pixabay.com/video/2024/02/09/199958-911694865_large.mp4"
+              type="video/mp4"
+            />
             Your browser does not support the video tag.
           </video>
 
@@ -67,14 +70,17 @@ export const Home: React.FC = () => {
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <Reveal>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 tracking-wide">
-              ENXERGUE <span className="italic text-gray-400">MAIS LONGE.</span><br />
+              ENXERGUE <span className="italic text-gray-400">MAIS LONGE.</span>
+              <br />
               VOE <span className="italic text-gray-400">MAIS ALTO.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={200}>
             <p className="font-sans font-light text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed">
-              Somos uma equipe apaixonada e dedicada, especializada em criar pontes entre empresas e seus clientes. Nossa missão é simples: conectar você ao seu público-alvo de maneira significativa e impactante.
+              Somos uma equipe apaixonada e dedicada, especializada em criar pontes entre empresas e
+              seus clientes. Nossa missão é simples: conectar você ao seu público-alvo de maneira
+              significativa e impactante.
             </p>
           </Reveal>
 
@@ -94,9 +100,14 @@ export const Home: React.FC = () => {
       <section className="py-32 bg-harpia-black relative border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <Reveal>
-            <span className="block text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">Manifesto</span>
+            <span className="block text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+              Manifesto
+            </span>
             <h2 className="font-serif text-3xl md:text-4xl leading-relaxed text-gray-200">
-              "Todo mundo tem uma <span className="text-white italic">história</span> para contar. Nós acreditamos que cada história importa, e queremos ajudar o seu negócio a comunicar de forma <span className="text-white italic">efetiva</span> e <span className="text-white italic">relevante</span>."
+              "Todo mundo tem uma <span className="text-white italic">história</span> para contar.
+              Nós acreditamos que cada história importa, e queremos ajudar o seu negócio a comunicar
+              de forma <span className="text-white italic">efetiva</span> e{' '}
+              <span className="text-white italic">relevante</span>."
             </h2>
           </Reveal>
         </div>
@@ -114,14 +125,22 @@ export const Home: React.FC = () => {
               <p className="text-gray-400 font-light text-xl">Somos movidos por resultados.</p>
             </Reveal>
             <Reveal delay={200}>
-              <Link to="/servicos" className="hidden md:inline-block text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-gray-300 hover:border-white transition-all">Ver Detalhes</Link>
+              <Link
+                to="/servicos"
+                className="hidden md:inline-block text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-gray-300 hover:border-white transition-all"
+              >
+                Ver Detalhes
+              </Link>
             </Reveal>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {SERVICES.map((service, index) => (
               <Reveal key={service.id} delay={index * 100}>
-                <Link to="/servicos" className="group relative block aspect-[9/16] md:aspect-[3/4] overflow-hidden bg-harpia-black border border-white/5">
+                <Link
+                  to="/servicos"
+                  className="group relative block aspect-[9/16] md:aspect-[3/4] overflow-hidden bg-harpia-black border border-white/5"
+                >
                   {/* Background Image */}
                   <img
                     src={`${service.image}?grayscale`}
@@ -167,7 +186,10 @@ export const Home: React.FC = () => {
 
           {/* Mobile View All Button */}
           <div className="mt-12 text-center md:hidden">
-            <Link to="/servicos" className="inline-block text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-white transition-all">
+            <Link
+              to="/servicos"
+              className="inline-block text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-white transition-all"
+            >
               Ver Todos os Serviços
             </Link>
           </div>
@@ -186,7 +208,10 @@ export const Home: React.FC = () => {
           <Reveal>
             <div className="text-center mb-16">
               <h2 className="font-serif text-4xl md:text-5xl mb-6">PROJETOS RECENTES</h2>
-              <Link to="/servicos" className="text-xs uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors">
+              <Link
+                to="/servicos"
+                className="text-xs uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
+              >
                 Explorar o portfólio completo
               </Link>
             </div>
@@ -205,7 +230,6 @@ export const Home: React.FC = () => {
 
                   {/* Overlay Layer */}
                   <div className="absolute inset-0 bg-harpia-black/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center gap-2">
-
                     {/* Animated Content */}
                     {/* Refined Animation: Subtle upward translation (translate-y-4 and translate-y-8) */}
                     <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out delay-100">
@@ -217,7 +241,6 @@ export const Home: React.FC = () => {
                     <h3 className="font-serif text-3xl md:text-4xl text-white transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out delay-200">
                       {project.title}
                     </h3>
-
                   </div>
                 </div>
               </Reveal>

@@ -7,7 +7,7 @@ export const Contact: React.FC = () => {
     name: '',
     email: '',
     phone: '',
-    message: ''
+    message: '',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -18,22 +18,24 @@ export const Contact: React.FC = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   return (
     <div className="min-h-screen bg-harpia-black pt-32 pb-20">
       <div className="max-w-7xl mx-auto px-6">
-        
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-          
           {/* Contact Info */}
           <Reveal>
             <div className="space-y-12">
               <div>
-                <h1 className="font-serif text-5xl md:text-6xl mb-6">VAMOS <br/>VOAR JUNTOS?</h1>
+                <h1 className="font-serif text-5xl md:text-6xl mb-6">
+                  VAMOS <br />
+                  VOAR JUNTOS?
+                </h1>
                 <p className="text-gray-400 font-light text-lg max-w-md leading-relaxed">
-                  Estamos prontos para ouvir sua história e transformá-la em resultados. Preencha o formulário ou utilize nossos canais diretos para iniciar uma conversa estratégica.
+                  Estamos prontos para ouvir sua história e transformá-la em resultados. Preencha o
+                  formulário ou utilize nossos canais diretos para iniciar uma conversa estratégica.
                 </p>
               </div>
 
@@ -44,7 +46,12 @@ export const Contact: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-1">Email</h3>
-                    <a href="mailto:harpiagencia@gmail.com" className="text-white text-lg font-light hover:text-gray-300 transition-colors">harpiagencia@gmail.com</a>
+                    <a
+                      href="mailto:harpiagencia@gmail.com"
+                      className="text-white text-lg font-light hover:text-gray-300 transition-colors"
+                    >
+                      harpiagencia@gmail.com
+                    </a>
                   </div>
                 </div>
 
@@ -53,25 +60,30 @@ export const Contact: React.FC = () => {
                     <Phone className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-1">Telefone & Social</h3>
+                    <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-1">
+                      Telefone & Social
+                    </h3>
                     <div className="flex flex-wrap items-center gap-6">
-                      <a href="tel:+5511999999999" className="text-white text-lg font-light hover:text-gray-300 transition-colors">
+                      <a
+                        href="tel:+5511999999999"
+                        className="text-white text-lg font-light hover:text-gray-300 transition-colors"
+                      >
                         (11) 99999-9999
                       </a>
                       <div className="flex items-center gap-3">
-                        <a 
-                          href="https://instagram.com/harpia.agencia" 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
+                        <a
+                          href="https://instagram.com/harpia.agencia"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-gray-500 hover:text-white transition-colors p-1 border border-white/10 rounded-full hover:border-white/50"
                           aria-label="Instagram"
                         >
                           <Instagram size={16} strokeWidth={1.5} />
                         </a>
-                        <a 
-                          href="https://facebook.com/harpia.agencia" 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
+                        <a
+                          href="https://facebook.com/harpia.agencia"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-gray-500 hover:text-white transition-colors p-1 border border-white/10 rounded-full hover:border-white/50"
                           aria-label="Facebook"
                         >
@@ -87,7 +99,9 @@ export const Contact: React.FC = () => {
                     <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-1">Localização</h3>
+                    <h3 className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-1">
+                      Localização
+                    </h3>
                     <p className="text-white text-lg font-light">Brasil - Atendimento Global</p>
                   </div>
                 </div>

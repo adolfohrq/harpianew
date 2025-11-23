@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
-import { TESTIMONIALS } from '../constants';
+import { TESTIMONIALS } from '../data';
 import { Reveal } from './Reveal';
 
 export const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+  }, []);
 
   // Auto-advance
   useEffect(() => {
@@ -12,15 +20,7 @@ export const Testimonials: React.FC = () => {
       handleNext();
     }, 6000);
     return () => clearInterval(timer);
-  }, [currentIndex]);
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-  };
+  }, [handleNext]);
 
   return (
     <section className="py-32 bg-harpia-black relative overflow-hidden border-t border-white/5">
@@ -44,9 +44,10 @@ export const Testimonials: React.FC = () => {
             <div
               key={item.id}
               className={`absolute inset-0 flex flex-col items-center justify-center text-center transition-all duration-1000 ease-out
-                ${index === currentIndex 
-                  ? 'opacity-100 translate-y-0 pointer-events-auto' 
-                  : 'opacity-0 translate-y-8 pointer-events-none'
+                ${
+                  index === currentIndex
+                    ? 'opacity-100 translate-y-0 pointer-events-auto'
+                    : 'opacity-0 translate-y-8 pointer-events-none'
                 }`}
             >
               <div className="mb-8 text-gray-400">
@@ -56,7 +57,9 @@ export const Testimonials: React.FC = () => {
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-white uppercase tracking-widest text-sm font-semibold">{item.author}</p>
+                <p className="text-white uppercase tracking-widest text-sm font-semibold">
+                  {item.author}
+                </p>
                 <p className="text-gray-500 text-xs tracking-wider">{item.company}</p>
               </div>
             </div>
@@ -65,15 +68,15 @@ export const Testimonials: React.FC = () => {
 
         {/* Controls */}
         <div className="flex justify-center gap-6 mt-8">
-          <button 
-            onClick={handlePrev} 
+          <button
+            onClick={handlePrev}
             className="p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all group"
             aria-label="Previous testimonial"
           >
             <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           </button>
-          <button 
-            onClick={handleNext} 
+          <button
+            onClick={handleNext}
             className="p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all group"
             aria-label="Next testimonial"
           >

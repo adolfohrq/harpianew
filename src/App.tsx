@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useRef, useState, useLayoutEffect, Suspense, lazy } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { Home } from './pages/Home';
-import { Services } from './pages/Services';
-import { Packages } from './pages/Packages';
-import { Contact } from './pages/Contact';
-import { Preloader } from './components/Preloader';
-import { NAV_LINKS } from './constants';
+import { Navbar, Footer, Preloader } from './components';
+// Lazy load pages for better performance
+const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })));
+const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })));
+const Packages = lazy(() => import('./pages/Packages').then((m) => ({ default: m.Packages })));
+const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })));
+const NotFound = lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound })));
+import { NAV_LINKS } from './data';
 import { Send } from 'lucide-react';
 
 // Helper component to scroll to top on route change
@@ -22,7 +22,7 @@ const ScrollToTop = () => {
 const App: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
   const noiseRef = useRef<HTMLDivElement>(null);
-  const lastScrollY = useRef(0);
+
   const [footerHeight, setFooterHeight] = useState(0);
 
   // Calculate footer height to apply proper margin to the content
@@ -53,7 +53,6 @@ const App: React.FC = () => {
       <Preloader />
       <ScrollToTop />
       <div className="min-h-screen bg-harpia-black text-white font-sans selection:bg-white selection:text-black">
-
         {/* Global Animated Grain Overlay */}
         <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden">
           <div
@@ -79,20 +78,28 @@ const App: React.FC = () => {
             enhancing the 3D depth perception.
           */}
           <main className="relative bg-harpia-black rounded-b-[2rem] overflow-hidden">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/servicos" element={<Services />} />
-              <Route path="/pacotes" element={<Packages />} />
-              <Route path="/contato" element={<Contact />} />
-            </Routes>
+            <Suspense
+              fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                  <div className="animate-pulse text-white text-xl tracking-widest">
+                    Carregando...
+                  </div>
+                </div>
+              }
+            >
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/servicos" element={<Services />} />
+                <Route path="/pacotes" element={<Packages />} />
+                <Route path="/contato" element={<Contact />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
           </main>
         </div>
 
         {/* Fixed Footer sitting behind the content */}
-        <div
-          ref={footerRef}
-          className="fixed bottom-0 left-0 w-full z-0"
-        >
+        <div ref={footerRef} className="fixed bottom-0 left-0 w-full z-0">
           <Footer />
         </div>
 
@@ -102,7 +109,11 @@ const App: React.FC = () => {
           className="fixed bottom-8 right-8 z-50 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all duration-500 shadow-2xl hover:shadow-white/20 group"
           aria-label="Fale Conosco"
         >
-          <Send size={24} strokeWidth={1.5} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300" />
+          <Send
+            size={24}
+            strokeWidth={1.5}
+            className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300"
+          />
         </Link>
       </div>
     </Router>

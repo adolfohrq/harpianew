@@ -21,6 +21,7 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
   }, []);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMobileOpen(false);
   }, [location]);
 
@@ -35,10 +36,11 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="group flex items-center gap-2">
-          <Camera strokeWidth={1.5} className="w-6 h-6 text-white group-hover:text-gray-300 transition-colors" />
-          <span className="font-serif font-bold text-2xl tracking-widest text-white">
-            HARPIA
-          </span>
+          <Camera
+            strokeWidth={1.5}
+            className="w-6 h-6 text-white group-hover:text-gray-300 transition-colors"
+          />
+          <span className="font-serif font-bold text-2xl tracking-widest text-white">HARPIA</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -62,10 +64,7 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setIsMobileOpen(!isMobileOpen)}
-        >
+        <button className="md:hidden text-white" onClick={() => setIsMobileOpen(!isMobileOpen)}>
           {isMobileOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>

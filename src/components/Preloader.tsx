@@ -7,10 +7,10 @@ export const Preloader: React.FC = () => {
   useEffect(() => {
     // Hold the black screen for a moment to display the text/logo
     const timer1 = setTimeout(() => setStep('opening'), 1000);
-    
+
     // Duration of the opening animation
     const timer2 = setTimeout(() => setStep('done'), 2200); // 1.2s animation
-    
+
     // Remove component from DOM
     const timer3 = setTimeout(() => setVisible(false), 2300);
 
@@ -28,7 +28,7 @@ export const Preloader: React.FC = () => {
   // Re-enable scroll when animation starts opening
   useEffect(() => {
     if (step === 'opening') {
-       document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'unset';
     }
   }, [step]);
 
@@ -60,15 +60,17 @@ export const Preloader: React.FC = () => {
           Actually, the shadow is on the sibling. Box shadow doesn't cover children or siblings usually unless z-index is involved.
           The previous div has the shadow. We need this text to be visible *over* the shadow area (which is the black screen).
       */}
-      <div 
+      <div
         className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 z-10 ${step === 'closed' ? 'opacity-100' : 'opacity-0'}`}
       >
         <div className="text-center">
-             <h1 className="font-serif text-white text-3xl md:text-4xl tracking-[0.2em] uppercase mb-2">Harpia</h1>
-             <div className="h-[1px] w-24 mx-auto bg-white/30 mb-3"></div>
-             <p className="font-sans text-gray-400 text-xs md:text-sm tracking-[0.4em] uppercase animate-pulse">
-               Enxergue Mais Longe
-             </p>
+          <h1 className="font-serif text-white text-3xl md:text-4xl tracking-[0.2em] uppercase mb-2">
+            Harpia
+          </h1>
+          <div className="h-[1px] w-24 mx-auto bg-white/30 mb-3"></div>
+          <p className="font-sans text-gray-400 text-xs md:text-sm tracking-[0.4em] uppercase animate-pulse">
+            Enxergue Mais Longe
+          </p>
         </div>
       </div>
     </div>

@@ -7,7 +7,8 @@ const STEPS = [
     id: '01',
     title: 'Radar',
     subtitle: 'Imersão',
-    description: 'Mapeamento do território, análise de concorrência e identificação de oportunidades.',
+    description:
+      'Mapeamento do território, análise de concorrência e identificação de oportunidades.',
     icon: <Scan size={24} strokeWidth={1.5} />,
   },
   {
@@ -37,7 +38,6 @@ export const Process: React.FC = () => {
   return (
     <section className="py-32 bg-harpia-black border-t border-white/5 relative">
       <div className="max-w-7xl mx-auto px-6">
-        
         {/* Section Header */}
         <div className="mb-24 max-w-2xl">
           <Reveal>
@@ -50,7 +50,6 @@ export const Process: React.FC = () => {
 
         {/* Timeline Container */}
         <div className="relative">
-          
           {/* Connecting Line (Desktop) */}
           <div className="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent z-0"></div>
 
@@ -58,7 +57,6 @@ export const Process: React.FC = () => {
             {STEPS.map((step, index) => (
               <Reveal key={step.id} delay={index * 150}>
                 <div className="relative group/step md:pt-8 transition-all duration-500 hover:!opacity-100 group-hover/timeline:opacity-40">
-                  
                   {/* Vertical Line (Mobile) */}
                   <div className="md:hidden absolute left-3 top-10 bottom-[-3rem] w-[1px] bg-white/10 -z-10 last:hidden"></div>
 
@@ -69,7 +67,9 @@ export const Process: React.FC = () => {
                       <div className="hidden md:block w-2 h-2 bg-current rounded-full"></div>
                     </div>
                     {/* Mobile Title Layout */}
-                    <span className="md:hidden ml-4 font-serif text-2xl text-white">{step.title}</span>
+                    <span className="md:hidden ml-4 font-serif text-2xl text-white">
+                      {step.title}
+                    </span>
                   </div>
 
                   {/* Content */}
@@ -79,26 +79,24 @@ export const Process: React.FC = () => {
                         {step.id}
                       </span>
                     </div>
-                    
+
                     <h3 className="hidden md:block font-serif text-3xl mb-1 text-white group-hover/step:translate-y-1 transition-transform duration-300">
                       {step.title}
                     </h3>
-                    
+
                     <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-4 group-hover/step:text-white transition-colors duration-300">
                       {step.subtitle}
                     </p>
-                    
+
                     <p className="text-gray-400 font-light text-sm leading-relaxed border-t border-white/5 pt-4 group-hover/step:border-white/20 transition-colors duration-300">
                       {step.description}
                     </p>
                   </div>
-
                 </div>
               </Reveal>
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );

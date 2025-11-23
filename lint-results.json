@@ -1,0 +1,281 @@
+[
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\eslint.config.js",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\postcss.config.js",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\App.tsx",
+    "messages": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "severity": 2,
+        "message": "'lastScrollY' is assigned a value but never used.",
+        "line": 25,
+        "column": 9,
+        "nodeType": null,
+        "messageId": "unusedVar",
+        "endLine": 25,
+        "endColumn": 20
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 1,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';\nimport { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';\nimport { Navbar } from './components/Navbar';\nimport { Footer } from './components/Footer';\nimport { Home } from './pages/Home';\nimport { Services } from './pages/Services';\nimport { Packages } from './pages/Packages';\nimport { Contact } from './pages/Contact';\nimport { Preloader } from './components/Preloader';\nimport { NAV_LINKS } from './constants';\nimport { Send } from 'lucide-react';\n\n// Helper component to scroll to top on route change\nconst ScrollToTop = () => {\n  const { pathname } = useLocation();\n  useEffect(() => {\n    window.scrollTo(0, 0);\n  }, [pathname]);\n  return null;\n};\n\nconst App: React.FC = () => {\n  const footerRef = useRef<HTMLDivElement>(null);\n  const noiseRef = useRef<HTMLDivElement>(null);\n  const lastScrollY = useRef(0);\n  const [footerHeight, setFooterHeight] = useState(0);\n\n  // Calculate footer height to apply proper margin to the content\n  useLayoutEffect(() => {\n    const updateHeight = () => {\n      if (footerRef.current) {\n        setFooterHeight(footerRef.current.offsetHeight);\n      }\n    };\n\n    window.addEventListener('resize', updateHeight);\n\n    // Initial check and a slightly delayed check to account for font loading/layout shifts\n    updateHeight();\n    const timer = setTimeout(updateHeight, 100);\n\n    return () => {\n      window.removeEventListener('resize', updateHeight);\n      clearTimeout(timer);\n    };\n  }, []);\n\n  // Removed expensive scroll listener for noise opacity to improve performance\n  // The CSS animation is sufficient for the effect\n\n  return (\n    <Router>\n      <Preloader />\n      <ScrollToTop />\n      <div className=\"min-h-screen bg-harpia-black text-white font-sans selection:bg-white selection:text-black\">\n        {/* Global Animated Grain Overlay */}\n        <div className=\"fixed inset-0 z-[9999] pointer-events-none overflow-hidden\">\n          <div\n            ref={noiseRef}\n            className=\"absolute -top-[100%] -left-[100%] w-[300%] h-[300%] bg-noise opacity-[0.04] animate-noise transition-opacity duration-150 ease-out will-change-opacity\"\n          ></div>\n        </div>\n\n        <Navbar links={NAV_LINKS} />\n\n        {/* \n          Reveal Footer Implementation:\n          1. The Main Content is relative, z-10, and has a background color (the curtain).\n          2. It has a bottom margin equal to the footer height.\n          3. The Footer is fixed, z-0, sitting behind the content.\n        */}\n        <div\n          className=\"relative z-10 bg-harpia-black shadow-[0_20px_50px_rgba(0,0,0,0.5)]\"\n          style={{ marginBottom: `${footerHeight}px` }}\n        >\n          {/* \n            Added rounded-b-3xl to create a subtle \"card\" effect when the footer reveals,\n            enhancing the 3D depth perception.\n          */}\n          <main className=\"relative bg-harpia-black rounded-b-[2rem] overflow-hidden\">\n            <Routes>\n              <Route path=\"/\" element={<Home />} />\n              <Route path=\"/servicos\" element={<Services />} />\n              <Route path=\"/pacotes\" element={<Packages />} />\n              <Route path=\"/contato\" element={<Contact />} />\n            </Routes>\n          </main>\n        </div>\n\n        {/* Fixed Footer sitting behind the content */}\n        <div ref={footerRef} className=\"fixed bottom-0 left-0 w-full z-0\">\n          <Footer />\n        </div>\n\n        {/* Floating CTA Button */}\n        <Link\n          to=\"/contato\"\n          className=\"fixed bottom-8 right-8 z-50 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all duration-500 shadow-2xl hover:shadow-white/20 group\"\n          aria-label=\"Fale Conosco\"\n        >\n          <Send\n            size={24}\n            strokeWidth={1.5}\n            className=\"group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300\"\n          />\n        </Link>\n      </div>\n    </Router>\n  );\n};\n\nexport default App;\n",
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\Simple.test.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Footer.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Marquee.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Navbar.tsx",
+    "messages": [
+      {
+        "ruleId": "react-hooks/set-state-in-effect",
+        "severity": 2,
+        "message": "Error: Calling setState synchronously within an effect can trigger cascading renders\n\nEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:\n* Update external systems with the latest state from React.\n* Subscribe for updates from some external system, calling setState in a callback function when external state changes.\n\nCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).\n\nC:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Navbar.tsx:24:5\n  22 |\n  23 |   useEffect(() => {\n> 24 |     setIsMobileOpen(false);\n     |     ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect\n  25 |   }, [location]);\n  26 |\n  27 |   return (",
+        "line": 24,
+        "column": 5,
+        "nodeType": null,
+        "endLine": 24,
+        "endColumn": 20
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 1,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "import React, { useState, useEffect } from 'react';\nimport { NavLink } from '../types';\nimport { Menu, X, Camera } from 'lucide-react';\nimport { Link, useLocation } from 'react-router-dom';\n\ninterface NavbarProps {\n  links: NavLink[];\n}\n\nexport const Navbar: React.FC<NavbarProps> = ({ links }) => {\n  const [isScrolled, setIsScrolled] = useState(false);\n  const [isMobileOpen, setIsMobileOpen] = useState(false);\n  const location = useLocation();\n\n  useEffect(() => {\n    const handleScroll = () => {\n      setIsScrolled(window.scrollY > 50);\n    };\n    window.addEventListener('scroll', handleScroll);\n    return () => window.removeEventListener('scroll', handleScroll);\n  }, []);\n\n  useEffect(() => {\n    setIsMobileOpen(false);\n  }, [location]);\n\n  return (\n    <nav\n      className={`fixed top-0 w-full z-50 transition-all duration-500 border-b ${\n        isScrolled || isMobileOpen\n          ? 'bg-harpia-black/90 backdrop-blur-md border-white/10 py-4'\n          : 'bg-transparent border-transparent py-6'\n      }`}\n    >\n      <div className=\"max-w-7xl mx-auto px-6 flex justify-between items-center\">\n        {/* Logo */}\n        <Link to=\"/\" className=\"group flex items-center gap-2\">\n          <Camera\n            strokeWidth={1.5}\n            className=\"w-6 h-6 text-white group-hover:text-gray-300 transition-colors\"\n          />\n          <span className=\"font-serif font-bold text-2xl tracking-widest text-white\">HARPIA</span>\n        </Link>\n\n        {/* Desktop Nav */}\n        <div className=\"hidden md:flex items-center gap-10\">\n          {links.map((link) => {\n            const isActive = location.pathname === link.path;\n            return (\n              <Link\n                key={link.path}\n                to={link.path}\n                className={`text-sm tracking-[0.2em] font-light uppercase transition-colors duration-300 relative py-2\n                  ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'}\n                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-white after:transition-all after:duration-300 after:ease-out\n                  ${isActive ? 'after:w-full' : 'after:w-0 hover:after:w-full'}\n                `}\n              >\n                {link.label}\n              </Link>\n            );\n          })}\n        </div>\n\n        {/* Mobile Toggle */}\n        <button className=\"md:hidden text-white\" onClick={() => setIsMobileOpen(!isMobileOpen)}>\n          {isMobileOpen ? <X size={28} /> : <Menu size={28} />}\n        </button>\n      </div>\n\n      {/* Mobile Menu */}\n      <div\n        className={`md:hidden absolute top-full left-0 w-full bg-harpia-black border-b border-white/10 transition-all duration-500 overflow-hidden ${\n          isMobileOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'\n        }`}\n      >\n        <div className=\"flex flex-col items-center py-12 gap-8\">\n          {links.map((link) => (\n            <Link\n              key={link.path}\n              to={link.path}\n              className={`font-serif text-2xl tracking-widest transition-colors ${\n                location.pathname === link.path ? 'text-white' : 'text-gray-400 hover:text-white'\n              }`}\n            >\n              {link.label}\n            </Link>\n          ))}\n        </div>\n      </div>\n    </nav>\n  );\n};\n",
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Preloader.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Process.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Reveal.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Showreel.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Testimonials.tsx",
+    "messages": [
+      {
+        "ruleId": "react-hooks/immutability",
+        "severity": 2,
+        "message": "Error: Cannot access variable before it is declared\n\n`handleNext` is accessed before it is declared, which prevents the earlier access from updating when this value changes over time.\n\nC:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Testimonials.tsx:12:7\n  10 |   useEffect(() => {\n  11 |     const timer = setInterval(() => {\n> 12 |       handleNext();\n     |       ^^^^^^^^^^ `handleNext` accessed before it is declared\n  13 |     }, 6000);\n  14 |     return () => clearInterval(timer);\n  15 |   }, [currentIndex]);\n\nC:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\components\\Testimonials.tsx:17:3\n  15 |   }, [currentIndex]);\n  16 |\n> 17 |   const handleNext = () => {\n     |   ^^^^^^^^^^^^^^^^^^^^^^^^^^\n> 18 |     setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);\n     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n> 19 |   };\n     | ^^^^^ `handleNext` is declared here\n  20 |\n  21 |   const handlePrev = () => {\n  22 |     setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);",
+        "line": 12,
+        "column": 7,
+        "nodeType": null,
+        "endLine": 12,
+        "endColumn": 17
+      }
+    ],
+    "suppressedMessages": [],
+    "errorCount": 1,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "source": "import React, { useState, useEffect } from 'react';\nimport { Quote, ChevronLeft, ChevronRight } from 'lucide-react';\nimport { TESTIMONIALS } from '../constants';\nimport { Reveal } from './Reveal';\n\nexport const Testimonials: React.FC = () => {\n  const [currentIndex, setCurrentIndex] = useState(0);\n\n  // Auto-advance\n  useEffect(() => {\n    const timer = setInterval(() => {\n      handleNext();\n    }, 6000);\n    return () => clearInterval(timer);\n  }, [currentIndex]);\n\n  const handleNext = () => {\n    setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length);\n  };\n\n  const handlePrev = () => {\n    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);\n  };\n\n  return (\n    <section className=\"py-32 bg-harpia-black relative overflow-hidden border-t border-white/5\">\n      {/* Background Decorative Quote */}\n      <div className=\"absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/[0.02] pointer-events-none select-none\">\n        <Quote size={400} />\n      </div>\n\n      <div className=\"max-w-5xl mx-auto px-6 relative z-10\">\n        <Reveal>\n          <div className=\"text-center mb-20\">\n            <h2 className=\"font-serif text-4xl md:text-5xl mb-6\">VOZES QUE ECOAM</h2>\n            <p className=\"text-xs uppercase tracking-[0.2em] text-gray-500\">\n              Parcerias que transformam visão em realidade\n            </p>\n          </div>\n        </Reveal>\n\n        <div className=\"relative min-h-[350px] md:min-h-[300px] flex items-center justify-center\">\n          {TESTIMONIALS.map((item, index) => (\n            <div\n              key={item.id}\n              className={`absolute inset-0 flex flex-col items-center justify-center text-center transition-all duration-1000 ease-out\n                ${\n                  index === currentIndex\n                    ? 'opacity-100 translate-y-0 pointer-events-auto'\n                    : 'opacity-0 translate-y-8 pointer-events-none'\n                }`}\n            >\n              <div className=\"mb-8 text-gray-400\">\n                <Quote size={32} strokeWidth={1} className=\"mx-auto mb-6 opacity-50\" />\n                <p className=\"font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed text-gray-200 italic max-w-4xl mx-auto\">\n                  \"{item.text}\"\n                </p>\n              </div>\n              <div className=\"space-y-1\">\n                <p className=\"text-white uppercase tracking-widest text-sm font-semibold\">\n                  {item.author}\n                </p>\n                <p className=\"text-gray-500 text-xs tracking-wider\">{item.company}</p>\n              </div>\n            </div>\n          ))}\n        </div>\n\n        {/* Controls */}\n        <div className=\"flex justify-center gap-6 mt-8\">\n          <button\n            onClick={handlePrev}\n            className=\"p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all group\"\n            aria-label=\"Previous testimonial\"\n          >\n            <ChevronLeft size={20} className=\"group-hover:-translate-x-1 transition-transform\" />\n          </button>\n          <button\n            onClick={handleNext}\n            className=\"p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all group\"\n            aria-label=\"Next testimonial\"\n          >\n            <ChevronRight size={20} className=\"group-hover:translate-x-1 transition-transform\" />\n          </button>\n        </div>\n      </div>\n    </section>\n  );\n};\n",
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\constants.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\index.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\pages\\Contact.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\pages\\Home.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\pages\\Packages.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\pages\\Services.tsx",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\test\\setup.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\src\\types.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\vite.config.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  },
+  {
+    "filePath": "C:\\Users\\adolf\\OneDrive\\Área de Trabalho\\projects\\harpia\\harpianew\\vitest.config.ts",
+    "messages": [],
+    "suppressedMessages": [],
+    "errorCount": 0,
+    "fatalErrorCount": 0,
+    "warningCount": 0,
+    "fixableErrorCount": 0,
+    "fixableWarningCount": 0,
+    "usedDeprecatedRules": []
+  }
+]

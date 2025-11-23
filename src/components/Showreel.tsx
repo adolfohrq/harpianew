@@ -3,7 +3,7 @@ import { X, Play } from 'lucide-react';
 import { Reveal } from './Reveal';
 
 // ID extraído da URL fornecida: https://www.youtube.com/embed/TvZY7BofuX0
-const VIDEO_ID = "TvZY7BofuX0";
+const VIDEO_ID = 'TvZY7BofuX0';
 
 export const Showreel: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +11,9 @@ export const Showreel: React.FC = () => {
   // Lock body scroll when modal is open
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : 'unset';
-    return () => { document.body.style.overflow = 'unset'; };
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [isOpen]);
 
   // Handle ESC key
@@ -27,7 +29,6 @@ export const Showreel: React.FC = () => {
     <>
       <section className="py-24 bg-harpia-black border-y border-white/5">
         <div className="max-w-5xl mx-auto px-6">
-
           {/* Header Compacto */}
           <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
             <Reveal>
@@ -73,7 +74,6 @@ export const Showreel: React.FC = () => {
               </div>
             </div>
           </Reveal>
-
         </div>
       </section>
 
@@ -85,7 +85,10 @@ export const Showreel: React.FC = () => {
         >
           <button
             className="absolute top-4 right-4 z-50 text-white/70 hover:text-white p-2 transition-colors"
-            onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsOpen(false);
+            }}
           >
             <X size={32} />
           </button>
