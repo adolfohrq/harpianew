@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink } from '../types';
-import { Menu, X, Camera } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 interface NavbarProps {
@@ -35,12 +35,11 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <Link to="/" className="group flex items-center gap-2">
-          <Camera
-            strokeWidth={1.5}
-            className="w-6 h-6 text-white group-hover:text-gray-300 transition-colors"
-          />
-          <span className="font-serif font-bold text-2xl tracking-widest text-white">HARPIA</span>
+        <Link to="/" className="group flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <img src="/harpia-logo.png" alt="Harpia Logo" className="h-8 w-auto" />
+          <span className="font-serif font-bold text-xl tracking-widest text-white hidden sm:inline">
+            HARPIA
+          </span>
         </Link>
 
         {/* Desktop Nav */}
@@ -52,8 +51,8 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
                 key={link.path}
                 to={link.path}
                 className={`text-sm tracking-[0.2em] font-light uppercase transition-colors duration-300 relative py-2
-                  ${isActive ? 'text-white' : 'text-gray-400 hover:text-white'}
-                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-white after:transition-all after:duration-300 after:ease-out
+                  ${isActive ? 'text-harpia-white' : 'text-harpia-gray hover:text-harpia-white'}
+                  after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-harpia-white after:transition-all after:duration-300 after:ease-out
                   ${isActive ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
                 `}
               >
@@ -81,7 +80,9 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
               key={link.path}
               to={link.path}
               className={`font-serif text-2xl tracking-widest transition-colors ${
-                location.pathname === link.path ? 'text-white' : 'text-gray-400 hover:text-white'
+                location.pathname === link.path
+                  ? 'text-harpia-white'
+                  : 'text-harpia-gray hover:text-harpia-white'
               }`}
             >
               {link.label}
