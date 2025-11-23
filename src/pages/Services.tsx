@@ -1,7 +1,14 @@
 import React from 'react';
 import { SERVICES } from '../data';
-import { ServicesHero, ServiceDetail, ServicesStats, ServicesCTA } from '../components/services';
+import {
+  ServicesHero,
+  ServiceDetail,
+  ServicesManifesto,
+  ServicesStats,
+  ServicesCTA,
+} from '../components/services';
 import { useMetaTags } from '../hooks/useMetaTags';
+import { Marquee } from '../components/Marquee';
 
 export const Services: React.FC = () => {
   useMetaTags({
@@ -16,16 +23,24 @@ export const Services: React.FC = () => {
       {/* Hero Section */}
       <ServicesHero />
 
+      {/* Manifesto Section */}
+      <ServicesManifesto />
+
       {/* Services List Section */}
-      <section className="py-32 relative">
+      <section className="py-32 relative bg-harpia-black">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="space-y-40">
+          <div className="space-y-32">
             {SERVICES.map((service, index) => (
               <ServiceDetail key={service.id} service={service} index={index} />
             ))}
           </div>
         </div>
       </section>
+
+      {/* Infinite Marquee */}
+      <Marquee
+        items={['Photography', 'Branding', 'Content', 'Marketing', 'Strategy', 'Design', 'Growth']}
+      />
 
       {/* Stats Section */}
       <ServicesStats />
