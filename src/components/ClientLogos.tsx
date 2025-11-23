@@ -19,7 +19,7 @@ export const ClientLogos: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
           <div className="text-center mb-16">
-            <span className="block font-sans text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+            <span className="block font-sans text-xs uppercase tracking-[0.3em] text-harpia-accent mb-4">
               Confiança
             </span>
             <h2 className="font-serif text-3xl md:text-4xl text-gray-200">

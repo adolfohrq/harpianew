@@ -53,14 +53,16 @@ export const Services: React.FC = () => {
                   {/* Specific sub-list for Photography if applicable */}
                   {service.id === 'foto' && (
                     <ul className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/10">
-                      <li className="text-sm uppercase tracking-widest text-gray-500">
+                      <li className="text-sm uppercase tracking-widest text-harpia-accent">
                         • Interiores
                       </li>
-                      <li className="text-sm uppercase tracking-widest text-gray-500">
+                      <li className="text-sm uppercase tracking-widest text-harpia-accent">
                         • Arquitetura
                       </li>
-                      <li className="text-sm uppercase tracking-widest text-gray-500">• Produto</li>
-                      <li className="text-sm uppercase tracking-widest text-gray-500">
+                      <li className="text-sm uppercase tracking-widest text-harpia-accent">
+                        • Produto
+                      </li>
+                      <li className="text-sm uppercase tracking-widest text-harpia-accent">
                         • Lifestyle
                       </li>
                     </ul>

@@ -12,7 +12,7 @@ export const ServicesHub: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
           <Reveal>
             <h2 className="font-serif text-4xl md:text-5xl mb-2">NOSSOS SERVIÇOS</h2>
-            <p className="font-sans text-harpia-gray font-light text-xl">
+            <p className="font-sans text-gray-400 font-light text-xl">
               Somos movidos por resultados.
             </p>
           </Reveal>
@@ -60,7 +60,7 @@ export const ServicesHub: React.FC = () => {
                   <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                     <h3 className="font-serif text-2xl text-harpia-accent mb-3 leading-tight">
                       {service.title.split(' ')[0]} <br />
-                      <span className="italic text-harpia-gray group-hover:text-harpia-accent transition-colors duration-300">
+                      <span className="italic text-gray-400 group-hover:text-harpia-accent transition-colors duration-300">
                         {service.title.split(' ').slice(1).join(' ')}
                       </span>
                     </h3>

@@ -6,7 +6,7 @@ export const Manifesto: React.FC = () => {
     <section className="py-24 bg-harpia-black relative border-t border-white/5">
       <div className="max-w-4xl mx-auto px-6 text-center">
         <Reveal>
-          <span className="block font-sans text-xs uppercase tracking-[0.3em] text-harpia-gray mb-6">
+          <span className="block font-sans text-xs uppercase tracking-[0.3em] text-harpia-accent mb-6">
             Manifesto
           </span>
           <h2 className="font-serif text-3xl md:text-4xl leading-relaxed text-harpia-white">

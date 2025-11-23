@@ -77,9 +77,9 @@ export const Hero: React.FC = () => {
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <Reveal>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 tracking-wide">
-            ENXERGUE <span className="italic text-harpia-gray">MAIS LONGE.</span>
+            ENXERGUE <span className="italic text-gray-400">MAIS LONGE.</span>
             <br />
-            VOE <span className="italic text-harpia-gray">MAIS ALTO.</span>
+            VOE <span className="italic text-gray-400">MAIS ALTO.</span>
           </h1>
         </Reveal>
 

@@ -30,7 +30,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
       return (
         this.props.fallback || (
           <div className="py-16 px-6 text-center">
-            <p className="text-harpia-gray mb-4">
+            <p className="text-gray-400 mb-4">
               {this.props.sectionName
                 ? `Erro ao carregar ${this.props.sectionName}`
                 : 'Erro ao carregar seção'}

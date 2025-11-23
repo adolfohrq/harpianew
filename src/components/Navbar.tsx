@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
                 key={link.path}
                 to={link.path}
                 className={`text-sm tracking-[0.2em] font-light uppercase transition-colors duration-300 relative py-2
-                  ${isActive ? 'text-harpia-white' : 'text-harpia-gray hover:text-harpia-white'}
+                  ${isActive ? 'text-harpia-white' : 'text-gray-400 hover:text-harpia-white'}
                   after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[1.5px] after:bg-harpia-white after:transition-all after:duration-300 after:ease-out
                   ${isActive ? 'after:w-full' : 'after:w-0 hover:after:w-full'}
                 `}
@@ -79,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
               className={`font-serif text-2xl tracking-widest transition-colors ${
                 location.pathname === link.path
                   ? 'text-harpia-white'
-                  : 'text-harpia-gray hover:text-harpia-white'
+                  : 'text-gray-400 hover:text-harpia-white'
               }`}
             >
               {link.label}

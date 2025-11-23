@@ -41,13 +41,13 @@ export const WhyHarpia: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
           <div className="text-center mb-20">
-            <span className="block font-sans text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">
+            <span className="block font-sans text-xs uppercase tracking-[0.3em] text-harpia-accent mb-4">
               Diferenciais
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-6">
-              Por Que <span className="italic text-gray-400">Harpia?</span>
+              POR QUE <span className="italic text-gray-400">HARPIA?</span>
             </h2>
-            <p className="font-sans text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light">
+            <p className="font-sans text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-light">
               Somos mais que uma agência. Somos seu parceiro estratégico para voar mais alto.
             </p>
           </div>
@@ -66,7 +66,7 @@ export const WhyHarpia: React.FC = () => {
                 <h3 className="font-serif text-2xl text-white mb-4 leading-tight">{diff.title}</h3>
 
                 {/* Description */}
-                <p className="font-sans text-sm text-gray-400 leading-relaxed font-light">
+                <p className="font-sans text-sm text-gray-300 leading-relaxed font-light">
                   {diff.description}
                 </p>
 
