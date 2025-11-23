@@ -7,20 +7,22 @@ import { OptimizedImage } from './ui/OptimizedImage';
 
 export const PortfolioPreview = () => {
   return (
-    <section className="py-24 bg-harpia-black">
+    <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div className="max-w-xl">
-              <h2 className="font-serif text-4xl md:text-5xl mb-6">PROJETOS RECENTES</h2>
-              <p className="text-gray-400 font-sans text-lg">
+              <h2 className="font-serif text-4xl md:text-5xl mb-6 text-harpia-black">
+                PROJETOS RECENTES
+              </h2>
+              <p className="text-gray-600 font-sans text-lg">
                 Uma seleção curada de trabalhos que definem nossa visão de design e excelência
                 técnica.
               </p>
             </div>
             <Link
               to="/servicos"
-              className="group flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-harpia-white hover:text-harpia-accent transition-colors focus:outline-none"
+              className="group flex items-center gap-2 font-sans text-xs uppercase tracking-[0.2em] text-harpia-black hover:text-gray-600 transition-colors focus:outline-none"
             >
               Explorar tudo
               <ArrowUpRight
@@ -36,7 +38,7 @@ export const PortfolioPreview = () => {
             <Reveal key={project.id} delay={idx * 100}>
               <Link
                 to={`/portfolio/${project.slug}`}
-                className="block relative group overflow-hidden aspect-[16/10] border border-white/5"
+                className="block relative group overflow-hidden aspect-[16/10] border border-gray-100"
               >
                 {/* Image Layer */}
                 <OptimizedImage

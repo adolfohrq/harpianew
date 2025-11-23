@@ -7,19 +7,21 @@ import { OptimizedImage } from './ui/OptimizedImage';
 
 export const ServicesHub: React.FC = () => {
   return (
-    <section className="py-24 bg-harpia-carbon relative">
+    <section className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-black/10 pb-8">
           <Reveal>
-            <h2 className="font-serif text-4xl md:text-5xl mb-2">NOSSOS SERVIÇOS</h2>
-            <p className="font-sans text-gray-400 font-light text-xl">
+            <h2 className="font-serif text-4xl md:text-5xl mb-2 text-harpia-black">
+              NOSSOS SERVIÇOS
+            </h2>
+            <p className="font-sans text-gray-500 font-light text-xl">
               Somos movidos por resultados.
             </p>
           </Reveal>
           <Reveal delay={200}>
             <Link
               to="/servicos"
-              className="hidden md:inline-block font-sans text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-harpia-white hover:border-harpia-accent transition-all focus:outline-none focus:ring-2 focus:ring-harpia-gray"
+              className="hidden md:inline-block font-sans text-sm uppercase tracking-widest border-b border-black/30 pb-1 hover:text-harpia-black hover:border-harpia-black transition-all focus:outline-none focus:ring-2 focus:ring-harpia-gray text-gray-600"
             >
               Ver Detalhes
             </Link>
@@ -31,7 +33,7 @@ export const ServicesHub: React.FC = () => {
             <Reveal key={service.id} delay={index * 100}>
               <Link
                 to="/servicos"
-                className="group relative block aspect-[9/16] md:aspect-[3/4] overflow-hidden bg-harpia-black border border-white/5"
+                className="group relative block aspect-[9/16] md:aspect-[3/4] overflow-hidden bg-gray-100 border border-gray-200"
               >
                 {/* Background Image */}
                 <OptimizedImage
@@ -81,7 +83,7 @@ export const ServicesHub: React.FC = () => {
         <div className="mt-12 text-center md:hidden">
           <Link
             to="/servicos"
-            className="inline-block font-sans text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-harpia-accent transition-all focus:outline-none focus:ring-2 focus:ring-harpia-gray"
+            className="inline-block font-sans text-sm uppercase tracking-widest border-b border-black/30 pb-1 hover:text-harpia-black transition-all focus:outline-none focus:ring-2 focus:ring-harpia-gray text-gray-600"
           >
             Ver Todos os Serviços
           </Link>

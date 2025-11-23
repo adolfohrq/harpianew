@@ -23,16 +23,18 @@ export const Testimonials: React.FC = () => {
   }, [handleNext]);
 
   return (
-    <section className="py-32 bg-harpia-black relative overflow-hidden border-t border-white/5">
+    <section className="py-32 bg-white relative overflow-hidden border-t border-gray-100">
       {/* Background Decorative Quote */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/[0.02] pointer-events-none select-none">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black/[0.02] pointer-events-none select-none">
         <Quote size={400} />
       </div>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <Reveal>
           <div className="text-center mb-20">
-            <h2 className="font-serif text-4xl md:text-5xl mb-6">VOZES QUE ECOAM</h2>
+            <h2 className="font-serif text-4xl md:text-5xl mb-6 text-harpia-black">
+              VOZES QUE ECOAM
+            </h2>
             <p className="text-xs uppercase tracking-[0.2em] text-gray-500">
               Parcerias que transformam visão em realidade
             </p>
@@ -51,13 +53,17 @@ export const Testimonials: React.FC = () => {
                 }`}
             >
               <div className="mb-8 text-gray-400">
-                <Quote size={32} strokeWidth={1} className="mx-auto mb-6 opacity-50" />
-                <p className="font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed text-gray-200 italic max-w-4xl mx-auto">
+                <Quote
+                  size={32}
+                  strokeWidth={1}
+                  className="mx-auto mb-6 opacity-50 text-harpia-black"
+                />
+                <p className="font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed text-harpia-black italic max-w-4xl mx-auto">
                   "{item.text}"
                 </p>
               </div>
               <div className="space-y-1">
-                <p className="text-white uppercase tracking-widest text-sm font-semibold">
+                <p className="text-harpia-black uppercase tracking-widest text-sm font-semibold">
                   {item.author}
                 </p>
                 <p className="text-gray-500 text-xs tracking-wider">{item.company}</p>
@@ -70,14 +76,14 @@ export const Testimonials: React.FC = () => {
         <div className="flex justify-center gap-6 mt-8">
           <button
             onClick={handlePrev}
-            className="p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all group"
+            className="p-4 border border-gray-200 rounded-full hover:bg-harpia-black hover:text-white text-harpia-black transition-all group"
             aria-label="Previous testimonial"
           >
             <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
           </button>
           <button
             onClick={handleNext}
-            className="p-4 border border-white/10 rounded-full hover:bg-white hover:text-black transition-all group"
+            className="p-4 border border-gray-200 rounded-full hover:bg-harpia-black hover:text-white text-harpia-black transition-all group"
             aria-label="Next testimonial"
           >
             <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
