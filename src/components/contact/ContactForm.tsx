@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Reveal } from '../Reveal';
-import { Send, CheckCircle2, AlertCircle, Loader2, Sparkles } from 'lucide-react';
+import { Send, Loader2, CheckCircle2 } from 'lucide-react';
 
 interface FormData {
   name: string;
@@ -11,13 +11,6 @@ interface FormData {
   message: string;
 }
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  phone?: string;
-  message?: string;
-}
-
 interface FormFieldProps {
   id: string;
   name: keyof FormData;
@@ -26,12 +19,15 @@ interface FormFieldProps {
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => void;
+  onBlur?: (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => void;
   label: string;
   required?: boolean;
   rows?: number;
-  error?: string;
-  touched: boolean;
   options?: string[];
+  error?: string;
+  touched?: boolean;
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -40,53 +36,84 @@ const FormField: React.FC<FormFieldProps> = ({
   type,
   value,
   onChange,
+  onBlur,
   label,
   required = false,
   rows,
+  options,
   error,
   touched,
-  options,
 }) => {
-  const hasError = error && touched;
-  const isValid = !error && touched && value;
+  const hasError = touched && error;
+  const isValid = touched && !error && value;
 
   if (options) {
     return (
-      <div className="relative group">
+      <div className="relative pb-2 group/field">
+        {/* Background glow on focus */}
+        <div className="absolute inset-0 bg-white/2 opacity-0 peer-focus:opacity-100 transition-opacity duration-300 blur-sm" />
+
         <select
           id={id}
           name={name}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           required={required}
-          className={`peer w-full bg-transparent border-b py-4 pr-10 text-white focus:outline-none transition-all duration-300 appearance-none ${
+          className={`peer w-full bg-white/2 border-b py-4 px-4 pr-10 text-white focus:outline-none transition-all duration-300 appearance-none cursor-pointer ${
             hasError
-              ? 'border-red-500'
+              ? 'border-red-500/50 focus:border-red-500'
               : isValid
-                ? 'border-green-500'
-                : 'border-white/20 hover:border-white/40 focus:border-white'
+                ? 'border-green-500/50 focus:border-green-500'
+                : 'border-white/10 focus:border-white/40 hover:border-white/20'
           }`}
         >
-          <option value="" disabled className="bg-harpia-carbon text-gray-400">
-            Selecione...
+          <option value="" disabled className="bg-harpia-black text-gray-500">
+            Selecione uma opção
           </option>
           {options.map((option) => (
-            <option key={option} value={option} className="bg-harpia-carbon text-white">
+            <option key={option} value={option} className="bg-harpia-black text-white py-3">
               {option}
             </option>
           ))}
         </select>
+
+        {/* Custom Dropdown Arrow */}
+        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+          <svg
+            className="w-4 h-4 text-gray-400 transition-transform duration-300 group-focus-within/field:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+
         <label
           htmlFor={id}
-          className={`absolute left-0 -top-3.5 text-[10px] uppercase tracking-[0.3em] transition-colors ${
-            hasError ? 'text-red-400' : isValid ? 'text-green-400' : 'text-gray-400'
+          className={`absolute left-4 -top-3.5 text-xs uppercase tracking-[0.3em] transition-colors pointer-events-none ${
+            hasError ? 'text-red-400' : isValid ? 'text-green-400' : 'text-gray-500'
           }`}
         >
           {label}
         </label>
+
+        {/* Success Indicator */}
+        {isValid && (
+          <div className="absolute right-12 top-4 flex items-center gap-2">
+            <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse" />
+            <CheckCircle2
+              size={16}
+              className="text-green-400 animate-in fade-in zoom-in duration-300"
+            />
+          </div>
+        )}
+
+        {/* Error Message */}
         {hasError && (
-          <p className="absolute -bottom-5 left-0 text-xs text-red-400 flex items-center gap-1">
-            <AlertCircle size={12} />
+          <p className="absolute -bottom-6 left-4 text-xs text-red-400 animate-in fade-in slide-in-from-top-1 duration-200 flex items-center gap-1.5">
+            <span className="w-1 h-1 bg-red-400 rounded-full" />
             {error}
           </p>
         )}
@@ -100,61 +127,59 @@ const FormField: React.FC<FormFieldProps> = ({
     name,
     value,
     onChange,
+    onBlur,
     required,
     placeholder: ' ',
-    className: `peer w-full bg-transparent border-b py-4 text-white focus:outline-none transition-all duration-300 placeholder-transparent font-light ${
+    className: `peer w-full bg-white/2 border-b py-4 px-4 text-white focus:outline-none transition-all duration-300 placeholder-transparent font-light ${
       rows ? 'resize-none' : ''
     } ${
       hasError
-        ? 'border-red-500'
+        ? 'border-red-500/50 focus:border-red-500'
         : isValid
-          ? 'border-green-500'
-          : 'border-white/20 hover:border-white/40 focus:border-white'
+          ? 'border-green-500/50 focus:border-green-500'
+          : 'border-white/10 focus:border-white/40 hover:border-white/20'
     }`,
   };
 
   return (
-    <div className="relative group">
+    <div className="relative pb-2 group/field">
+      {/* Background glow on focus */}
+      <div className="absolute inset-0 bg-white/2 opacity-0 peer-focus:opacity-100 transition-opacity duration-300 blur-sm" />
+
       <Component {...commonProps} {...(rows ? { rows } : { type })} />
       <label
         htmlFor={id}
-        className={`absolute left-0 -top-3.5 text-[10px] uppercase tracking-[0.3em] transition-all duration-300
+        className={`absolute left-4 -top-3.5 text-xs uppercase tracking-[0.3em] transition-all duration-300 pointer-events-none
           peer-placeholder-shown:top-4 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-600 peer-placeholder-shown:normal-case peer-placeholder-shown:tracking-normal
-          peer-focus:-top-3.5 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-[0.3em] ${
+          peer-focus:-top-3.5 peer-focus:text-xs peer-focus:uppercase peer-focus:tracking-[0.3em] ${
             hasError
               ? 'text-red-400'
               : isValid
                 ? 'text-green-400 peer-focus:text-white'
-                : 'text-gray-400 peer-focus:text-white'
+                : 'text-gray-500 peer-focus:text-gray-400'
           }`}
       >
         {label}
       </label>
 
-      {/* Validation Icons */}
-      {touched && (
-        <div className="absolute right-0 top-4">
-          {isValid && <CheckCircle2 size={18} className="text-green-400" />}
-          {hasError && <AlertCircle size={18} className="text-red-400" />}
+      {/* Success Indicator */}
+      {isValid && (
+        <div className="absolute right-4 top-4 flex items-center gap-2">
+          <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse" />
+          <CheckCircle2
+            size={16}
+            className="text-green-400 animate-in fade-in zoom-in duration-300"
+          />
         </div>
       )}
 
       {/* Error Message */}
       {hasError && (
-        <p className="absolute -bottom-5 left-0 text-xs text-red-400 flex items-center gap-1">
-          <AlertCircle size={12} />
+        <p className="absolute -bottom-6 left-4 text-xs text-red-400 animate-in fade-in slide-in-from-top-1 duration-200 flex items-center gap-1.5">
+          <span className="w-1 h-1 bg-red-400 rounded-full" />
           {error}
         </p>
       )}
-
-      {/* Progress Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-px overflow-hidden">
-        <div
-          className={`h-full transition-all duration-300 ${
-            hasError ? 'bg-red-500' : isValid ? 'bg-green-500 w-full' : 'w-0'
-          }`}
-        />
-      </div>
     </div>
   );
 };
@@ -169,30 +194,31 @@ export const ContactForm: React.FC = () => {
     message: '',
   });
 
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const validateField = (name: keyof FormData, value: string): string | undefined => {
+  const validateField = (name: string, value: string): string => {
     switch (name) {
       case 'name':
         if (!value.trim()) return 'Nome é obrigatório';
-        if (value.trim().length < 3) return 'Nome muito curto';
-        break;
+        if (value.trim().length < 2) return 'Nome muito curto';
+        return '';
       case 'email':
         if (!value.trim()) return 'Email é obrigatório';
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Email inválido';
-        break;
+        return '';
       case 'phone':
         if (value && !/^[\d\s()+-]+$/.test(value)) return 'Telefone inválido';
-        break;
+        return '';
       case 'message':
         if (!value.trim()) return 'Mensagem é obrigatória';
-        if (value.trim().length < 10) return 'Mensagem muito curta (mín. 10 caracteres)';
-        break;
+        if (value.trim().length < 10) return 'Mensagem muito curta (mínimo 10 caracteres)';
+        return '';
+      default:
+        return '';
     }
-    return undefined;
   };
 
   const handleChange = (
@@ -201,40 +227,43 @@ export const ContactForm: React.FC = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Validate on change
-    const error = validateField(name as keyof FormData, value);
-    setErrors((prev) => ({ ...prev, [name]: error }));
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors((prev) => ({ ...prev, [name]: error }));
+    }
   };
 
   const handleBlur = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name } = e.target;
+    const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
+    const error = validateField(name, value);
+    setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Mark all fields as touched
-    const allTouched = Object.keys(formData).reduce((acc, key) => ({ ...acc, [key]: true }), {});
-    setTouched(allTouched);
-
     // Validate all fields
-    const newErrors: FormErrors = {};
+    const newErrors: Record<string, string> = {};
+    const newTouched: Record<string, boolean> = {};
+
     Object.keys(formData).forEach((key) => {
-      const error = validateField(key as keyof FormData, formData[key as keyof FormData]);
-      if (error) newErrors[key as keyof FormErrors] = error;
+      newTouched[key] = true;
+      const error = validateField(key, formData[key as keyof FormData]);
+      if (error) newErrors[key] = error;
     });
 
+    setTouched(newTouched);
     setErrors(newErrors);
 
-    // Check if there are errors
     if (Object.keys(newErrors).length > 0) {
       return;
     }
 
     setIsSubmitting(true);
+    setSubmitStatus('idle');
 
     // Simulate API call
     setTimeout(() => {
@@ -252,183 +281,235 @@ export const ContactForm: React.FC = () => {
           budget: '',
           message: '',
         });
-        setTouched({});
         setErrors({});
+        setTouched({});
         setSubmitStatus('idle');
-      }, 3000);
+      }, 4000);
     }, 2000);
   };
 
-  const completionPercentage = Math.round(
-    (Object.values(formData).filter((v) => v.trim()).length / Object.keys(formData).length) * 100
-  );
+  const filledFieldsCount = Object.values(formData).filter((v) => v.trim()).length;
+  const totalFields = Object.keys(formData).length;
+  const progress = Math.round((filledFieldsCount / totalFields) * 100);
 
   return (
     <div className="lg:col-span-7">
-      <Reveal delay={300}>
-        <div className="relative bg-harpia-carbon/40 border border-white/5 p-8 md:p-12 backdrop-blur-sm overflow-hidden">
-          {/* Decorative Corner with Animation */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-white/5 to-transparent pointer-events-none opacity-50" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-linear-to-tr from-white/3 to-transparent pointer-events-none opacity-50" />
+      <Reveal delay={200}>
+        {/* Premium Card Container */}
+        <div className="relative group">
+          {/* Glow Effect on Hover */}
+          <div className="absolute -inset-0.5 bg-linear-to-r from-white/10 via-white/5 to-white/10 opacity-0 group-hover:opacity-100 blur transition-opacity duration-1000" />
 
-          {/* Completion Progress */}
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-3">
-              <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-gray-500">
-                Progresso do Formulário
-              </span>
-              <span className="font-mono text-sm text-white font-semibold">
-                {completionPercentage}%
-              </span>
-            </div>
-            <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+          {/* Main Card */}
+          <div className="relative bg-harpia-carbon/60 backdrop-blur-xl border border-white/10 overflow-hidden">
+            {/* Decorative Corner Elements */}
+            <div className="absolute top-0 left-0 w-20 h-20 border-t border-l border-white/5" />
+            <div className="absolute top-0 right-0 w-20 h-20 border-t border-r border-white/5" />
+            <div className="absolute bottom-0 left-0 w-20 h-20 border-b border-l border-white/5" />
+            <div className="absolute bottom-0 right-0 w-20 h-20 border-b border-r border-white/5" />
+
+            {/* Animated Background Pattern */}
+            <div className="absolute inset-0 opacity-[0.02]">
               <div
-                className="h-full bg-linear-to-r from-white/50 to-white transition-all duration-500"
-                style={{ width: `${completionPercentage}%` }}
-              />
-            </div>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <FormField
-                id="name"
-                name="name"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-                label="Nome Completo *"
-                required
-                error={errors.name}
-                touched={touched.name || false}
-              />
-              <FormField
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                label="E-mail *"
-                required
-                error={errors.email}
-                touched={touched.email || false}
+                className="absolute inset-0"
+                style={{
+                  backgroundImage: `radial-gradient(circle at 2px 2px, rgb(255 255 255) 1px, transparent 0)`,
+                  backgroundSize: '40px 40px',
+                }}
               />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <FormField
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                label="Telefone"
-                error={errors.phone}
-                touched={touched.phone || false}
-              />
-              <FormField
-                id="company"
-                name="company"
-                type="text"
-                value={formData.company}
-                onChange={handleChange}
-                label="Empresa (Opcional)"
-                error={undefined}
-                touched={touched.company || false}
-              />
-            </div>
-
-            <FormField
-              id="budget"
-              name="budget"
-              type="text"
-              value={formData.budget}
-              onChange={handleChange}
-              label="Orçamento Estimado"
-              error={undefined}
-              touched={touched.budget || false}
-              options={[
-                'Até R$ 5.000',
-                'R$ 5.000 - R$ 15.000',
-                'R$ 15.000 - R$ 30.000',
-                'R$ 30.000 - R$ 50.000',
-                'Acima de R$ 50.000',
-              ]}
-            />
-
-            <FormField
-              id="message"
-              name="message"
-              type="text"
-              value={formData.message}
-              onChange={handleChange}
-              label="Conte-nos sobre seu projeto *"
-              required
-              rows={6}
-              error={errors.message}
-              touched={touched.message || false}
-            />
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isSubmitting || submitStatus === 'success'}
-              className="group relative w-full flex items-center justify-center gap-3 px-8 py-6 bg-white text-harpia-black hover:bg-harpia-black hover:text-white border-2 border-white hover:border-white transition-all duration-500 overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-              onBlur={handleBlur}
-            >
-              {/* Background Shine Effect */}
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 pointer-events-none" />
-
-              {isSubmitting ? (
-                <>
-                  <Loader2 size={20} className="animate-spin" />
-                  <span className="font-sans text-sm uppercase tracking-[0.2em] font-semibold">
-                    Enviando...
+            {/* Content Wrapper */}
+            <div className="relative p-8 md:p-12">
+              {/* Card Header */}
+              <div className="mb-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-px flex-1 bg-linear-to-r from-transparent to-white/20" />
+                  <span className="font-sans text-xs uppercase tracking-[0.3em] text-gray-500">
+                    Formulário de Contato
                   </span>
-                </>
-              ) : submitStatus === 'success' ? (
-                <>
-                  <CheckCircle2 size={20} className="text-green-400" />
-                  <span className="font-sans text-sm uppercase tracking-[0.2em] font-semibold">
-                    Mensagem Enviada!
-                  </span>
-                </>
-              ) : (
-                <>
-                  <Sparkles
-                    size={18}
-                    className="group-hover:rotate-12 transition-transform duration-300"
+                  <div className="h-px flex-1 bg-linear-to-l from-transparent to-white/20" />
+                </div>
+
+                {/* Progress Indicator */}
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-sans text-xs uppercase tracking-[0.3em] text-gray-400">
+                      Conclusão
+                    </span>
+                    <span className="font-mono text-sm text-white font-semibold tabular-nums">
+                      {progress}%
+                    </span>
+                  </div>
+                  <div className="relative h-1 bg-white/5 overflow-hidden rounded-full">
+                    <div
+                      className="absolute inset-y-0 left-0 bg-linear-to-r from-white/40 to-white rounded-full transition-all duration-700 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                    <div
+                      className="absolute inset-y-0 left-0 bg-white/20 rounded-full blur-sm transition-all duration-700 ease-out"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <FormField
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    label="Nome Completo *"
+                    required
+                    error={errors.name}
+                    touched={touched.name}
                   />
-                  <span className="font-sans text-sm uppercase tracking-[0.2em] font-semibold">
-                    Enviar Mensagem
-                  </span>
-                  <Send
-                    size={18}
-                    className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"
+                  <FormField
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    label="E-mail *"
+                    required
+                    error={errors.email}
+                    touched={touched.email}
                   />
-                </>
-              )}
-            </button>
+                </div>
 
-            {/* Success/Error Messages */}
-            {submitStatus === 'success' && (
-              <div className="p-4 bg-green-500/10 border border-green-500/30 rounded-lg flex items-center gap-3">
-                <CheckCircle2 size={20} className="text-green-400 shrink-0" />
-                <p className="text-sm text-green-400">
-                  Obrigado! Recebemos sua mensagem e entraremos em contato em breve.
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <FormField
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    label="Telefone"
+                    error={errors.phone}
+                    touched={touched.phone}
+                  />
+                  <FormField
+                    id="company"
+                    name="company"
+                    type="text"
+                    value={formData.company}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    label="Empresa"
+                  />
+                </div>
+
+                <FormField
+                  id="budget"
+                  name="budget"
+                  type="text"
+                  value={formData.budget}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  label="Orçamento Estimado"
+                  options={[
+                    'Até R$ 5.000',
+                    'R$ 5.000 - R$ 15.000',
+                    'R$ 15.000 - R$ 30.000',
+                    'R$ 30.000 - R$ 50.000',
+                    'Acima de R$ 50.000',
+                  ]}
+                />
+
+                <FormField
+                  id="message"
+                  name="message"
+                  type="text"
+                  value={formData.message}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  label="Conte-nos sobre seu projeto *"
+                  required
+                  rows={6}
+                  error={errors.message}
+                  touched={touched.message}
+                />
+
+                {/* Submit Button */}
+                <div className="pt-6">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting || submitStatus === 'success'}
+                    className="group relative w-full flex items-center justify-center gap-3 px-8 py-5 bg-white text-harpia-black font-sans font-semibold tracking-widest uppercase text-sm hover:bg-harpia-accent transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
+                  >
+                    {/* Animated Background Layers */}
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    <div className="absolute inset-0 bg-harpia-accent scale-0 group-hover:scale-100 transition-transform duration-500 origin-center" />
+
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin relative z-10" />
+                        <span className="relative z-10">Enviando...</span>
+                      </>
+                    ) : submitStatus === 'success' ? (
+                      <>
+                        <CheckCircle2 size={18} className="relative z-10 text-green-400" />
+                        <span className="relative z-10">Mensagem Enviada!</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="relative z-10">Enviar Mensagem</span>
+                        <Send
+                          size={18}
+                          className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300 relative z-10"
+                        />
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {/* Success Message */}
+                {submitStatus === 'success' && (
+                  <div className="mt-6 relative overflow-hidden">
+                    {/* Glow Effect */}
+                    <div className="absolute inset-0 bg-green-500/5 blur-xl" />
+
+                    {/* Message Card */}
+                    <div className="relative flex items-start gap-4 p-6 bg-linear-to-r from-green-500/10 to-transparent border border-green-500/20 animate-in fade-in slide-in-from-bottom-4 duration-700">
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-green-400 rounded-full blur-lg opacity-50 animate-pulse" />
+                        <CheckCircle2 size={24} className="relative text-green-400" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-sans text-base text-green-400 font-semibold mb-1">
+                          Mensagem enviada com sucesso!
+                        </p>
+                        <p className="font-sans text-sm text-gray-400 leading-relaxed">
+                          Recebemos sua mensagem e entraremos em contato em breve. Fique atento ao
+                          seu e-mail.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </form>
+
+              {/* Card Footer */}
+              <div className="mt-8 pt-6 border-t border-white/5">
+                <p className="text-center text-xs text-gray-500 leading-relaxed">
+                  Ao enviar este formulário, você concorda com nossa{' '}
+                  <a
+                    href="#"
+                    className="text-gray-400 hover:text-white underline decoration-dotted underline-offset-2 transition-colors"
+                  >
+                    Política de Privacidade
+                  </a>
+                  . Seus dados estão seguros.
                 </p>
               </div>
-            )}
-          </form>
-
-          {/* Privacy Notice */}
-          <p className="mt-6 text-center text-xs text-gray-600 leading-relaxed">
-            Ao enviar este formulário, você concorda com nossa{' '}
-            <a href="#" className="text-gray-400 hover:text-white underline transition-colors">
-              Política de Privacidade
-            </a>
-            . Seus dados estão seguros conosco.
-          </p>
+            </div>
+          </div>
         </div>
       </Reveal>
     </div>

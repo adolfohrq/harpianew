@@ -41,7 +41,15 @@ export const Home: React.FC = () => {
       {/* Infinite Marquee */}
       <ErrorBoundary sectionName="marquee">
         <Marquee
-          items={['Strategy', 'Vision', 'Motion', 'Design', 'Impact', 'Culture', 'Growth']}
+          items={[
+            'Estratégia',
+            'Visão',
+            'Posicionamento',
+            'Autoridade',
+            'Impacto',
+            'Propósito',
+            'Performance',
+          ]}
         />
       </ErrorBoundary>
 

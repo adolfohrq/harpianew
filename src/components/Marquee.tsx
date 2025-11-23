@@ -18,7 +18,7 @@ export const Marquee: React.FC<MarqueeProps> = ({ items }) => {
       />
 
       <div className="group relative flex overflow-hidden select-none">
-        <div className="flex w-max min-w-full hover:[animation-play-state:paused]">
+        <div className="flex w-max min-w-full">
           {/* 
             Optimization: 
             1. Reduced duplication array from 3 to 2 (sufficient for this content length on most screens).

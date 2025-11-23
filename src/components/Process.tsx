@@ -40,9 +40,11 @@ export const Process: React.FC = () => {
     <section className="py-32 bg-white border-t border-black/5 relative">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
+          label="Metodologia"
           title="MÉTODO DE VOO"
           description="Nossa metodologia proprietária para tirar ideias do papel e colocá-las em órbita."
           align="left"
+          titleSize="large"
           descriptionMaxWidth="2xl"
           className="mb-24"
         />
@@ -50,14 +52,14 @@ export const Process: React.FC = () => {
         {/* Timeline Container */}
         <div className="relative">
           {/* Connecting Line (Desktop) */}
-          <div className="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-black/20 to-transparent z-0"></div>
+          <div className="hidden md:block absolute top-12 left-0 w-full h-px bg-linear-to-r from-transparent via-black/20 to-transparent z-0"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 group/timeline">
             {STEPS.map((step, index) => (
               <Reveal key={step.id} delay={index * 150}>
-                <div className="relative group/step md:pt-8 transition-all duration-500 hover:!opacity-100 group-hover/timeline:opacity-40">
+                <div className="relative group/step md:pt-8 transition-all duration-500 hover:opacity-100! group-hover/timeline:opacity-40">
                   {/* Vertical Line (Mobile) */}
-                  <div className="md:hidden absolute left-3 top-10 bottom-[-3rem] w-[1px] bg-black/10 -z-10 last:hidden"></div>
+                  <div className="md:hidden absolute left-3 top-10 -bottom-12 w-px bg-black/10 -z-10 last:hidden"></div>
 
                   {/* Icon Marker */}
                   <div className="mb-6 relative z-10 flex items-center md:justify-center md:block">

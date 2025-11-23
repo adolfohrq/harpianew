@@ -4,7 +4,7 @@
   --font-serif: 'Silk Serif', serif;
   --font-sans: 'Dosis', sans-serif;
 
-  --color-harpia-black: #050505;
+  --color-harpia-black: #191919;
   --color-harpia-carbon: #121212;
   --color-harpia-gray: #2a2a2a;
   --color-harpia-white: #f5f5f7;
@@ -20,12 +20,12 @@
 
   /* Global text selection styles */
   ::selection {
-    background-color: #050505;
+    background-color: #191919;
     color: #ffffff;
   }
 
   ::-moz-selection {
-    background-color: #050505;
+    background-color: #191919;
     color: #ffffff;
   }
 }
@@ -36,7 +36,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #191919;
 }
 
 ::-webkit-scrollbar-thumb {

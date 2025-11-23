@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { TESTIMONIALS } from '../data';
-import { Reveal } from './Reveal';
 import { SectionHeader, TestimonialCard } from './ui';
 
 export const Testimonials: React.FC = () => {
@@ -46,18 +45,15 @@ export const Testimonials: React.FC = () => {
       </div>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
-        <Reveal>
-          <SectionHeader
-            title="VOZES QUE ECOAM"
-            description={
-              <p className="text-xs uppercase tracking-[0.2em] text-gray-500">
-                Parcerias que transformam visão em realidade
-              </p>
-            }
-            align="center"
-            className="mb-20"
-          />
-        </Reveal>
+        <SectionHeader
+          label="Depoimentos"
+          title="VOZES QUE ECOAM"
+          description="Parcerias que transformam visão em realidade"
+          align="center"
+          titleSize="large"
+          descriptionSize="small"
+          className="mb-20"
+        />
 
         {/* Testimonials Container */}
         <div
