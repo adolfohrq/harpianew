@@ -87,7 +87,7 @@ export const Home: React.FC = () => {
           <Reveal delay={400}>
             <Link
               to="/servicos"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-semibold tracking-widest uppercase text-sm hover:bg-gray-200 transition-colors"
+              className="group inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-sans font-semibold tracking-widest uppercase text-sm hover:bg-gray-200 transition-colors"
             >
               Conheça Nossos Serviços
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -100,7 +100,7 @@ export const Home: React.FC = () => {
       <section className="py-32 bg-harpia-black relative border-t border-white/5">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <Reveal>
-            <span className="block text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
+            <span className="block font-sans text-xs uppercase tracking-[0.3em] text-gray-500 mb-6">
               Manifesto
             </span>
             <h2 className="font-serif text-3xl md:text-4xl leading-relaxed text-gray-200">
@@ -122,12 +122,14 @@ export const Home: React.FC = () => {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8">
             <Reveal>
               <h2 className="font-serif text-4xl md:text-5xl mb-2">NOSSOS SERVIÇOS</h2>
-              <p className="text-gray-400 font-light text-xl">Somos movidos por resultados.</p>
+              <p className="font-sans text-gray-400 font-light text-xl">
+                Somos movidos por resultados.
+              </p>
             </Reveal>
             <Reveal delay={200}>
               <Link
                 to="/servicos"
-                className="hidden md:inline-block text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-gray-300 hover:border-white transition-all"
+                className="hidden md:inline-block font-sans text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-gray-300 hover:border-white transition-all"
               >
                 Ver Detalhes
               </Link>
@@ -155,7 +157,7 @@ export const Home: React.FC = () => {
                   <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-10">
                     {/* Top: Index */}
                     <div className="flex justify-between items-start">
-                      <span className="text-xs font-mono text-white/60 border border-white/10 px-2 py-1 rounded-full backdrop-blur-md">
+                      <span className="font-sans text-xs font-mono text-white/60 border border-white/10 px-2 py-1 rounded-full backdrop-blur-md">
                         0{index + 1}
                       </span>
                       <div className="bg-white text-black p-2 rounded-full opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
@@ -171,7 +173,7 @@ export const Home: React.FC = () => {
                           {service.title.split(' ').slice(1).join(' ')}
                         </span>
                       </h3>
-                      <p className="text-sm text-gray-300 line-clamp-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75 font-light leading-relaxed">
+                      <p className="font-sans text-sm text-gray-300 line-clamp-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-75 font-light leading-relaxed">
                         {service.description}
                       </p>
                     </div>
@@ -188,7 +190,7 @@ export const Home: React.FC = () => {
           <div className="mt-12 text-center md:hidden">
             <Link
               to="/servicos"
-              className="inline-block text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-white transition-all"
+              className="inline-block font-sans text-sm uppercase tracking-widest border-b border-white/30 pb-1 hover:text-white transition-all"
             >
               Ver Todos os Serviços
             </Link>
@@ -210,7 +212,7 @@ export const Home: React.FC = () => {
               <h2 className="font-serif text-4xl md:text-5xl mb-6">PROJETOS RECENTES</h2>
               <Link
                 to="/servicos"
-                className="text-xs uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
+                className="font-sans text-xs uppercase tracking-[0.2em] text-gray-500 hover:text-white transition-colors"
               >
                 Explorar o portfólio completo
               </Link>
@@ -233,7 +235,7 @@ export const Home: React.FC = () => {
                     {/* Animated Content */}
                     {/* Refined Animation: Subtle upward translation (translate-y-4 and translate-y-8) */}
                     <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out delay-100">
-                      <span className="text-xs uppercase tracking-[0.3em] text-gray-400 border-b border-white/20 pb-2">
+                      <span className="font-sans text-xs uppercase tracking-[0.3em] text-gray-400 border-b border-white/20 pb-2">
                         {project.category}
                       </span>
                     </div>
@@ -260,7 +262,7 @@ export const Home: React.FC = () => {
             <h2 className="font-serif text-5xl md:text-7xl mb-8">VAMOS VOAR JUNTOS?</h2>
             <Link
               to="/contato"
-              className="inline-block px-10 py-5 border border-white/20 hover:bg-white hover:text-black transition-all duration-300 text-sm uppercase tracking-[0.2em]"
+              className="inline-block font-sans px-10 py-5 border border-white/20 hover:bg-white hover:text-black transition-all duration-300 text-sm uppercase tracking-[0.2em]"
             >
               Iniciar Projeto
             </Link>
