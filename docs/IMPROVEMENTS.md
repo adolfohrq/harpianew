@@ -4,13 +4,13 @@ Este documento descreve sugestões de melhorias técnicas, arquiteturais e de ex
 
 ## 1. Arquitetura e Organização de Código
 
-- **Barrel Exports**: Implementar arquivos `index.ts` nas pastas de componentes e páginas. Isso simplifica as importações (ex: `import { Navbar, Footer } from '@/components'` ao invés de caminhos longos).
-- **Separação de Dados**: Mover constantes de dados (como `PROJECTS`, `SERVICES` em `constants.ts`) para uma camada dedicada de dados (`src/data` ou `src/services`). Isso facilita a futura integração com um CMS ou API.
+- [x] **Barrel Exports**: Implementar arquivos `index.ts` nas pastas de componentes e páginas. Isso simplifica as importações (ex: `import { Navbar, Footer } from '@/components'` ao invés de caminhos longos).
+- [x] **Separação de Dados**: Mover constantes de dados (como `PROJECTS`, `SERVICES` em `constants.ts`) para uma camada dedicada de dados (`src/data` ou `src/services`). Isso facilita a futura integração com um CMS ou API.
 - **Componentização Atômica**: Revisar componentes grandes (como seções inteiras na `Home.tsx`) e quebrá-los em componentes menores e reutilizáveis (ex: `HeroSection`, `ServicesGrid`).
 
 ## 2. Performance e Otimização
 
-- **Code Splitting (Lazy Loading)**: Implementar `React.lazy` e `Suspense` para as rotas no `App.tsx`. Isso reduz o tamanho do bundle inicial, carregando o código das páginas apenas quando necessário.
+- [x] **Code Splitting (Lazy Loading)**: Implementar `React.lazy` e `Suspense` para as rotas no `App.tsx`. Isso reduz o tamanho do bundle inicial, carregando o código das páginas apenas quando necessário.
   ```tsx
   const Services = React.lazy(() => import('./pages/Services'));
   ```
@@ -26,9 +26,9 @@ Este documento descreve sugestões de melhorias técnicas, arquiteturais e de ex
 
 ## 4. Qualidade de Código e Tooling
 
-- **Testes Automatizados**: Configurar **Vitest** e **React Testing Library**. Criar testes unitários para componentes críticos e utilitários.
+- [x] **Testes Automatizados**: Configurar **Vitest** e **React Testing Library**. Criar testes unitários para componentes críticos e utilitários.
 - **Linting e Formatação**: Garantir que o ESLint e Prettier estejam configurados com regras estritas.
-- **Git Hooks**: Configurar **Husky** e **lint-staged** para rodar linters e testes antes de cada commit, garantindo que código quebrado não entre no repositório.
+- [x] **Git Hooks**: Configurar **Husky** e **lint-staged** para rodar linters e testes antes de cada commit, garantindo que código quebrado não entre no repositório.
 - **Conventional Commits**: Adotar um padrão de mensagens de commit (ex: `feat:`, `fix:`, `style:`) para manter o histórico limpo e legível.
 
 ## 5. UI/UX e Design

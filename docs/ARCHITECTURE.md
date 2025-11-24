@@ -184,24 +184,15 @@ Componentes estruturais que definem o layout da aplicação.
 
 **Exemplos**: `Navbar`, `Footer`
 
-**Técnica de Footer Reveal (App.tsx)**:
-O projeto utiliza um efeito visual onde o conteúdo principal desliza sobre o footer fixo.
-
-1. **Footer**: `fixed`, `bottom-0`, `z-0`. Fica "escondido" atrás do conteúdo.
-2. **Main Content**: `relative`, `z-10`, `bg-harpia-black`.
-3. **Margem**: O container do conteúdo recebe `marginBottom` igual à altura dinâmica do footer.
-4. **Estilo**: O container principal usa `rounded-b-[2rem]` e `shadow-2xl` para criar um efeito de cartão 3D ao rolar até o fim.
+**Footer (App.tsx)**:
+O projeto utiliza um layout padrão onde o footer segue o fluxo normal do documento, posicionado após o conteúdo principal.
 
 ```tsx
 // App.tsx (Simplificado)
-<div style={{ marginBottom: `${footerHeight}px` }} className="relative z-10 shadow-2xl">
-  <main className="rounded-b-[2rem] bg-harpia-black">
-    {/* Rotas */}
-  </main>
-</div>
-<div className="fixed bottom-0 z-0">
-  <Footer />
-</div>
+<main className="relative">
+  {/* Rotas */}
+</main>
+<Footer />
 ```
 
 ```tsx
@@ -454,6 +445,8 @@ const App: React.FC = () => {
             <Route path="/" element={<Home />} />
             <Route path="/servicos" element={<Services />} />
             <Route path="/pacotes" element={<Packages />} />
+            <Route path="/sobre" element={<AboutPage />} />
+            <Route path="/about2" element={<About2 />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

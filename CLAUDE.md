@@ -58,8 +58,7 @@ src/
 **1. Route-Based Code Splitting:**
 Pages are lazy-loaded using React.lazy() in App.tsx:92-96 to improve initial load performance.
 
-**2. Reveal Footer Effect:**
-The footer is fixed (z-0) behind the main content. Main content is relative (z-10) with a dynamic bottom margin equal to footer height. As user scrolls down, the footer "reveals" from underneath (App.tsx:66-104).
+
 
 **3. Data Layer:**
 All static content lives in `src/data/` as typed exports, imported where needed. This keeps components presentation-focused.
