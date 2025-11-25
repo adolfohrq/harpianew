@@ -53,19 +53,23 @@ export const PortfolioDetail: React.FC = () => {
     setLightboxOpen(true);
   };
 
-  const closeLightbox = () => {
-    setLightboxOpen(false);
+  const closeLightbox = () => setLightboxOpen(false);
+
+  const goToPrev = () => {
+    const len = project?.gallery?.length ?? 0;
+    if (len === 0) return;
+    setLightboxIndex((i) => (i <= 0 ? len - 1 : i - 1));
   };
 
-  const galleryLength = project?.gallery?.length ?? 0;
+  const goToNext = () => {
+    const len = project?.gallery?.length ?? 0;
+    if (len === 0) return;
+    setLightboxIndex((i) => (i >= len - 1 ? 0 : i + 1));
+  };
 
   // Handle body overflow for lightbox
   useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = lightboxOpen ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
@@ -73,30 +77,15 @@ export const PortfolioDetail: React.FC = () => {
 
   // Keyboard navigation for lightbox
   useEffect(() => {
+    if (!lightboxOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!lightboxOpen) return;
-      if (e.key === 'Escape') {
-        setLightboxOpen(false);
-      }
-      if (e.key === 'ArrowLeft') {
-        setLightboxIndex((prev) => (prev <= 0 ? galleryLength - 1 : prev - 1));
-      }
-      if (e.key === 'ArrowRight') {
-        setLightboxIndex((prev) => (prev >= galleryLength - 1 ? 0 : prev + 1));
-      }
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goToPrev();
+      if (e.key === 'ArrowRight') goToNext();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxOpen, galleryLength]);
-
-  const navigateLightbox = (direction: 'prev' | 'next') => {
-    if (galleryLength === 0) return;
-    if (direction === 'prev') {
-      setLightboxIndex((prev) => (prev <= 0 ? galleryLength - 1 : prev - 1));
-    } else {
-      setLightboxIndex((prev) => (prev >= galleryLength - 1 ? 0 : prev + 1));
-    }
-  };
+  }, [lightboxOpen]);
 
   if (!project) {
     return <Navigate to="/portfolio" replace />;
@@ -386,53 +375,52 @@ export const PortfolioDetail: React.FC = () => {
 
       {/* Lightbox */}
       {lightboxOpen && project.gallery && (
-        <div
-          className="fixed inset-0 z-[9999] bg-harpia-black/95 backdrop-blur-sm flex items-center justify-center"
-          onClick={closeLightbox}
-        >
+        <div className="fixed inset-0 z-[9999] bg-harpia-black/95 backdrop-blur-sm">
+          {/* Backdrop click to close */}
+          <div className="absolute inset-0" onClick={closeLightbox} />
+
           {/* Close button */}
           <button
+            type="button"
             onClick={closeLightbox}
-            className="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors z-10"
+            className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
             aria-label="Fechar galeria"
           >
             <X size={24} />
           </button>
 
-          {/* Navigation */}
+          {/* Navigation - Previous */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              navigateLightbox('prev');
-            }}
-            className="absolute left-4 md:left-8 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"
+            type="button"
+            onClick={goToPrev}
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
             aria-label="Imagem anterior"
           >
             <ChevronLeft size={24} />
           </button>
+
+          {/* Navigation - Next */}
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              navigateLightbox('next');
-            }}
-            className="absolute right-4 md:right-8 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 transition-colors"
+            type="button"
+            onClick={goToNext}
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
             aria-label="Próxima imagem"
           >
             <ChevronRight size={24} />
           </button>
 
-          {/* Image */}
-          <div className="max-w-6xl max-h-[80vh] mx-4" onClick={(e) => e.stopPropagation()}>
-            <OptimizedImage
+          {/* Image Container */}
+          <div className="absolute inset-0 flex items-center justify-center p-16 md:p-24 pointer-events-none">
+            <img
               src={project.gallery[lightboxIndex]}
               alt={`${project.title} - Imagem ${lightboxIndex + 1}`}
-              className="max-w-full max-h-[80vh] object-contain"
+              className="max-w-full max-h-full object-contain pointer-events-auto"
             />
           </div>
 
           {/* Counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2">
-            <span className="font-mono text-sm text-white/60">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50">
+            <span className="font-mono text-sm text-white/60 bg-black/50 px-4 py-2 rounded-full">
               {String(lightboxIndex + 1).padStart(2, '0')} /{' '}
               {String(project.gallery.length).padStart(2, '0')}
             </span>

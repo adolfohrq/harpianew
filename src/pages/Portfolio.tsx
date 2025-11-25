@@ -2,6 +2,7 @@ import React from 'react';
 import { useMetaTags } from '../hooks/useMetaTags';
 import { HeroSection } from '../components/ui';
 import { PortfolioPreview } from '../components/PortfolioPreview';
+import { ClientLogos } from '../components/ClientLogos';
 import { CTASection } from '../components/CTASection';
 
 export const Portfolio: React.FC = () => {
@@ -28,6 +29,9 @@ export const Portfolio: React.FC = () => {
 
       {/* Portfolio Grid */}
       <PortfolioPreview showAllProjects />
+
+      {/* Client Logos */}
+      <ClientLogos />
 
       {/* CTA Section */}
       <CTASection />
