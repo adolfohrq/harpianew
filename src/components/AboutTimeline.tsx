@@ -1,4 +1,5 @@
-import { Reveal } from '../Reveal';
+import React from 'react';
+import { Reveal } from './Reveal';
 
 const MILESTONES = [
   {
@@ -39,7 +40,7 @@ const MILESTONES = [
   },
 ];
 
-export const AboutTimeline = () => {
+export const AboutTimeline: React.FC = () => {
   return (
     <section className="py-32 md:py-40 bg-white relative overflow-hidden">
       {/* Subtle background */}
@@ -50,9 +51,13 @@ export const AboutTimeline = () => {
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <Reveal>
           <div className="text-center mb-20">
-            <span className="inline-block text-xs uppercase tracking-[0.3em] text-gray-500 mb-6 font-medium">
-              Trajetória
-            </span>
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-12 h-px bg-linear-to-r from-transparent to-black/20" />
+              <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-medium">
+                Trajetória
+              </span>
+              <div className="w-12 h-px bg-linear-to-l from-transparent to-black/20" />
+            </div>
             <h2 className="text-4xl md:text-6xl font-serif text-harpia-black mb-6 leading-tight">
               Uma história de <span className="italic text-gray-400">crescimento</span> e
               <br />

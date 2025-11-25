@@ -1,5 +1,6 @@
+import React from 'react';
 import { Award, Target, Users, Rocket, Zap } from 'lucide-react';
-import { Reveal } from '../Reveal';
+import { Reveal } from './Reveal';
 
 const FEATURES = [
   {
@@ -40,15 +41,30 @@ const FEATURES = [
   },
 ];
 
-export const AboutFeatures = () => {
+export const AboutFeatures: React.FC = () => {
   return (
     <section className="py-32 md:py-40 bg-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, #191919 1px, transparent 0)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <Reveal>
           <div className="text-center mb-20">
-            <span className="inline-block text-xs uppercase tracking-[0.3em] text-gray-500 mb-6 font-medium">
-              A Diferença
-            </span>
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-12 h-px bg-linear-to-r from-transparent to-black/20" />
+              <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-medium">
+                A Diferença
+              </span>
+              <div className="w-12 h-px bg-linear-to-l from-transparent to-black/20" />
+            </div>
             <h2 className="text-4xl md:text-6xl font-serif text-harpia-black mb-6 leading-tight">
               Por que escolher <span className="italic text-gray-400">Harpia</span>
             </h2>
@@ -62,6 +78,12 @@ export const AboutFeatures = () => {
               <Reveal key={index} delay={index * 100}>
                 <div className="group h-full">
                   <div className="relative h-full p-8 bg-gray-50 border border-gray-100 hover:border-gray-300 hover:bg-white hover:shadow-lg transition-all duration-500 rounded-sm">
+                    {/* Corner Accents */}
+                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
                     <Icon className="w-8 h-8 text-harpia-black mb-6 group-hover:scale-110 transition-transform duration-300" />
                     <h3 className="text-xl font-serif text-harpia-black mb-4">{feature.title}</h3>
                     <p className="text-gray-600 text-sm font-light leading-relaxed">

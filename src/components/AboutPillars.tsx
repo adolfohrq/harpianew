@@ -1,5 +1,6 @@
+import React from 'react';
 import { Target, Zap, Users, Rocket } from 'lucide-react';
-import { Reveal } from '../Reveal';
+import { Reveal } from './Reveal';
 
 const PILLARS = [
   {
@@ -36,7 +37,7 @@ const PILLARS = [
   },
 ];
 
-export const AboutPillars = () => {
+export const AboutPillars: React.FC = () => {
   return (
     <section className="py-32 md:py-40 bg-harpia-black relative overflow-hidden">
       {/* Background grid */}
@@ -51,9 +52,13 @@ export const AboutPillars = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <Reveal>
           <div className="text-center mb-20">
-            <span className="inline-block text-xs uppercase tracking-[0.3em] text-white/50 mb-6 font-medium">
-              O que nos torna únicos
-            </span>
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="w-12 h-px bg-linear-to-r from-transparent to-white/30" />
+              <span className="text-xs uppercase tracking-[0.3em] text-white/50 font-medium">
+                O que nos torna únicos
+              </span>
+              <div className="w-12 h-px bg-linear-to-l from-transparent to-white/30" />
+            </div>
             <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
               Os 4 Pilares do <span className="italic text-white/40">Voo</span>
             </h2>

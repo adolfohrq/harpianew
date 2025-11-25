@@ -1,14 +1,12 @@
 import React from 'react';
 import { useMetaTags } from '../hooks/useMetaTags';
 import { ErrorBoundary } from '../components/ErrorBoundary';
-import {
-  AboutHero,
-  AboutStatement,
-  AboutPillars,
-  AboutTimeline,
-  AboutFeatures,
-  AboutCTA,
-} from '../components/about';
+import { HeroSection } from '../components/ui/HeroSection';
+import { AboutStatement } from '../components/AboutStatement';
+import { AboutPillars } from '../components/AboutPillars';
+import { AboutTimeline } from '../components/AboutTimeline';
+import { AboutFeatures } from '../components/AboutFeatures';
+import { CTASection } from '../components/CTASection';
 
 export const AboutPage: React.FC = () => {
   useMetaTags({
@@ -24,7 +22,17 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full relative bg-white">
       {/* Hero Section */}
-      <AboutHero />
+      <HeroSection
+        subtitle="Nossa História"
+        title={
+          <>
+            Mais que uma <span className="italic text-white/40">agência</span>.
+            <br />
+            Uma <span className="italic text-white/30">parceria</span> de voo.
+          </>
+        }
+        description="Transformamos visões em realidades extraordinárias. Desde 2019, ajudamos marcas a decolar, enxergar mais longe e conquistar altitudes inimagináveis."
+      />
 
       {/* Statement Section */}
       <AboutStatement />
@@ -45,7 +53,7 @@ export const AboutPage: React.FC = () => {
       </ErrorBoundary>
 
       {/* CTA Section */}
-      <AboutCTA />
+      <CTASection />
     </div>
   );
 };

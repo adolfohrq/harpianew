@@ -1,5 +1,3 @@
-export { ServicesHero } from './ServicesHero';
-export { ServiceDetail } from './ServiceDetail';
+export { ServicesGrid } from './ServicesGrid';
+export { ServicesBenefits } from './ServicesBenefits';
 export { ServicesStats } from './ServicesStats';
-export { ServicesCTA } from './ServicesCTA';
-export { ServicesManifesto } from './ServicesManifesto';

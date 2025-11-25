@@ -1,7 +1,8 @@
 import React from 'react';
-import { ContactInfo, ContactForm, ContactCTA } from '../components/contact';
-import { HeroSection } from '../components/ui';
 import { useMetaTags } from '../hooks/useMetaTags';
+import { HeroSection } from '../components/ui';
+import { ContactMain } from '../components/ContactMain';
+import { CTASection } from '../components/CTASection';
 
 export const Contact: React.FC = () => {
   useMetaTags({
@@ -14,7 +15,7 @@ export const Contact: React.FC = () => {
     <div className="w-full relative bg-white">
       {/* Hero Section */}
       <HeroSection
-        subtitle="CONTATO"
+        subtitle="Contato"
         title={
           <>
             VAMOS VOAR <br />
@@ -25,26 +26,10 @@ export const Contact: React.FC = () => {
       />
 
       {/* Main Content Section */}
-      <section className="py-32 bg-white relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
-          <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-gray-100 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-gray-50 rounded-full blur-[100px]" />
-        </div>
+      <ContactMain />
 
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20">
-            {/* Left: Contact Info */}
-            <ContactInfo />
-
-            {/* Right: Form */}
-            <ContactForm />
-          </div>
-        </div>
-      </section>
-
-      {/* Bottom CTA Section */}
-      <ContactCTA />
+      {/* CTA Section */}
+      <CTASection />
     </div>
   );
 };

@@ -1,6 +1,7 @@
-import { Reveal } from '../Reveal';
+import React from 'react';
+import { Reveal } from './Reveal';
 
-export const AboutStatement = () => {
+export const AboutStatement: React.FC = () => {
   return (
     <section className="py-32 md:py-40 bg-white relative overflow-hidden">
       {/* Background decoration */}
