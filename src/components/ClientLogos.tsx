@@ -68,6 +68,8 @@ export const ClientLogos: React.FC = () => {
                     src={client.image}
                     alt={client.name}
                     className="max-w-full max-h-full object-contain"
+                    width={150}
+                    height={80}
                     loading="lazy"
                   />
                 </div>

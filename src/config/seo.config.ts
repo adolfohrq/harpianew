@@ -28,7 +28,7 @@ export const COMPANY_INFO = {
     'Agência de marketing digital especializada em fotografia, branding e estratégias digitais. Enxergue mais longe.',
 
   // Logo da empresa (caminho relativo ao public/)
-  logo: '/harpia-logo.png',
+  logo: '/harpia-logo.webp',
 
   // Imagem OG padrão (quando a página não especifica uma)
   defaultOgImage: '/og-image.jpg',

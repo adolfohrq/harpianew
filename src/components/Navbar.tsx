@@ -101,7 +101,13 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
             to="/"
             className="group flex items-center gap-3 hover:opacity-80 transition-opacity relative z-[60]"
           >
-            <img src="/harpia-logo.png" alt="Harpia Logo" className="h-8 w-auto" />
+            <img
+              src="/harpia-logo.webp"
+              alt="Harpia Logo"
+              className="h-8"
+              width={120}
+              height={32}
+            />
           </Link>
 
           {/* Desktop Nav */}

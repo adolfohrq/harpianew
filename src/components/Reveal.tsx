@@ -33,8 +33,8 @@ export const Reveal: React.FC<RevealProps> = ({ children, width = '100%', delay 
   return (
     <div ref={ref} style={{ width, position: 'relative', height: '100%' }}>
       <div
-        className={`transition-all duration-1000 ease-out transform h-full ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+        className={`transition-opacity duration-1000 ease-out h-full ${
+          isVisible ? 'opacity-100' : 'opacity-0'
         }`}
         style={{ transitionDelay: `${delay}ms` }}
       >

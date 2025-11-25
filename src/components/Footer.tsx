@@ -109,9 +109,11 @@ export const Footer: React.FC = () => {
             <div className="lg:col-span-1 space-y-5">
               <Link to="/" className="inline-block group">
                 <img
-                  src="/harpia-logo.png"
+                  src="/harpia-logo.webp"
                   alt="Harpia Logo"
-                  className="h-8 w-auto group-hover:opacity-70 transition-opacity"
+                  className="h-8 group-hover:opacity-70 transition-opacity"
+                  width={120}
+                  height={32}
                 />
               </Link>
               <p className="font-sans text-sm text-gray-500 leading-relaxed">
