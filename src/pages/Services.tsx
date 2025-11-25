@@ -221,18 +221,10 @@ export const Services: React.FC = () => {
         title={
           <>
             SERVIÇOS QUE <br />
-            <span className="italic text-gray-400">ELEVAM SUA MARCA</span>
+            <span className="italic text-white/40">ELEVAM SUA MARCA</span>
           </>
         }
         description="Combinamos estética refinada, estratégia de dados e execução impecável para criar experiências que transformam marcas em referências de mercado."
-        imageSrc="/2.jpeg"
-        imageAlt="Serviços Harpia"
-        floatingBadge={
-          <>
-            <p className="font-serif text-2xl mb-1">+250</p>
-            <p className="text-xs uppercase tracking-widest text-gray-500">Projetos</p>
-          </>
-        }
       />
 
       {/* Services Grid */}

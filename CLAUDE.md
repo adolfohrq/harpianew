@@ -25,7 +25,7 @@ npm run format   # Prettier
 ```
 src/
 ├── components/       # Seções e componentes
-│   ├── ui/          # Componentes reutilizáveis
+│   ├── ui/          # Componentes reutilizáveis (HeroSection, SectionHeader, etc.)
 │   ├── services/    # Componentes de Serviços
 │   └── contact/     # Componentes de Contato
 ├── pages/           # Páginas (lazy-loaded)
@@ -58,18 +58,46 @@ text-harpia-accent #ffffff
 - **Props tipadas**: usar `interface`, nunca `any`
 - **Imagens**: usar `<OptimizedImage />`
 - **Animações on-scroll**: usar `<Reveal />`
+- **Hero de páginas internas**: usar `<HeroSection />`
 
 ### Imports
 
 ```tsx
 import { Component } from '@/components'; // Path alias
+import { HeroSection } from '@/components/ui'; // UI components
 ```
 
 ## Notas
 
-- HashRouter (GitHub Pages)
+- BrowserRouter (URLs limpas)
 - Husky + lint-staged no pre-commit
 - Conventional commits obrigatórios
+
+## Regra de Atualização de Documentação
+
+**OBRIGATÓRIO**: Ao realizar mudanças importantes, SEMPRE atualizar a documentação correspondente:
+
+| Tipo de Mudança                      | Arquivos a Atualizar                     |
+| ------------------------------------ | ---------------------------------------- |
+| Novo componente UI reutilizável      | `docs/DESIGN_SYSTEM.md`                  |
+| Mudança de roteamento/router         | `docs/ARCHITECTURE.md`, `README.md`      |
+| Nova página/rota                     | `docs/ARCHITECTURE.md`                   |
+| Mudança na stack (dependências core) | `README.md`, `docs/ARCHITECTURE.md`      |
+| Novo padrão de código                | `docs/ARCHITECTURE.md`                   |
+| Novas cores/tipografia               | `docs/DESIGN_SYSTEM.md`, `src/index.css` |
+| Novo hook customizado                | `docs/ARCHITECTURE.md`                   |
+| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`      |
+
+### Checklist pós-implementação
+
+Após implementar mudanças significativas, perguntar-se:
+
+1. ✅ Essa mudança afeta como outros desenvolvedores usarão o código?
+2. ✅ Criei/modifiquei um componente reutilizável?
+3. ✅ Alterei configurações de build/roteamento/dependências?
+4. ✅ Introduzi um novo padrão ou convenção?
+
+**Se SIM para qualquer item → ATUALIZAR DOCUMENTAÇÃO**
 
 ## Documentação Detalhada
 

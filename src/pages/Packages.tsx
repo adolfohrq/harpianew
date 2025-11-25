@@ -10,16 +10,12 @@ export const Packages: React.FC = () => {
     <div className="min-h-screen bg-white pb-20">
       <HeroSection
         subtitle="INVESTIMENTO"
-        title="PLANOS DE VOO"
-        description="Escolha a altitude que sua marca deseja alcançar. Nossos pacotes de Gestão de Redes Sociais são desenhados para cada estágio do seu negócio."
-        imageSrc="/3.jpeg"
-        imageAlt="Planos Harpia"
-        floatingBadge={
+        title={
           <>
-            <p className="font-serif text-2xl mb-1">Flexível</p>
-            <p className="text-xs uppercase tracking-widest text-gray-500">Escalável</p>
+            PLANOS DE <span className="italic text-white/40">VOO</span>
           </>
         }
+        description="Escolha a altitude que sua marca deseja alcançar. Nossos pacotes de Gestão de Redes Sociais são desenhados para cada estágio do seu negócio."
       />
 
       <div className="max-w-7xl mx-auto px-6 mt-12">

@@ -7,7 +7,7 @@ Landing page de alta performance para agência de marketing digital.
 - **React 19** + TypeScript
 - **Vite 6** (dev server na porta 5020)
 - **Tailwind CSS v4**
-- **React Router 7** (HashRouter)
+- **React Router 7** (BrowserRouter)
 
 ## Início Rápido
 

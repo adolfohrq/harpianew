@@ -1,6 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, ChevronRight } from 'lucide-react';
 import { Reveal } from '../Reveal';
-import { OptimizedImage } from './OptimizedImage';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface CTAButton {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+}
 
 interface HeroSectionProps {
   /** Subtítulo ou Label superior (ex: "Sobre Nós") */
@@ -9,127 +21,133 @@ interface HeroSectionProps {
   title: React.ReactNode;
   /** Descrição principal */
   description?: string;
-  /** URL da imagem de destaque */
-  imageSrc?: string;
-  /** Alt text da imagem */
-  imageAlt?: string;
-  /** Conteúdo do badge flutuante sobre a imagem (opcional) */
-  floatingBadge?: React.ReactNode;
-  /** Altura mínima da seção (default: min-h-screen ou auto) */
+  /** Classes adicionais para customização */
   className?: string;
-  /** Modo compacto (para páginas internas) */
-  compact?: boolean;
+  /** Breadcrumb para navegação e SEO */
+  breadcrumb?: BreadcrumbItem[];
+  /** Botões de CTA */
+  cta?: CTAButton[];
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   subtitle,
   title,
   description,
-  imageSrc,
-  imageAlt = 'Hero Image',
-  floatingBadge,
   className = '',
-  compact = true, // Default to true since it's mostly for inner pages
+  breadcrumb,
+  cta,
 }) => {
   return (
     <section
-      className={`relative bg-harpia-black text-white px-6 md:px-12 lg:px-24 overflow-hidden rounded-b-[2rem] z-20 transition-all duration-500 ${
-        compact ? 'pt-32 pb-16 md:pt-40 md:pb-24' : 'pt-40 pb-32 md:pt-48 md:pb-40'
-      } ${className}`}
+      className={`relative bg-harpia-black text-white overflow-hidden rounded-b-4xl z-20 ${className}`}
     >
-      {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-harpia-gray/20 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-harpia-gray/10 rounded-full blur-[80px] -translate-x-1/4 translate-y-1/4" />
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-harpia-gray/10 rounded-full blur-[120px] -translate-y-1/2" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-harpia-gray/5 rounded-full blur-[100px] translate-y-1/2" />
+
+        {/* Subtle grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+            backgroundSize: '48px 48px',
+          }}
+        />
+
+        {/* Top fade from navbar */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-linear-to-b from-harpia-black to-transparent" />
       </div>
 
-      <div className="max-w-7xl mx-auto">
-        <div
-          className={`grid grid-cols-1 lg:grid-cols-2 items-center ${compact ? 'gap-12' : 'gap-16'}`}
-        >
-          {/* Text Content */}
-          <div>
-            {subtitle && (
-              <Reveal>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-8 h-px bg-white/30" />
-                  <span className="text-xs md:text-sm tracking-[0.2em] uppercase text-white/70 font-medium">
-                    {subtitle}
-                  </span>
-                </div>
-              </Reveal>
-            )}
-
-            <Reveal delay={0.1}>
-              <h1
-                className={`font-serif leading-[0.95] mb-6 ${
-                  compact ? 'text-4xl md:text-5xl lg:text-7xl' : 'text-5xl md:text-7xl lg:text-8xl'
-                }`}
-              >
-                {title}
-              </h1>
+      {/* Content */}
+      <div className="relative z-10 h-[55vh] flex items-center justify-center">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          {/* Breadcrumb */}
+          {breadcrumb && breadcrumb.length > 0 && (
+            <Reveal>
+              <nav aria-label="Breadcrumb" className="flex justify-center mb-8">
+                <ol className="flex items-center gap-2 text-xs md:text-sm">
+                  {breadcrumb.map((item, index) => (
+                    <li key={index} className="flex items-center gap-2">
+                      {item.href ? (
+                        <Link
+                          to={item.href}
+                          className="text-white/40 hover:text-white/70 transition-colors duration-300"
+                        >
+                          {item.label}
+                        </Link>
+                      ) : (
+                        <span className="text-white/70">{item.label}</span>
+                      )}
+                      {index < breadcrumb.length - 1 && (
+                        <ChevronRight size={14} className="text-white/20" />
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </nav>
             </Reveal>
+          )}
 
-            {description && (
-              <Reveal delay={0.2}>
-                <p
-                  className={`text-white/70 max-w-lg leading-relaxed border-l border-white/10 pl-6 ${
-                    compact ? 'text-base md:text-lg mb-8' : 'text-lg md:text-xl mb-12'
-                  }`}
-                >
-                  {description}
-                </p>
-              </Reveal>
-            )}
-          </div>
-
-          {/* Image Content */}
-          <div className="relative isolate">
-            {/* Decorative Background Element for Depth */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/5 rounded-full blur-[60px] -z-10 pointer-events-none" />
-
-            <Reveal delay={0.3}>
-              <div
-                className={`relative group perspective-1000 mx-auto lg:ml-auto ${
-                  compact ? 'max-w-sm' : 'max-w-md'
-                }`}
-              >
-                {/* Image Container with Border */}
-                <div className="relative aspect-[4/5] w-full rounded-sm overflow-hidden border border-white/10 group-hover:border-white/30 transition-colors duration-700">
-                  {/* Shine Effect Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 -translate-x-full group-hover:translate-x-full transition-all duration-1000 ease-in-out z-20 pointer-events-none" />
-
-                  {imageSrc && (
-                    <OptimizedImage
-                      src={imageSrc}
-                      alt={imageAlt}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 scale-105 group-hover:scale-100 transition-all duration-1000 ease-out"
-                    />
-                  )}
-
-                  {/* Inner Shadow / Vignette */}
-                  <div className="absolute inset-0 bg-radial-[circle_at_center_transparent_0%,rgba(0,0,0,0.3)_100%] opacity-60 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none" />
-                </div>
-
-                {/* Floating Badge */}
-                {floatingBadge && (
-                  <div
-                    className={`absolute bottom-6 -left-4 bg-white text-harpia-black shadow-[0_20px_40px_rgba(0,0,0,0.3)] hidden md:block group-hover:-translate-y-4 group-hover:rotate-1 transition-all duration-700 ease-out z-30 border border-white/50 backdrop-blur-xl ${
-                      compact ? 'p-5 max-w-[180px]' : 'p-6 md:p-8 max-w-[200px] md:max-w-[240px]'
-                    }`}
-                  >
-                    {floatingBadge}
-                  </div>
-                )}
-
-                {/* Geometric Decoration */}
-                <div className="absolute -top-4 -right-4 w-16 h-16 border-t border-r border-white/20 -z-10 group-hover:-top-6 group-hover:-right-6 transition-all duration-500" />
-                <div className="absolute -bottom-4 -left-4 w-16 h-16 border-b border-l border-white/20 -z-10 group-hover:-bottom-6 group-hover:-left-6 transition-all duration-500" />
+          {/* Subtitle */}
+          {subtitle && (
+            <Reveal>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-12 h-px bg-linear-to-r from-transparent to-white/30" />
+                <span className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/50 font-medium">
+                  {subtitle}
+                </span>
+                <div className="w-12 h-px bg-linear-to-l from-transparent to-white/30" />
               </div>
             </Reveal>
-          </div>
+          )}
+
+          {/* Title */}
+          <Reveal delay={0.1}>
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[0.95] mb-8">
+              {title}
+            </h1>
+          </Reveal>
+
+          {/* Description */}
+          {description && (
+            <Reveal delay={0.2}>
+              <p className="text-white/60 text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
+                {description}
+              </p>
+            </Reveal>
+          )}
+
+          {/* CTA Buttons */}
+          {cta && cta.length > 0 && (
+            <Reveal delay={0.3}>
+              <div className="flex flex-wrap gap-4 justify-center mt-10">
+                {cta.map((button, index) => (
+                  <Link
+                    key={index}
+                    to={button.href}
+                    className={`group inline-flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium transition-all duration-300 ${
+                      button.variant === 'secondary'
+                        ? 'bg-transparent border border-white/20 text-white/80 hover:bg-white/5 hover:border-white/40 hover:text-white'
+                        : 'bg-white text-harpia-black hover:bg-harpia-white hover:shadow-lg hover:shadow-white/10'
+                    }`}
+                  >
+                    {button.label}
+                    <ArrowRight
+                      size={16}
+                      className="group-hover:translate-x-1 transition-transform duration-300"
+                    />
+                  </Link>
+                ))}
+              </div>
+            </Reveal>
+          )}
         </div>
       </div>
+
+      {/* Bottom gradient for smooth transition */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-harpia-black/50 to-transparent pointer-events-none" />
     </section>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, Suspense, lazy } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { Navbar, Footer, Preloader } from './components';
 // Lazy load pages for better performance
 const { Home, Services, Packages, Contact, AboutPage, About2, VisualGovernance, NotFound } = {

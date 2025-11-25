@@ -18,14 +18,6 @@ export const About2 = () => {
           </>
         }
         description={ABOUT_HERO.description}
-        imageSrc="/1.jpg"
-        imageAlt="Harpia Office"
-        floatingBadge={
-          <>
-            <p className="font-serif text-2xl mb-1">Since 2020</p>
-            <p className="text-xs uppercase tracking-widest text-gray-500">Excellence in Design</p>
-          </>
-        }
       />
 
       {/* Manifesto / Story - Light Mode - Editorial Layout */}

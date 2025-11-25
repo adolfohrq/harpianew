@@ -40,18 +40,10 @@ export const AboutPage: React.FC = () => {
         title={
           <>
             {ABOUT_HERO.title.split(' ')[0]}{' '}
-            <span className="italic text-gray-400">{ABOUT_HERO.title.split(' ')[1]}</span>
+            <span className="italic text-white/40">{ABOUT_HERO.title.split(' ')[1]}</span>
           </>
         }
         description={ABOUT_HERO.subtitle}
-        imageSrc="/6.jpg"
-        imageAlt="Sobre a Harpia"
-        floatingBadge={
-          <>
-            <p className="font-serif text-2xl mb-1">Visão</p>
-            <p className="text-xs uppercase tracking-widest text-gray-500">Estratégica</p>
-          </>
-        }
       />
 
       {/* Story Section - Similar to Manifesto */}

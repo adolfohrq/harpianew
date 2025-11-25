@@ -47,7 +47,7 @@
 
 ### Roteamento
 
-- **React Router DOM** `^7.9.6` - Client-side routing com HashRouter
+- **React Router DOM** `^7.9.6` - Client-side routing com BrowserRouter (URLs limpas)
 
 ### Estilização
 
@@ -457,11 +457,11 @@ export interface Testimonial {
 
 ### Configuração
 
-O projeto usa **HashRouter** do React Router DOM v7:
+O projeto usa **BrowserRouter** do React Router DOM v7 para URLs limpas:
 
 ```tsx
 // App.tsx
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const App: React.FC = () => {
   return (

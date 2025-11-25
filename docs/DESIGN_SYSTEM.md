@@ -224,6 +224,70 @@ aspect-16/10        /* 16:10 - Portfolio */
 </ErrorBoundary>
 ```
 
+### `<HeroSection>`
+
+**Propósito**: Hero section minimalista e centralizada para páginas internas (Serviços, Pacotes, Sobre, Contato).
+
+**Props**:
+
+- `subtitle?: string` - Label superior (ex: "SERVIÇOS")
+- `title: React.ReactNode` - Título principal (aceita JSX para quebras de linha e spans)
+- `description?: string` - Descrição principal
+- `className?: string` - Classes adicionais
+- `breadcrumb?: BreadcrumbItem[]` - Navegação breadcrumb para SEO
+- `cta?: CTAButton[]` - Botões de call-to-action
+
+**Interfaces**:
+
+```tsx
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface CTAButton {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+}
+```
+
+**Características**:
+
+- Altura fixa: `h-[55vh]` com flexbox centering
+- Background: `bg-harpia-black` com elementos decorativos (gradient orbs, grid pattern)
+- Borda inferior arredondada: `rounded-b-4xl`
+- Animações de entrada com `<Reveal>`
+
+**Uso Básico**:
+
+```tsx
+<HeroSection
+  subtitle="SERVIÇOS"
+  title={
+    <>
+      SERVIÇOS QUE <br />
+      <span className="italic text-white/40">ELEVAM SUA MARCA</span>
+    </>
+  }
+  description="Descrição da página..."
+/>
+```
+
+**Com Breadcrumb e CTA**:
+
+```tsx
+<HeroSection
+  breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Serviços' }]}
+  subtitle="SERVIÇOS"
+  title="Título da Página"
+  cta={[
+    { label: 'Ver Pacotes', href: '/pacotes', variant: 'primary' },
+    { label: 'Contato', href: '/contato', variant: 'secondary' },
+  ]}
+/>
+```
+
 ---
 
 ## Efeitos & Animações

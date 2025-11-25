@@ -18,18 +18,10 @@ export const Contact: React.FC = () => {
         title={
           <>
             VAMOS VOAR <br />
-            <span className="italic text-gray-400">JUNTOS?</span>
+            <span className="italic text-white/40">JUNTOS?</span>
           </>
         }
         description="Transforme sua visão em realidade digital. Nossa equipe está pronta para elevar sua marca a novos patamares."
-        imageSrc="/4.jpeg"
-        imageAlt="Contato Harpia"
-        floatingBadge={
-          <>
-            <p className="font-serif text-2xl mb-1">Online</p>
-            <p className="text-xs uppercase tracking-widest text-gray-500">Suporte 24/7</p>
-          </>
-        }
       />
 
       {/* Main Content Section */}
