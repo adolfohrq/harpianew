@@ -45,6 +45,22 @@ const ScrollToTop = () => {
 const App: React.FC = () => {
   const noiseRef = useRef<HTMLDivElement>(null);
 
+  // Pause noise animation when tab is not visible (performance optimization)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (noiseRef.current) {
+        if (document.hidden) {
+          noiseRef.current.classList.add('paused');
+        } else {
+          noiseRef.current.classList.remove('paused');
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
   return (
     <Router>
       <Preloader />

@@ -36,15 +36,23 @@
     <!-- Preload logo for faster LCP -->
     <link rel="preload" href="/harpia-logo.png" as="image" />
 
-    <!-- Prefetch likely next pages for faster navigation -->
-    <link rel="prefetch" href="/servicos" />
-    <link rel="prefetch" href="/portfolio" />
-    <link rel="prefetch" href="/contato" />
-
     <meta
       name="description"
       content="Harpia Agência - Fotografia, Branding e Marketing Digital com visão estratégica. Enxergue mais longe."
     />
+
+    <!-- Critical CSS inline para evitar flash de conteúdo sem estilo -->
+    <style>
+      body {
+        background: #191919;
+        color: #f5f5f7;
+        margin: 0;
+        font-family: 'Dosis', sans-serif;
+      }
+      #root {
+        min-height: 100vh;
+      }
+    </style>
   </head>
 
   <body>

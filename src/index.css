@@ -312,6 +312,12 @@
 
 .animate-noise {
   animation: noise 0.2s steps(10) infinite;
+  animation-play-state: running;
+}
+
+/* Pause noise when tab is not visible (controlled via JS) */
+.animate-noise.paused {
+  animation-play-state: paused;
 }
 
 @keyframes marquee {
