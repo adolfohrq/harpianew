@@ -20,12 +20,10 @@ export const DifferentialCard: React.FC<DifferentialCardProps> = ({ icon, title,
       </div>
 
       {/* Title */}
-      <h3 className="font-serif text-2xl text-harpia-black mb-4 leading-tight">{title}</h3>
+      <h3 className="text-2xl text-harpia-black mb-4">{title}</h3>
 
       {/* Description */}
-      <p className="font-sans text-sm text-gray-600 leading-relaxed font-light flex-1">
-        {description}
-      </p>
+      <p className="text-sm text-gray-600 font-light flex-1">{description}</p>
 
       {/* Hover Effect Line */}
       <div className="absolute bottom-0 left-0 w-0 h-[2px] bg-harpia-black group-hover:w-full transition-all duration-500" />

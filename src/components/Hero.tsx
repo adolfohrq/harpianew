@@ -108,7 +108,7 @@ export const Hero: React.FC = () => {
 
         {/* Main Headline */}
         <Reveal delay={0.1}>
-          <h1 className="font-serif font-black text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[0.95] mb-6">
+          <h1 className="leading-[0.95] mb-6">
             <span className="block">ENXERGUE</span>
             <span className="block">MAIS LONGE.</span>
             <span className="block">VOE MAIS ALTO.</span>
@@ -117,7 +117,7 @@ export const Hero: React.FC = () => {
 
         {/* Description */}
         <Reveal delay={0.2}>
-          <p className="font-sans text-white/80 font-light text-base md:text-2xl max-w-xl mx-auto mb-10 leading-relaxed">
+          <p className="text-white/80 font-light text-base md:text-2xl max-w-xl mx-auto mb-10">
             Conectamos sua marca ao público certo com estratégias digitais que transformam visão em
             resultados extraordinários.
           </p>

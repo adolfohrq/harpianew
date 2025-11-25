@@ -78,22 +78,18 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
       )}
 
       {/* Título */}
-      <h2
-        className={`font-serif ${titleSizeMap[titleSize]} text-harpia-black mb-4 md:mb-6 leading-tight`}
-      >
-        {title}
-      </h2>
+      <h2 className={`${titleSizeMap[titleSize]} text-harpia-black mb-4 md:mb-6`}>{title}</h2>
 
       {/* Descrição e Link */}
       {(description || link) && (
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           {/* Descrição */}
           {description && (
-            <div
-              className={`font-sans text-gray-600 font-light ${descriptionSizeMap[descriptionSize]} ${maxWidthMap[descriptionMaxWidth]} leading-relaxed ${align === 'center' ? 'mx-auto' : ''}`}
+            <p
+              className={`text-gray-600 font-light ${descriptionSizeMap[descriptionSize]} ${maxWidthMap[descriptionMaxWidth]} ${align === 'center' ? 'mx-auto' : ''}`}
             >
               {description}
-            </div>
+            </p>
           )}
 
           {/* Link de Ação */}

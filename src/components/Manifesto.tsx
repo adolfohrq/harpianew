@@ -50,14 +50,12 @@ export const Manifesto: React.FC = () => {
               />
 
               {/* Main Quote */}
-              <blockquote className="relative z-10">
-                <p className="font-serif text-2xl md:text-4xl lg:text-5xl xl:text-6xl leading-snug md:leading-snug lg:leading-snug text-white">
-                  Todo mundo tem uma{' '}
-                  <span className="italic text-white/40 font-light">história</span> para contar. Nós
-                  acreditamos que cada história importa, e queremos ajudar o seu negócio a comunicar
-                  de forma <span className="italic text-white/40 font-light">efetiva</span> e{' '}
-                  <span className="italic text-white/40 font-light">relevante</span>.
-                </p>
+              <blockquote className="relative z-10 not-italic text-white text-2xl md:text-4xl lg:text-5xl xl:text-6xl leading-snug">
+                Todo mundo tem uma <span className="italic text-white/40 font-light">história</span>{' '}
+                para contar. Nós acreditamos que cada história importa, e queremos ajudar o seu
+                negócio a comunicar de forma{' '}
+                <span className="italic text-white/40 font-light">efetiva</span> e{' '}
+                <span className="italic text-white/40 font-light">relevante</span>.
               </blockquote>
             </div>
 

@@ -68,9 +68,7 @@ export const Process: React.FC = () => {
                       <div className="hidden md:block w-2 h-2 bg-current rounded-full"></div>
                     </div>
                     {/* Mobile Title Layout */}
-                    <span className="md:hidden ml-4 font-serif text-2xl text-harpia-black">
-                      {step.title}
-                    </span>
+                    <span className="md:hidden ml-4 text-2xl text-harpia-black">{step.title}</span>
                   </div>
 
                   {/* Content */}
@@ -81,7 +79,7 @@ export const Process: React.FC = () => {
                       </span>
                     </div>
 
-                    <h3 className="hidden md:block font-serif text-3xl mb-1 text-harpia-black group-hover/step:translate-y-1 transition-transform duration-300">
+                    <h3 className="hidden md:block text-3xl mb-1 text-harpia-black group-hover/step:translate-y-1 transition-transform duration-300">
                       {step.title}
                     </h3>
 
@@ -89,7 +87,7 @@ export const Process: React.FC = () => {
                       {step.subtitle}
                     </p>
 
-                    <p className="text-gray-600 font-light text-sm leading-relaxed border-t border-black/5 pt-4 group-hover/step:border-black/20 transition-colors duration-300">
+                    <p className="text-gray-600 font-light text-sm border-t border-black/5 pt-4 group-hover/step:border-black/20 transition-colors duration-300">
                       {step.description}
                     </p>
                   </div>
