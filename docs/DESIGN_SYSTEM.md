@@ -646,6 +646,125 @@ import type { ServiceItem } from '../types';
 
 ---
 
+## Exemplos de Componentes Comuns
+
+### Seção Hero (Dark)
+
+```tsx
+<section className="relative w-full h-screen bg-harpia-black flex items-center justify-center overflow-hidden">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h1 className="font-serif text-6xl font-bold text-harpia-white mb-6">Título Impactante</h1>
+    <p className="font-sans text-lg text-harpia-white mb-8">Descrição subjetiva...</p>
+    <button className="px-8 py-4 bg-harpia-white text-harpia-black font-semibold rounded-sm hover:bg-harpia-accent transition-colors">
+      CTA
+    </button>
+  </div>
+</section>
+```
+
+### Seção Informativa (Light)
+
+```tsx
+<section className="bg-white py-24 px-6 relative">
+  <div className="max-w-7xl mx-auto">
+    <div className="text-center mb-20">
+      <span className="block font-sans text-xs uppercase tracking-widest text-gray-500 mb-4">
+        Label
+      </span>
+      <h2 className="font-serif text-5xl text-harpia-black mb-6">Título Escuro</h2>
+    </div>
+
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="p-8 bg-gray-50 border border-gray-100 hover:border-gray-300 transition-all">
+        <h3 className="font-serif text-2xl text-harpia-black mb-4">Item</h3>
+        <p className="font-sans text-gray-600">Descrição em cinza escuro.</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Card de Serviço (Visual)
+
+```tsx
+<div className="group relative aspect-3/4 overflow-hidden bg-gray-100">
+  <OptimizedImage
+    src={image}
+    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+  />
+  <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-transparent" />
+  <div className="absolute bottom-0 p-8 text-white">
+    <h3 className="font-serif text-2xl">Título</h3>
+  </div>
+</div>
+```
+
+### Botões
+
+#### Primário
+
+```tsx
+<button className="px-6 py-3 bg-harpia-white text-harpia-black font-sans font-semibold rounded-sm hover:bg-harpia-accent transition-colors">
+  Call to Action
+</button>
+```
+
+#### Secundário
+
+```tsx
+<button className="px-6 py-3 border border-harpia-gray text-harpia-white font-sans rounded-sm hover:bg-harpia-gray transition-colors">
+  Ação Secundária
+</button>
+```
+
+#### Terciário (Link)
+
+```tsx
+<button className="text-harpia-white underline hover:text-harpia-accent transition-colors">
+  Link ou Ação Leve
+</button>
+```
+
+### Vídeo de Fundo (Hero)
+
+```tsx
+<div className="absolute inset-0 z-0">
+  <video autoPlay loop muted playsInline className="w-full h-full object-cover opacity-40">
+    <source src="/video.mp4" type="video/mp4" />
+  </video>
+  <div className="absolute inset-0 bg-black/60" />
+</div>
+```
+
+---
+
+## Responsividade
+
+### Breakpoints Tailwind
+
+```
+sm: 640px
+md: 768px  (tablet)
+lg: 1024px (desktop)
+xl: 1280px
+2xl: 1536px
+```
+
+### Padrão Mobile-First
+
+```tsx
+<div className="flex flex-col md:flex-row gap-4 px-4 md:px-6">
+  {/* Base: coluna em mobile, linha em md+ */}
+</div>
+```
+
+### Padding Responsivo
+
+- Mobile: `px-4` ou `px-6`
+- Desktop: `px-6` a `px-8`
+
+---
+
 ## Checklist de Implementação
 
 Ao criar novos componentes, garantir:
@@ -662,3 +781,11 @@ Ao criar novos componentes, garantir:
 - [ ] Usar `rounded-sm` (não `rounded-lg`)
 - [ ] Aplicar `will-change-transform` em animações
 - [ ] Testar em mobile e desktop
+
+---
+
+## Recursos
+
+- [Arquitetura do Projeto](./ARCHITECTURE.md)
+- [Tailwind CSS Docs](https://tailwindcss.com)
+- [Lucide Icons](https://lucide.dev)

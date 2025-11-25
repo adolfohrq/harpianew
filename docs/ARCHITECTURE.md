@@ -86,39 +86,70 @@
 harpianew/
 ├── .husky/                    # Git hooks configuration
 ├── docs/                      # Documentação do projeto
-│   └── ARCHITECTURE.md        # Este arquivo
+│   ├── ARCHITECTURE.md        # Arquitetura e padrões de código
+│   └── DESIGN_SYSTEM.md       # Design system e componentes UI
 ├── public/                    # Assets estáticos
 │   ├── Harpia-01.svg         # Logo principal
 │   └── *.jpg                 # Imagens
 ├── src/
 │   ├── components/           # Componentes React reutilizáveis
 │   │   ├── ui/              # Componentes de UI base
-│   │   │   └── OptimizedImage.tsx
+│   │   │   ├── DifferentialCard.tsx
+│   │   │   ├── HeroSection.tsx
+│   │   │   ├── OptimizedImage.tsx
+│   │   │   ├── SectionHeader.tsx
+│   │   │   ├── TestimonialCard.tsx
+│   │   │   └── index.ts
+│   │   ├── services/        # Componentes da página Serviços
+│   │   │   ├── ServiceDetail.tsx
+│   │   │   ├── ServicesCTA.tsx
+│   │   │   ├── ServicesHero.tsx
+│   │   │   ├── ServicesManifesto.tsx
+│   │   │   ├── ServicesStats.tsx
+│   │   │   └── index.ts
+│   │   ├── contact/         # Componentes da página Contato
+│   │   │   ├── ContactCTA.tsx
+│   │   │   ├── ContactForm.tsx
+│   │   │   ├── ContactInfo.tsx
+│   │   │   └── index.ts
 │   │   ├── ClientLogos.tsx
+│   │   ├── CTASection.tsx
+│   │   ├── ErrorBoundary.tsx
 │   │   ├── Footer.tsx
+│   │   ├── Hero.tsx
+│   │   ├── Manifesto.tsx
 │   │   ├── Marquee.tsx
 │   │   ├── Navbar.tsx
+│   │   ├── PortfolioPreview.tsx
 │   │   ├── Preloader.tsx
 │   │   ├── Process.tsx
 │   │   ├── Reveal.tsx
+│   │   ├── ServicesHub.tsx
 │   │   ├── Showreel.tsx
 │   │   ├── Stats.tsx
 │   │   ├── Testimonials.tsx
 │   │   ├── WhyHarpia.tsx
 │   │   └── index.ts         # Barrel export
 │   ├── data/                # Dados estáticos e constantes
+│   │   ├── about.ts         # Dados da página Sobre
+│   │   ├── about2.ts        # Dados da página Sobre alternativa
 │   │   ├── navigation.ts    # Links de navegação
 │   │   ├── packages.ts      # Pacotes de serviços
 │   │   ├── projects.ts      # Portfolio de projetos
 │   │   ├── services.ts      # Serviços oferecidos
 │   │   ├── testimonials.ts  # Depoimentos de clientes
 │   │   └── index.ts         # Barrel export
+│   ├── hooks/               # Custom React hooks
+│   │   └── useMetaTags.ts   # Hook para gerenciamento de meta tags
 │   ├── pages/               # Páginas/rotas da aplicação
+│   │   ├── About2.tsx
+│   │   ├── AboutPage.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Home.tsx
 │   │   ├── NotFound.tsx
 │   │   ├── Packages.tsx
 │   │   ├── Services.tsx
+│   │   ├── VisualGovernance.tsx
 │   │   └── index.ts         # Barrel export
 │   ├── test/                # Configuração de testes
 │   │   └── setup.ts
@@ -447,6 +478,7 @@ const App: React.FC = () => {
             <Route path="/pacotes" element={<Packages />} />
             <Route path="/sobre" element={<AboutPage />} />
             <Route path="/about2" element={<About2 />} />
+            <Route path="/visual-governance" element={<VisualGovernance />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
@@ -534,7 +566,7 @@ O projeto usa **Tailwind CSS v4** com a nova sintaxe `@theme`:
   --font-sans: 'Dosis', sans-serif;
 
   /* Custom Colors */
-  --color-harpia-black: #050505;
+  --color-harpia-black: #191919;
   --color-harpia-carbon: #121212;
   --color-harpia-gray: #2a2a2a;
   --color-harpia-white: #f5f5f7;
@@ -622,7 +654,7 @@ Animações customizadas definidas em CSS:
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #191919;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -696,6 +728,20 @@ export const Component: React.FC<ComponentProps> = ({ title, items, onAction }) 
 4. **Destructuring**: Desestruturar props no parâmetro
 5. **Hooks Order**: Hooks → handlers → render
 6. **Key Props**: Sempre usar `key` em listas (preferir `id` único)
+
+#### ❌ Evitar (Anti-patterns)
+
+```tsx
+// ❌ ERRADO: Default export + any
+const Button = (props: any) => { ... }
+export default Button;
+
+// ❌ ERRADO: Cores hardcoded
+<div className="bg-black">  // Usar bg-harpia-black
+
+// ✅ CORRETO: Named export + tipagem
+export const Button = ({ label, onClick }: ButtonProps) => { ... }
+```
 
 ### Hooks
 
@@ -1484,7 +1530,7 @@ npm run prepare          # Setup Husky (automático no install)
 
 ## 🔮 Roadmap de Melhorias
 
-Consulte [IMPROVEMENTS.md](../IMPROVEMENTS.md) para a lista completa de melhorias planejadas:
+Melhorias planejadas para o projeto:
 
 1. **Arquitetura**: Componentização atômica, barrel exports completos
 2. **Performance**: Code splitting, otimização de imagens, resource hints
@@ -1500,12 +1546,12 @@ Consulte [IMPROVEMENTS.md](../IMPROVEMENTS.md) para a lista completa de melhoria
 Para dúvidas ou sugestões sobre a arquitetura do projeto:
 
 1. Consulte esta documentação
-2. Revise o código existente para exemplos
-3. Verifique [IMPROVEMENTS.md](../IMPROVEMENTS.md) para melhorias planejadas
+2. Consulte o [Design System](./DESIGN_SYSTEM.md) para padrões visuais
+3. Revise o código existente para exemplos
 4. Abra uma issue no repositório
 
 ---
 
-**Última atualização**: 2025-11-23  
-**Versão**: 1.0.0  
+**Última atualização**: 2025-11-24
+**Versão**: 1.1.0
 **Mantido por**: Equipe Harpia

@@ -1,19 +1,56 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Harpia Agência
 
-# Run and deploy your AI Studio app
+Landing page de alta performance para agência de marketing digital.
 
-This contains everything you need to run your app locally.
+## Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1aj7CpJutSDmmy54l8DLjiinkPhQYCic_
+- **React 19** + TypeScript
+- **Vite 6** (dev server na porta 5020)
+- **Tailwind CSS v4**
+- **React Router 7** (HashRouter)
 
-## Run Locally
+## Início Rápido
 
-**Prerequisites:** Node.js
+```bash
+# Instalar dependências
+npm install
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+# Servidor de desenvolvimento
+npm run dev
+
+# Build de produção
+npm run build
+
+# Testes
+npm test
+```
+
+## Estrutura
+
+```
+src/
+├── components/     # Componentes React
+├── pages/          # Páginas (lazy-loaded)
+├── data/           # Dados estáticos
+├── hooks/          # Custom hooks
+└── types.ts        # TypeScript interfaces
+```
+
+## Documentação
+
+- [Arquitetura](docs/ARCHITECTURE.md) - Estrutura, rotas, padrões
+- [Design System](docs/DESIGN_SYSTEM.md) - Cores, tipografia, UI
+
+## Scripts
+
+| Comando          | Descrição                   |
+| ---------------- | --------------------------- |
+| `npm run dev`    | Servidor de desenvolvimento |
+| `npm run build`  | Build de produção           |
+| `npm test`       | Executar testes             |
+| `npm run lint`   | Verificar código            |
+| `npm run format` | Formatar código             |
+
+## Licença
+
+Privado - Harpia Agência

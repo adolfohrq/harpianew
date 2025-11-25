@@ -3,14 +3,16 @@ import { HashRouter as Router, Routes, Route, useLocation, Link } from 'react-ro
 import { Navbar, Footer, Preloader } from './components';
 // Lazy load pages for better performance
 const { Home, Services, Packages, Contact, AboutPage, About2, VisualGovernance, NotFound } = {
-  Home: lazy(() => import('./pages').then((m) => ({ default: m.Home }))),
-  Services: lazy(() => import('./pages').then((m) => ({ default: m.Services }))),
-  Packages: lazy(() => import('./pages').then((m) => ({ default: m.Packages }))),
-  Contact: lazy(() => import('./pages').then((m) => ({ default: m.Contact }))),
-  AboutPage: lazy(() => import('./pages').then((m) => ({ default: m.AboutPage }))),
-  About2: lazy(() => import('./pages').then((m) => ({ default: m.About2 }))),
-  VisualGovernance: lazy(() => import('./pages').then((m) => ({ default: m.VisualGovernance }))),
-  NotFound: lazy(() => import('./pages').then((m) => ({ default: m.NotFound }))),
+  Home: lazy(() => import('./pages/Home').then((m) => ({ default: m.Home }))),
+  Services: lazy(() => import('./pages/Services').then((m) => ({ default: m.Services }))),
+  Packages: lazy(() => import('./pages/Packages').then((m) => ({ default: m.Packages }))),
+  Contact: lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact }))),
+  AboutPage: lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage }))),
+  About2: lazy(() => import('./pages/About2').then((m) => ({ default: m.About2 }))),
+  VisualGovernance: lazy(() =>
+    import('./pages/VisualGovernance').then((m) => ({ default: m.VisualGovernance }))
+  ),
+  NotFound: lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound }))),
 };
 import { NAV_LINKS } from './data';
 import { Send } from 'lucide-react';
