@@ -31,21 +31,108 @@ Utilizado em seções de conteúdo denso como "Por que Harpia" e "Serviços".
 
 ## Tipografia
 
-### Títulos (`font-serif`)
+### Escala Tipográfica Global
 
-- **Família**: 'Silk Serif', serif.
-- **Uso**: Headlines, frases de impacto, números grandes.
-- **Estilo**: Elegante, editorial.
-- **Tamanhos Comuns**:
-  - Mobile: `text-3xl` (1.875rem) a `text-5xl` (3rem)
-  - Desktop: `text-4xl` (2.25rem) a `text-8xl` (6rem)
+Os estilos base são definidos em `src/index.css` usando `@layer base`. Classes adicionais nos componentes sobrescrevem quando necessário.
 
-### Corpo (`font-sans`)
+| Elemento     | Fonte      | Peso           | Tamanho (Mobile → Desktop)                        |
+| ------------ | ---------- | -------------- | ------------------------------------------------- |
+| `h1`         | Silk Serif | Black (900)    | `text-4xl` → `text-5xl` → `text-6xl` → `text-7xl` |
+| `h2`         | Silk Serif | Bold (700)     | `text-3xl` → `text-4xl` → `text-5xl`              |
+| `h3`         | Silk Serif | SemiBold (600) | `text-2xl` → `text-3xl`                           |
+| `h4`         | Silk Serif | Normal (400)   | `text-xl` → `text-2xl`                            |
+| `h5`         | Dosis      | SemiBold (600) | `text-lg` → `text-xl`                             |
+| `h6`         | Dosis      | Medium (500)   | `text-base` → `text-lg`                           |
+| `p`          | Dosis      | Normal (400)   | `text-base`                                       |
+| `blockquote` | Silk Serif | Italic         | `text-2xl` → `text-3xl` → `text-4xl`              |
 
-- **Família**: 'Dosis', sans-serif.
-- **Uso**: Parágrafos, botões, navegação, legendas.
-- **Estilo**: Moderno, limpo, geométrico.
-- **Pesos**: Light (300), Regular (400), Medium (500), Semibold (600), Bold (700)
+### Configuração CSS
+
+```css
+/* src/index.css */
+@layer base {
+  h1 {
+    @apply font-serif font-black text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight;
+  }
+
+  h2 {
+    @apply font-serif font-bold text-3xl md:text-4xl lg:text-5xl leading-tight;
+  }
+
+  h3 {
+    @apply font-serif font-semibold text-2xl md:text-3xl leading-tight;
+  }
+
+  h4 {
+    @apply font-serif text-xl md:text-2xl leading-tight;
+  }
+
+  h5 {
+    @apply font-sans font-semibold text-lg md:text-xl;
+  }
+
+  h6 {
+    @apply font-sans font-medium text-base md:text-lg;
+  }
+
+  p {
+    @apply font-sans text-base leading-relaxed;
+  }
+
+  blockquote {
+    @apply font-serif text-2xl md:text-3xl lg:text-4xl leading-relaxed italic;
+  }
+}
+```
+
+### Sobrescrevendo Estilos Base
+
+Os estilos em `@layer base` têm baixa especificidade. Classes Tailwind aplicadas diretamente sempre têm prioridade:
+
+```tsx
+{
+  /* Usa estilo base h2 */
+}
+<h2>Título da Seção</h2>;
+
+{
+  /* Sobrescreve com tamanho maior */
+}
+<h2 className="text-5xl md:text-7xl">Título Hero</h2>;
+
+{
+  /* Sobrescreve cor para fundo claro */
+}
+<h2 className="text-harpia-black">Título em Seção Branca</h2>;
+```
+
+### Famílias de Fonte
+
+| Classe       | Fonte      | Uso                             |
+| ------------ | ---------- | ------------------------------- |
+| `font-serif` | Silk Serif | Títulos, headlines, blockquotes |
+| `font-sans`  | Dosis      | Corpo, botões, UI               |
+
+### Pesos Disponíveis
+
+**Silk Serif (font-serif)**:
+
+- `font-light` (300)
+- `font-normal` (400)
+- `font-medium` (500)
+- `font-semibold` (600)
+- `font-bold` (700)
+- `font-black` (900)
+
+**Dosis (font-sans)**:
+
+- `font-extralight` (200)
+- `font-light` (300)
+- `font-normal` (400)
+- `font-medium` (500)
+- `font-semibold` (600)
+- `font-bold` (700)
+- `font-extrabold` (800)
 
 ### Padrões Tipográficos
 
