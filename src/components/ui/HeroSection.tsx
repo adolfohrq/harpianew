@@ -114,7 +114,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Description */}
           {description && (
             <Reveal delay={0.2}>
-              <p className="text-white/60 text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
+              <p className="text-white/80 text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
                 {description}
               </p>
             </Reveal>

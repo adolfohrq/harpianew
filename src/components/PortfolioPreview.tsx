@@ -82,51 +82,53 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
 
         {/* Category Filters */}
         <Reveal delay={0.1}>
-          <div className="mb-10 md:mb-14">
-            {/* Filter Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
-              {CATEGORIES.map((category) => {
-                const isActive = activeCategory === category;
-                const count = categoryCount[category] || 0;
+          <div className="mb-8 md:mb-14">
+            {/* Filter Pills - Scrollable on mobile */}
+            <div className="overflow-x-auto pb-2 -mx-6 px-6 md:mx-0 md:px-0 md:overflow-visible scrollbar-hide">
+              <div className="flex items-center gap-2 md:gap-3 md:flex-wrap md:justify-center min-w-max md:min-w-0">
+                {CATEGORIES.map((category) => {
+                  const isActive = activeCategory === category;
+                  const count = categoryCount[category] || 0;
 
-                return (
-                  <button
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`group relative px-4 md:px-5 py-2 md:py-2.5 rounded-full border text-xs md:text-sm transition-all duration-300 ${
-                      isActive
-                        ? 'bg-white text-harpia-black border-white'
-                        : 'bg-transparent text-white/70 border-white/20 hover:border-white/40 hover:text-white'
-                    }`}
-                  >
-                    <span className="flex items-center gap-2">
-                      <span className="font-medium tracking-wide">{category}</span>
-                      <span
-                        className={`font-mono text-[10px] px-1.5 py-0.5 rounded-full transition-colors duration-300 ${
-                          isActive
-                            ? 'bg-harpia-black/20 text-harpia-black'
-                            : 'bg-white/10 text-white/60'
-                        }`}
-                      >
-                        {count}
-                      </span>
-                    </span>
-
-                    {/* Active indicator line */}
-                    <div
-                      className={`absolute -bottom-px left-1/2 -translate-x-1/2 h-[2px] bg-white transition-all duration-300 ${
-                        isActive ? 'w-8' : 'w-0'
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                      className={`group relative px-3 md:px-5 py-2 md:py-2.5 rounded-full border text-xs md:text-sm transition-all duration-300 whitespace-nowrap ${
+                        isActive
+                          ? 'bg-white text-harpia-black border-white'
+                          : 'bg-transparent text-white/70 border-white/20 hover:border-white/40 hover:text-white'
                       }`}
-                    />
-                  </button>
-                );
-              })}
+                    >
+                      <span className="flex items-center gap-1.5 md:gap-2">
+                        <span className="font-medium tracking-wide">{category}</span>
+                        <span
+                          className={`font-mono text-[10px] px-1.5 py-0.5 rounded-full transition-colors duration-300 ${
+                            isActive
+                              ? 'bg-harpia-black/20 text-harpia-black'
+                              : 'bg-white/10 text-white/60'
+                          }`}
+                        >
+                          {count}
+                        </span>
+                      </span>
+
+                      {/* Active indicator line */}
+                      <div
+                        className={`absolute -bottom-px left-1/2 -translate-x-1/2 h-[2px] bg-white transition-all duration-300 ${
+                          isActive ? 'w-8' : 'w-0'
+                        }`}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Active filter indicator */}
-            <div className="mt-6 flex items-center justify-center gap-3 text-white/40">
+            <div className="mt-4 md:mt-6 flex items-center justify-center gap-3 text-white/40">
               <div className="w-8 h-px bg-white/20" />
-              <span className="text-xs uppercase tracking-[0.2em]">
+              <span className="text-[10px] md:text-xs uppercase tracking-[0.2em]">
                 {filteredProjects.length} {filteredProjects.length === 1 ? 'Projeto' : 'Projetos'}
               </span>
               <div className="w-8 h-px bg-white/20" />
@@ -142,7 +144,7 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
                 to={`/portfolio/${project.slug}`}
                 className={`block relative group overflow-hidden bg-harpia-carbon border border-white/10 hover:border-white/20 transition-all duration-700 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-harpia-black ${
                   idx === 0 && filteredProjects.length > 2
-                    ? 'md:col-span-2 aspect-21/9'
+                    ? 'md:col-span-2 aspect-4/3 md:aspect-21/9'
                     : 'aspect-4/3'
                 } ${
                   hoveredIndex !== null && hoveredIndex !== idx
@@ -192,24 +194,24 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
 
                 {/* Content Layer */}
                 <div className="absolute inset-0 p-4 md:p-6 flex flex-col justify-end z-10">
-                  <div className="flex justify-between items-end gap-4">
-                    <div className="flex-1">
+                  <div className="flex justify-between items-end gap-3 md:gap-4">
+                    <div className="flex-1 min-w-0">
                       <h3
-                        className={`text-white mb-2 transition-transform duration-500 font-serif ${
+                        className={`text-white mb-1.5 md:mb-2 transition-transform duration-500 font-serif leading-tight ${
                           idx === 0 && filteredProjects.length > 2
-                            ? 'text-2xl md:text-4xl'
-                            : 'text-xl md:text-2xl'
+                            ? 'text-xl sm:text-2xl md:text-4xl'
+                            : 'text-lg sm:text-xl md:text-2xl'
                         } ${hoveredIndex === idx ? 'translate-y-0' : 'translate-y-2'}`}
                       >
                         {project.title}
                       </h3>
 
-                      {/* Description on hover */}
+                      {/* Description - always visible on mobile, hover on desktop */}
                       <p
-                        className={`text-white/70 text-sm font-light max-w-md transition-all duration-500 ${
+                        className={`text-white/70 text-xs sm:text-sm font-light max-w-md transition-all duration-500 line-clamp-2 md:line-clamp-none ${
                           hoveredIndex === idx
                             ? 'opacity-100 translate-y-0'
-                            : 'opacity-0 translate-y-4'
+                            : 'md:opacity-0 md:translate-y-4 opacity-100 translate-y-0'
                         }`}
                       >
                         {project.description || 'Clique para ver o projeto completo'}
@@ -218,16 +220,16 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
 
                     {/* Arrow Button */}
                     <div
-                      className={`shrink-0 w-12 h-12 flex items-center justify-center rounded-full border transition-all duration-500 ${
+                      className={`shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full border transition-all duration-500 ${
                         hoveredIndex === idx
                           ? 'bg-white text-harpia-black border-white scale-110'
                           : 'bg-white/10 text-white border-white/20'
                       }`}
                     >
                       <ArrowUpRight
-                        size={20}
+                        size={18}
                         strokeWidth={2}
-                        className={`transition-transform duration-300 ${
+                        className={`transition-transform duration-300 md:w-5 md:h-5 ${
                           hoveredIndex === idx ? 'rotate-0' : '-rotate-45'
                         }`}
                       />
