@@ -1,48 +1,47 @@
 import React, { useState } from 'react';
 import { Eye, Target, Zap, Users } from 'lucide-react';
 import { Reveal } from './Reveal';
-import { SectionHeader, DifferentialCard } from './ui';
 
 interface Differential {
   icon: React.ReactNode;
   title: string;
+  subtitle: string;
   description: string;
   number: string;
-  color: string;
 }
 
 const DIFFERENTIALS: Differential[] = [
   {
-    icon: <Eye className="w-8 h-8" />,
-    title: 'Visão Estratégica',
+    icon: <Eye className="w-6 h-6" />,
+    title: 'Visão',
+    subtitle: 'Estratégica',
     description:
       'Enxergamos além do óbvio. Nossa abordagem estratégica garante que cada projeto tenha impacto duradouro.',
     number: '01',
-    color: 'from-blue-500/5 to-indigo-500/5',
   },
   {
-    icon: <Target className="w-8 h-8" />,
-    title: 'Foco em Resultados',
+    icon: <Target className="w-6 h-6" />,
+    title: 'Foco em',
+    subtitle: 'Resultados',
     description:
-      'Não entregamos apenas projetos bonitos. Entregamos soluções que geram resultados mensuráveis para seu negócio.',
+      'Não entregamos apenas projetos bonitos. Entregamos soluções que geram resultados mensuráveis.',
     number: '02',
-    color: 'from-purple-500/5 to-pink-500/5',
   },
   {
-    icon: <Zap className="w-8 h-8" />,
-    title: 'Agilidade & Qualidade',
+    icon: <Zap className="w-6 h-6" />,
+    title: 'Agilidade',
+    subtitle: '& Qualidade',
     description:
       'Processos otimizados que combinam velocidade de entrega com excelência técnica e criativa.',
     number: '03',
-    color: 'from-amber-500/5 to-orange-500/5',
   },
   {
-    icon: <Users className="w-8 h-8" />,
-    title: 'Parceria Verdadeira',
+    icon: <Users className="w-6 h-6" />,
+    title: 'Parceria',
+    subtitle: 'Verdadeira',
     description:
       'Não somos apenas fornecedores. Somos parceiros comprometidos com o crescimento do seu negócio.',
     number: '04',
-    color: 'from-emerald-500/5 to-teal-500/5',
   },
 ];
 
@@ -50,119 +49,125 @@ export const WhyHarpia: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-32 bg-white relative overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="absolute inset-0 pointer-events-none opacity-40">
+    <section className="py-24 md:py-32 lg:py-40 bg-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Subtle grid pattern */}
         <div
-          className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gray-100 rounded-full blur-[120px] -translate-y-1/2 animate-pulse"
-          style={{ animationDuration: '8s' }}
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1px 1px, #191919 1px, transparent 0)',
+            backgroundSize: '48px 48px',
+          }}
         />
-        <div
-          className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gray-50 rounded-full blur-[100px] translate-y-1/2 animate-pulse"
-          style={{ animationDuration: '10s' }}
-        />
+
+        {/* Vertical accent lines */}
+        <div className="absolute top-0 left-1/4 w-px h-full bg-linear-to-b from-transparent via-black/5 to-transparent hidden lg:block" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-linear-to-b from-transparent via-black/5 to-transparent hidden lg:block" />
       </div>
 
-      {/* Subtle Grid Pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.02] pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(0 0 0) 1px, transparent 0)`,
-          backgroundSize: '40px 40px',
-        }}
-      />
-
-      {/* Diagonal Lines Decoration */}
-      <div className="absolute top-1/4 right-0 w-64 h-px bg-linear-to-l from-black/5 to-transparent opacity-50" />
-      <div className="absolute bottom-1/4 left-0 w-64 h-px bg-linear-to-r from-black/5 to-transparent opacity-50" />
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <SectionHeader
-          label="Diferenciais"
-          title={
-            <>
-              POR QUE <span className="italic text-gray-400">HARPIA?</span>
-            </>
-          }
-          description="Somos mais que uma agência. Somos seu parceiro estratégico para voar mais alto."
-          align="center"
-          className="mb-20"
-        />
+        {/* Header */}
+        <Reveal>
+          <div className="text-center mb-16 md:mb-20">
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="w-16 h-px bg-linear-to-r from-transparent to-black/20" />
+              <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-500 font-medium">
+                Diferenciais
+              </span>
+              <div className="w-16 h-px bg-linear-to-l from-transparent to-black/20" />
+            </div>
 
-        {/* Cards Grid with Hover Effect */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 group/cards items-stretch">
+            <h2 className="text-harpia-black mb-6">
+              POR QUE
+              <br />
+              <span className="italic text-gray-400 font-light">Harpia?</span>
+            </h2>
+
+            <p className="text-gray-600 text-base md:text-lg font-light max-w-2xl mx-auto">
+              Somos mais que uma agência. Somos seu parceiro estratégico para voar mais alto.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {DIFFERENTIALS.map((diff, index) => (
             <Reveal key={diff.title} delay={index * 100}>
               <div
+                className={`group relative h-full p-6 md:p-8 bg-gray-50 border border-gray-100 rounded-sm transition-all duration-500 ${
+                  hoveredIndex !== null && hoveredIndex !== index
+                    ? 'opacity-50 scale-[0.98]'
+                    : 'opacity-100 scale-100'
+                } ${hoveredIndex === index ? 'border-gray-300 bg-white' : ''}`}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="relative h-full flex flex-col"
               >
-                {/* Colored Background Gradient */}
-                <div
-                  className={`absolute inset-0 rounded-sm bg-linear-to-br ${diff.color} opacity-0 transition-opacity duration-500 ${
-                    hoveredIndex === index ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
+                {/* Corner Accents */}
+                <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-harpia-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Number Badge */}
-                <div className="absolute -top-4 -left-4 z-20">
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-mono text-[10px] text-gray-400 border border-gray-200 px-2.5 py-1 rounded-full">
+                    {diff.number}
+                  </span>
+
+                  {/* Icon */}
                   <div
-                    className={`w-12 h-12 rounded-full border-2 border-harpia-black bg-white flex items-center justify-center font-mono text-sm font-bold transition-all duration-500 shadow-sm ${
+                    className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-500 ${
                       hoveredIndex === index
-                        ? 'bg-harpia-black text-white scale-110 shadow-[0_8px_24px_rgba(0,0,0,0.15)] -rotate-12'
-                        : 'text-harpia-black scale-100 rotate-0'
+                        ? 'bg-harpia-black text-white border-harpia-black'
+                        : 'bg-white text-harpia-black border-gray-200'
                     }`}
                   >
-                    {diff.number}
+                    {diff.icon}
                   </div>
                 </div>
 
-                {/* Glow Effect on Hover */}
-                <div
-                  className={`absolute -inset-1 bg-linear-to-r from-gray-200 via-gray-100 to-gray-200 rounded-sm opacity-0 blur-xl transition-all duration-500 ${
-                    hoveredIndex === index ? 'opacity-100 scale-105' : 'opacity-0 scale-100'
-                  }`}
-                />
-
-                {/* Shine Effect on Hover */}
-                <div
-                  className={`absolute inset-0 rounded-sm bg-linear-to-br from-white/0 via-white/10 to-white/0 opacity-0 transition-opacity duration-500 ${
-                    hoveredIndex === index ? 'opacity-100' : 'opacity-0'
-                  }`}
-                />
-
-                {/* Card with Enhanced Interactions */}
-                <div
-                  className={`relative flex-1 flex flex-col transition-all duration-500 ${
-                    hoveredIndex !== null && hoveredIndex !== index
-                      ? 'opacity-40 scale-[0.98]'
-                      : 'opacity-100 scale-100'
+                {/* Title */}
+                <h3
+                  className={`text-harpia-black mb-3 transition-transform duration-500 ${
+                    hoveredIndex === index ? 'translate-y-0' : 'translate-y-1'
                   }`}
                 >
-                  <DifferentialCard
-                    icon={diff.icon}
-                    title={diff.title}
-                    description={diff.description}
-                    index={index}
-                  />
-                </div>
+                  {diff.title}
+                  <br />
+                  <span className="italic text-gray-400 font-light">{diff.subtitle}</span>
+                </h3>
+
+                {/* Description */}
+                <p
+                  className={`text-gray-600 text-sm font-light transition-all duration-500 ${
+                    hoveredIndex === index ? 'opacity-100' : 'opacity-70'
+                  }`}
+                >
+                  {diff.description}
+                </p>
+
+                {/* Bottom Line Accent */}
+                <div
+                  className={`absolute bottom-0 left-0 h-[2px] bg-harpia-black transition-all duration-700 ${
+                    hoveredIndex === index ? 'w-full' : 'w-0'
+                  }`}
+                />
               </div>
             </Reveal>
           ))}
         </div>
 
-        {/* Bottom Accent Line */}
-        <Reveal delay={500}>
-          <div className="mt-20 flex items-center justify-center">
-            <div className="flex items-center gap-4 opacity-30 group/accent">
-              <div className="w-16 h-px bg-linear-to-r from-transparent to-black transition-all duration-700 group-hover/accent:w-24" />
-              <div className="relative">
-                <div className="w-2 h-2 bg-black rounded-full transition-all duration-700 group-hover/accent:scale-150" />
-                <div className="absolute inset-0 w-2 h-2 bg-black rounded-full animate-ping opacity-20" />
-              </div>
-              <div className="w-16 h-px bg-linear-to-l from-transparent to-black transition-all duration-700 group-hover/accent:w-24" />
-            </div>
+        {/* Footer */}
+        <Reveal delay={0.4}>
+          <div className="mt-12 md:mt-16 flex items-center justify-center gap-4 text-gray-400">
+            <div className="w-12 h-px bg-linear-to-r from-transparent to-black/10" />
+            <span className="text-xs uppercase tracking-[0.2em]">
+              {DIFFERENTIALS.length} Pilares
+            </span>
+            <div className="w-8 h-px bg-black/10" />
+            <span className="text-xs uppercase tracking-[0.2em]">Nossa Essência</span>
+            <div className="w-12 h-px bg-linear-to-l from-transparent to-black/10" />
           </div>
         </Reveal>
       </div>

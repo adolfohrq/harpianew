@@ -38,6 +38,19 @@ export const Home: React.FC = () => {
         <Stats />
       </ErrorBoundary>
 
+      {/* Why Harpia Section */}
+      <ErrorBoundary sectionName="diferenciais">
+        <WhyHarpia />
+      </ErrorBoundary>
+
+      {/* Services Hub Preview */}
+      <ServicesHub />
+
+      {/* Showreel Section */}
+      <ErrorBoundary sectionName="showreel">
+        <Showreel />
+      </ErrorBoundary>
+
       {/* Infinite Marquee */}
       <ErrorBoundary sectionName="marquee">
         <Marquee
@@ -51,19 +64,6 @@ export const Home: React.FC = () => {
             'Performance',
           ]}
         />
-      </ErrorBoundary>
-
-      {/* Why Harpia Section */}
-      <ErrorBoundary sectionName="diferenciais">
-        <WhyHarpia />
-      </ErrorBoundary>
-
-      {/* Services Hub Preview */}
-      <ServicesHub />
-
-      {/* Showreel Section */}
-      <ErrorBoundary sectionName="showreel">
-        <Showreel />
       </ErrorBoundary>
 
       {/* Process / Methodology Section */}
