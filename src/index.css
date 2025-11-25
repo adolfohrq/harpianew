@@ -1,5 +1,185 @@
 @import 'tailwindcss';
 
+/* ==========================================================================
+   Dosis Font Family (Local)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-ExtraBold.otf') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Silk Serif Font Family (Local)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif ExtraLight.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif ExtraLight Italic.otf') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Light Italic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Regular Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Medium Italic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif SemiBold Italic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Bold Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Black Italic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Tailwind Theme
+   ========================================================================== */
+
 @theme {
   --font-serif: 'Silk Serif', serif;
   --font-sans: 'Dosis', sans-serif;

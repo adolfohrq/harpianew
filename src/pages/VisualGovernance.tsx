@@ -427,42 +427,410 @@ export const VisualGovernance: React.FC = () => {
                 description="Combinação de elegância editorial (Serif) com modernidade geométrica (Sans)."
                 align="left"
               />
-              <div className="mt-12 space-y-8">
-                <TypographyExample
-                  role="Display Headline"
-                  font="font-serif"
-                  size="text-6xl md:text-8xl"
-                  weight="font-normal"
-                  sample="Harpia Agency"
-                />
-                <TypographyExample
-                  role="Section Title"
-                  font="font-serif"
-                  size="text-4xl md:text-5xl"
-                  weight="font-normal"
-                  sample="Transformamos Visão em Realidade"
-                />
-                <TypographyExample
-                  role="Body Large"
-                  font="font-sans"
-                  size="text-xl"
-                  weight="font-light"
-                  sample="O design do Harpia utiliza uma abordagem híbrida, alternando entre seções escuras para impacto e imersão."
-                />
-                <TypographyExample
-                  role="Body Default"
-                  font="font-sans"
-                  size="text-base"
-                  weight="font-normal"
-                  sample="Utilizado em parágrafos padrão, botões e elementos de navegação. A legibilidade é a prioridade aqui."
-                />
-                <TypographyExample
-                  role="Label / Button"
-                  font="font-sans"
-                  size="text-sm uppercase tracking-widest"
-                  weight="font-bold"
-                  sample="Ver Detalhes"
-                />
+
+              {/* Font Families */}
+              <div className="mt-12 space-y-16">
+                {/* Silk Serif */}
+                <div className="p-8 bg-gray-50 rounded-lg border border-black/10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                    <div>
+                      <h3 className="text-2xl font-serif text-harpia-black mb-2">Silk Serif</h3>
+                      <p className="text-sm text-gray-500 font-mono">
+                        font-serif • Títulos & Headlines
+                      </p>
+                    </div>
+                    <span className="text-xs text-gray-400 mt-2 md:mt-0 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      Fonte Local
+                    </span>
+                  </div>
+
+                  {/* Font Weights */}
+                  <div className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <p className="text-xs font-mono text-gray-400 uppercase tracking-widest">
+                          Pesos Disponíveis
+                        </p>
+                        <div className="space-y-3">
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">300 Light</span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black"
+                              style={{ fontWeight: 300 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">
+                              400 Regular
+                            </span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black"
+                              style={{ fontWeight: 400 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">500 Medium</span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black"
+                              style={{ fontWeight: 500 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">
+                              600 SemiBold
+                            </span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black"
+                              style={{ fontWeight: 600 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">700 Bold</span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black"
+                              style={{ fontWeight: 700 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <p className="text-xs font-mono text-gray-400 uppercase tracking-widest">
+                          Estilos Itálicos
+                        </p>
+                        <div className="space-y-3">
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">300 Light</span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black italic"
+                              style={{ fontWeight: 300 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">
+                              400 Regular
+                            </span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black italic"
+                              style={{ fontWeight: 400 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">500 Medium</span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black italic"
+                              style={{ fontWeight: 500 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">
+                              600 SemiBold
+                            </span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black italic"
+                              style={{ fontWeight: 600 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                          <div className="flex items-baseline gap-4">
+                            <span className="font-mono text-xs text-gray-500 w-24">700 Bold</span>
+                            <span
+                              className="font-serif text-2xl text-harpia-black italic"
+                              style={{ fontWeight: 700 }}
+                            >
+                              Harpia Agency
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Character Set Preview */}
+                    <div className="pt-6 border-t border-black/10">
+                      <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4">
+                        Caracteres
+                      </p>
+                      <p className="font-serif text-xl text-harpia-black leading-relaxed">
+                        ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                        <br />
+                        abcdefghijklmnopqrstuvwxyz
+                        <br />
+                        0123456789 !@#$%&*(),.;:?
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Dosis */}
+                <div className="p-8 bg-gray-50 rounded-lg border border-black/10">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                    <div>
+                      <h3 className="text-2xl font-sans font-semibold text-harpia-black mb-2">
+                        Dosis
+                      </h3>
+                      <p className="text-sm text-gray-500 font-mono">
+                        font-sans • Corpo, Botões & UI
+                      </p>
+                    </div>
+                    <span className="text-xs text-gray-400 mt-2 md:mt-0 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                      Fonte Local
+                    </span>
+                  </div>
+
+                  {/* Font Weights */}
+                  <div className="space-y-6">
+                    <div>
+                      <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4">
+                        Pesos Disponíveis
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-gray-500 w-24">
+                            200 ExtraLight
+                          </span>
+                          <span
+                            className="font-sans text-xl text-harpia-black"
+                            style={{ fontWeight: 200 }}
+                          >
+                            Harpia Agency - Design que transforma
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-gray-500 w-24">300 Light</span>
+                          <span
+                            className="font-sans text-xl text-harpia-black"
+                            style={{ fontWeight: 300 }}
+                          >
+                            Harpia Agency - Design que transforma
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-gray-500 w-24">400 Regular</span>
+                          <span
+                            className="font-sans text-xl text-harpia-black"
+                            style={{ fontWeight: 400 }}
+                          >
+                            Harpia Agency - Design que transforma
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-gray-500 w-24">500 Medium</span>
+                          <span
+                            className="font-sans text-xl text-harpia-black"
+                            style={{ fontWeight: 500 }}
+                          >
+                            Harpia Agency - Design que transforma
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-gray-500 w-24">600 SemiBold</span>
+                          <span
+                            className="font-sans text-xl text-harpia-black"
+                            style={{ fontWeight: 600 }}
+                          >
+                            Harpia Agency - Design que transforma
+                          </span>
+                        </div>
+                        <div className="flex items-baseline gap-4">
+                          <span className="font-mono text-xs text-gray-500 w-24">700 Bold</span>
+                          <span
+                            className="font-sans text-xl text-harpia-black"
+                            style={{ fontWeight: 700 }}
+                          >
+                            Harpia Agency - Design que transforma
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Character Set Preview */}
+                    <div className="pt-6 border-t border-black/10">
+                      <p className="text-xs font-mono text-gray-400 uppercase tracking-widest mb-4">
+                        Caracteres
+                      </p>
+                      <p className="font-sans text-xl text-harpia-black leading-relaxed">
+                        ABCDEFGHIJKLMNOPQRSTUVWXYZ
+                        <br />
+                        abcdefghijklmnopqrstuvwxyz
+                        <br />
+                        0123456789 !@#$%&*(),.;:?
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CSS Variables */}
+                <div className="p-8 bg-harpia-black rounded-lg">
+                  <h4 className="text-sm font-mono text-white/60 mb-6 uppercase tracking-widest">
+                    Configuração CSS (src/index.css)
+                  </h4>
+                  <pre className="text-sm text-white/80 font-mono overflow-x-auto whitespace-pre-wrap">
+                    {`/* Fontes carregadas localmente via @font-face */
+
+@font-face {
+  font-family: 'Dosis';
+  src: url('/fonts/dosis/Dosis-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Silk Serif';
+  src: url('/fonts/silk-serif/Silk Serif Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ... mais pesos e estilos definidos no arquivo */
+
+@theme {
+  --font-serif: 'Silk Serif', serif;
+  --font-sans: 'Dosis', sans-serif;
+}`}
+                  </pre>
+                </div>
+
+                {/* Typography Scale */}
+                <div>
+                  <h4 className="text-xl font-serif text-harpia-black mb-8">Escala Tipográfica</h4>
+                  <div className="space-y-8">
+                    <TypographyExample
+                      role="Display Headline"
+                      font="font-serif"
+                      size="text-6xl md:text-8xl"
+                      weight="font-normal"
+                      sample="Harpia Agency"
+                    />
+                    <TypographyExample
+                      role="Page Title"
+                      font="font-serif"
+                      size="text-4xl md:text-6xl lg:text-7xl"
+                      weight="font-normal"
+                      sample="Enxergue Mais Longe"
+                    />
+                    <TypographyExample
+                      role="Section Title"
+                      font="font-serif"
+                      size="text-3xl md:text-4xl lg:text-5xl"
+                      weight="font-normal"
+                      sample="Transformamos Visão em Realidade"
+                    />
+                    <TypographyExample
+                      role="Card Title"
+                      font="font-serif"
+                      size="text-xl md:text-2xl"
+                      weight="font-normal"
+                      sample="Design Premium para Marcas"
+                    />
+                    <TypographyExample
+                      role="Body Large"
+                      font="font-sans"
+                      size="text-lg md:text-xl"
+                      weight="font-light"
+                      sample="O design do Harpia utiliza uma abordagem híbrida, alternando entre seções escuras para impacto e imersão."
+                    />
+                    <TypographyExample
+                      role="Body Default"
+                      font="font-sans"
+                      size="text-base"
+                      weight="font-normal"
+                      sample="Utilizado em parágrafos padrão, botões e elementos de navegação. A legibilidade é a prioridade aqui."
+                    />
+                    <TypographyExample
+                      role="Body Small"
+                      font="font-sans"
+                      size="text-sm"
+                      weight="font-normal"
+                      sample="Texto auxiliar, legendas e informações secundárias que complementam o conteúdo principal."
+                    />
+                    <TypographyExample
+                      role="Label / Button"
+                      font="font-sans"
+                      size="text-xs uppercase tracking-[0.2em]"
+                      weight="font-medium"
+                      sample="Ver Detalhes"
+                    />
+                    <TypographyExample
+                      role="Caption"
+                      font="font-sans"
+                      size="text-[10px] uppercase tracking-[0.3em]"
+                      weight="font-medium"
+                      sample="Agência de Marketing Digital"
+                    />
+                  </div>
+                </div>
+
+                {/* Usage Guidelines */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="p-6 bg-gray-50 rounded-lg border border-black/10">
+                    <h4 className="font-serif text-lg text-harpia-black mb-4">
+                      Silk Serif - Quando Usar
+                    </h4>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Headlines e títulos de impacto</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Números grandes em estatísticas</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Citações e frases de destaque</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Texto itálico para ênfase elegante</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="p-6 bg-gray-50 rounded-lg border border-black/10">
+                    <h4 className="font-sans font-semibold text-lg text-harpia-black mb-4">
+                      Dosis - Quando Usar
+                    </h4>
+                    <ul className="space-y-2 text-sm text-gray-600">
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Parágrafos e corpo de texto</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Botões e links de navegação</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Labels e textos de formulário</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check size={16} className="text-green-500 mt-0.5 shrink-0" />
+                        <span>Badges, tags e elementos UI</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </Reveal>
           )}
