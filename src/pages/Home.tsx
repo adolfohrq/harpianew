@@ -33,14 +33,14 @@ export const Home: React.FC = () => {
       {/* Manifesto Section */}
       <Manifesto />
 
-      {/* Stats Section */}
-      <ErrorBoundary sectionName="estatísticas">
-        <Stats />
-      </ErrorBoundary>
-
       {/* Why Harpia Section */}
       <ErrorBoundary sectionName="diferenciais">
         <WhyHarpia />
+      </ErrorBoundary>
+
+      {/* Stats Section */}
+      <ErrorBoundary sectionName="estatísticas">
+        <Stats />
       </ErrorBoundary>
 
       {/* Services Hub Preview */}

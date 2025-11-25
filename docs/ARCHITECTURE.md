@@ -132,7 +132,6 @@ harpianew/
 │   │   └── index.ts         # Barrel export
 │   ├── data/                # Dados estáticos e constantes
 │   │   ├── about.ts         # Dados da página Sobre
-│   │   ├── about2.ts        # Dados da página Sobre alternativa
 │   │   ├── navigation.ts    # Links de navegação
 │   │   ├── packages.ts      # Pacotes de serviços
 │   │   ├── projects.ts      # Portfolio de projetos
@@ -140,7 +139,7 @@ harpianew/
 │   │   ├── testimonials.ts  # Depoimentos de clientes
 │   │   └── index.ts         # Barrel export
 │   ├── hooks/               # Custom React hooks
-│   │   └── useMetaTags.ts   # Hook para gerenciamento de meta tags
+│   │   └── useMetaTags.ts   # Hook para gerenciamento de meta tags e SEO
 │   ├── pages/               # Páginas/rotas da aplicação
 │   │   ├── AboutPage.tsx
 │   │   ├── Contact.tsx
@@ -466,6 +465,27 @@ export interface Testimonial {
   author: string;
   company: string;
 }
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+}
+
+export interface AboutValue {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface MilestoneItem {
+  year: string;
+  title: string;
+  description: string;
+}
 ```
 
 **Regras**:
@@ -768,6 +788,53 @@ export const Button = ({ label, onClick }: ButtonProps) => { ... }
 ```
 
 ### Hooks
+
+#### useMetaTags (Custom Hook)
+
+Hook customizado para gerenciamento dinâmico de meta tags e SEO.
+
+**Localização**: `src/hooks/useMetaTags.ts`
+
+**Interface**:
+
+```typescript
+interface MetaTagsProps {
+  title: string; // Título da página (obrigatório)
+  description: string; // Meta description (obrigatório)
+  keywords?: string; // Meta keywords (default: 'harpia, agência, marketing, digital')
+  ogTitle?: string; // Open Graph title (default: title)
+  ogDescription?: string; // Open Graph description (default: description)
+  ogImage?: string; // Open Graph image URL
+  canonical?: string; // URL canônica da página
+}
+```
+
+**Uso**:
+
+```tsx
+import { useMetaTags } from '../hooks/useMetaTags';
+
+export const Portfolio: React.FC = () => {
+  useMetaTags({
+    title: 'Portfólio - Harpia Agência',
+    description: 'Conheça nossos projetos. Cases de sucesso em fotografia, branding, design e marketing digital.',
+    keywords: 'portfolio, projetos, cases, fotografia, branding',
+    ogImage: '/images/portfolio-og.jpg',
+  });
+
+  return (
+    // ...
+  );
+};
+```
+
+**Funcionalidades**:
+
+- Define `document.title` dinamicamente
+- Cria/atualiza meta tags `name` (description, keywords)
+- Cria/atualiza meta tags `property` (og:title, og:description, og:image, og:type)
+- Suporta URL canônica via `<link rel="canonical">`
+- Atualiza automaticamente quando props mudam
 
 #### useState
 
