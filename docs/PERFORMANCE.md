@@ -66,33 +66,21 @@ Guia objetivo para melhorar desempenho no desktop e mobile.
 
 ---
 
-### 3. Imagens - Formatos Modernos 🟡
+### 3. Imagens - Formatos Modernos ✅ IMPLEMENTADO
 
-**Problema**: `OptimizedImage` não usa WebP/AVIF.
+**Problema**: Imagens em JPG/JPEG/PNG (maior tamanho).
 
-**Solução** - Atualizar componente:
+**Solução**: Converter imagens para WebP e atualizar referências diretas no código.
 
-```tsx
-export const OptimizedImage: React.FC<OptimizedImageProps> = ({
-  src,
-  alt,
-  className,
-  ...props
-}) => {
-  const webpSrc = src.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+**Arquivos atualizados**:
 
-  return (
-    <picture>
-      <source srcSet={webpSrc} type="image/webp" />
-      <img src={src} alt={alt} loading="lazy" decoding="async" className={className} {...props} />
-    </picture>
-  );
-};
-```
+- `CTASection.tsx`: `/3.jpeg` → `/3.webp`
+- `Showreel.tsx`: `/5.jpg` → `/5.webp`
+- `ClientLogos.tsx`: `/clients/*.png` → `/clients/*.webp`
 
 **Impacto**: -30% a -50% no tamanho das imagens.
 
-**Risco**: Médio - Requer que as imagens WebP existam no servidor. Fallback para original se não existir.
+**Status**: Implementado em 2025-11-25.
 
 ---
 
@@ -364,7 +352,7 @@ location ~* \.[a-f0-9]{8}\.(js|css)$ {
 | ------------------------------ | ------- | ------- | --------- | ------ |
 | Converter fontes para WOFF2    | Alto    | Baixo   | 🟢        | ✅     |
 | Reduzir variantes de fonte     | Alto    | Baixo   | 🟡        | ✅     |
-| Adicionar WebP nas imagens     | Alto    | Médio   | 🟡        | ⬚      |
+| Adicionar WebP nas imagens     | Alto    | Médio   | 🟡        | ✅     |
 | Otimizar vite.config.ts        | Médio   | Baixo   | 🟢        | ✅     |
 | Remover prefetch ineficaz      | Baixo   | Baixo   | 🟢        | ✅     |
 | Observer único para Reveal     | Médio   | Médio   | 🟡        | ⬚      |
@@ -434,4 +422,4 @@ npx vite-bundle-visualizer
 
 ---
 
-**Última atualização**: 2025-11-25
+**Última atualização**: 2025-11-25 (WebP implementado)

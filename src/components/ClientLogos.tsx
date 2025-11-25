@@ -9,16 +9,16 @@ interface ClientLogo {
 }
 
 const CLIENT_LOGOS: ClientLogo[] = [
-  { name: 'Cliente 1', image: '/clients/1 (3).png' },
-  { name: 'Cliente 2', image: '/clients/1 (4).png' },
-  { name: 'Cliente 3', image: '/clients/1 (5).png' },
-  { name: 'Cliente 4', image: '/clients/1 (6).png' },
-  { name: 'Cliente 5', image: '/clients/1 (7).png' },
-  { name: 'Cliente 6', image: '/clients/1 (8).png' },
-  { name: 'Cliente 7', image: '/clients/1 (9).png' },
-  { name: 'Cliente 8', image: '/clients/1 (10).png' },
-  { name: 'Cliente 9', image: '/clients/1 (11).png' },
-  { name: 'Cliente 10', image: '/clients/1 (12).png' },
+  { name: 'Cliente 1', image: '/clients/1 (3).webp' },
+  { name: 'Cliente 2', image: '/clients/1 (4).webp' },
+  { name: 'Cliente 3', image: '/clients/1 (5).webp' },
+  { name: 'Cliente 4', image: '/clients/1 (6).webp' },
+  { name: 'Cliente 5', image: '/clients/1 (7).webp' },
+  { name: 'Cliente 6', image: '/clients/1 (8).webp' },
+  { name: 'Cliente 7', image: '/clients/1 (9).webp' },
+  { name: 'Cliente 8', image: '/clients/1 (10).webp' },
+  { name: 'Cliente 9', image: '/clients/1 (11).webp' },
+  { name: 'Cliente 10', image: '/clients/1 (12).webp' },
 ];
 
 export const ClientLogos: React.FC = () => {

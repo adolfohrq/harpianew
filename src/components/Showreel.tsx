@@ -73,7 +73,7 @@ export const Showreel = () => {
       <div
         className="absolute inset-0 bg-cover bg-center opacity-50"
         style={{
-          backgroundImage: 'url(/5.jpg)',
+          backgroundImage: 'url(/5.webp)',
         }}
       />
 

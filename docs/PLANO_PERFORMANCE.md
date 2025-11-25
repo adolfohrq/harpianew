@@ -110,18 +110,21 @@ public/fonts/silk-serif/
 
 ---
 
-### 2. 🖼️ Converter Imagens para WebP (Opcional)
+### 2. ✅ Converter Imagens para WebP
 
-**Por que você**: Requer acesso às imagens originais e ferramenta de conversão.
+**Status**: CONCLUÍDO
 
-**Passos**:
+**Imagens convertidas**:
 
-1. Identifique as imagens em `public/` (JPG, PNG)
-2. Use https://squoosh.app/ ou `cwebp` para converter
-3. Salve com mesmo nome mas extensão `.webp`
-4. Mantenha os originais como fallback
+- `/3.webp` (CTASection)
+- `/5.webp` (Showreel)
+- `/clients/1 (3-12).webp` (10 logos de clientes)
 
-**Tempo**: ~20-30 min (dependendo da quantidade de imagens)
+**Referências atualizadas**:
+
+- `CTASection.tsx`: `/3.jpeg` → `/3.webp`
+- `Showreel.tsx`: `/5.jpg` → `/5.webp`
+- `ClientLogos.tsx`: `.png` → `.webp`
 
 ---
 
@@ -209,9 +212,16 @@ location ~* \.[a-f0-9]{8}\.(js|css)$ {
 └─────────────────────────────────────────────────────────────┘
                             ↓
 ┌─────────────────────────────────────────────────────────────┐
-│  FASE 4 - Você faz (opcional)                               │
+│  FASE 4 - Imagens ✅ CONCLUÍDA                              │
 ├─────────────────────────────────────────────────────────────┤
-│  1. Converter imagens para WebP                             │
+│  ✅ 1. Converter imagens para WebP                          │
+│  ✅ 2. Atualizar referências no código                      │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│  FASE 5 - Você faz (opcional)                               │
+├─────────────────────────────────────────────────────────────┤
+│  1. Remover imagens não utilizadas                          │
 │  2. Configurar servidor                                     │
 │  3. Testar performance                                      │
 └─────────────────────────────────────────────────────────────┘
@@ -237,6 +247,7 @@ Para executar as tarefas do Claude, basta dizer:
 | Métrica         | Antes (est.) | Depois (est.) | Melhoria |
 | --------------- | ------------ | ------------- | -------- |
 | Tamanho fontes  | ~800KB       | ~300KB        | -60%     |
+| Tamanho imagens | ~2MB         | ~800KB        | -60%     |
 | Bundle JS       | ~500KB       | ~350KB        | -30%     |
 | LCP             | 2.5s+        | ~1.5s         | -40%     |
 | Flash de estilo | Sim          | Não           | 100%     |
@@ -283,4 +294,23 @@ Removendo fontes não utilizadas: **~400-500KB** de economia no carregamento ini
 ---
 
 **Criado em**: 2025-11-25
-**Atualizado em**: 2025-11-25 (Fase 1 concluída)
+**Atualizado em**: 2025-11-25 (Fase 4 concluída - WebP)
+
+---
+
+## Imagens Não Utilizadas (podem ser removidas)
+
+Após análise do código, as seguintes imagens em `/public` não são referenciadas:
+
+| Arquivo              | Status                               |
+| -------------------- | ------------------------------------ |
+| `teste.png`          | ❌ Não utilizada                     |
+| `4.jpeg`             | ❌ Não utilizada                     |
+| `5.jpeg`             | ❌ Duplicata (código usa 5.webp)     |
+| `6.jpg`              | ❌ Não utilizada                     |
+| `3.jpeg`             | ❌ Duplicata (código usa 3.webp)     |
+| `5.jpg`              | ❌ Duplicata (código usa 5.webp)     |
+| `clients/1 (1).webp` | ❌ Não utilizada (lista começa no 3) |
+| `clients/1 (2).webp` | ❌ Não utilizada (lista começa no 3) |
+
+**Economia estimada**: ~500KB removendo arquivos não utilizados.
