@@ -62,15 +62,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-[55vh] flex items-center justify-center">
-        <div className="max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 flex items-center justify-center pt-28 pb-12 sm:pt-32 sm:pb-16 md:py-32 md:min-h-[50vh]">
+        <div className="max-w-5xl mx-auto px-5 sm:px-6 text-center">
           {/* Breadcrumb */}
           {breadcrumb && breadcrumb.length > 0 && (
             <Reveal>
               <nav aria-label="Breadcrumb" className="flex justify-center mb-8">
-                <ol className="flex items-center gap-2 text-xs md:text-sm">
+                <ol className="flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm">
                   {breadcrumb.map((item, index) => (
-                    <li key={index} className="flex items-center gap-2">
+                    <li key={index} className="flex items-center gap-1.5 sm:gap-2">
                       {item.href ? (
                         <Link
                           to={item.href}
@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                         <span className="text-white/70">{item.label}</span>
                       )}
                       {index < breadcrumb.length - 1 && (
-                        <ChevronRight size={14} className="text-white/20" />
+                        <ChevronRight size={12} className="sm:w-3.5 sm:h-3.5 text-white/20" />
                       )}
                     </li>
                   ))}
@@ -94,9 +94,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Subtitle */}
           {subtitle && (
             <Reveal>
-              <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-5">
                 <GradientLine direction="right" />
-                <span className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/50 font-medium">
+                <span className="text-[10px] sm:text-xs md:text-sm tracking-[0.25em] sm:tracking-[0.3em] uppercase text-white/50 font-medium">
                   {subtitle}
                 </span>
                 <GradientLine direction="left" />
@@ -106,7 +106,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Title */}
           <Reveal delay={0.1}>
-            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[0.95] mb-8">
+            <h1 className="font-serif text-[1.75rem] sm:text-4xl md:text-5xl lg:text-6xl leading-tight sm:leading-[0.95] mb-4 sm:mb-6">
               {title}
             </h1>
           </Reveal>
@@ -114,7 +114,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* Description */}
           {description && (
             <Reveal delay={0.2}>
-              <p className="text-white/80 text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto">
+              <p className="text-white/60 sm:text-white/70 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed max-w-md sm:max-w-xl md:max-w-2xl mx-auto">
                 {description}
               </p>
             </Reveal>
@@ -123,12 +123,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {/* CTA Buttons */}
           {cta && cta.length > 0 && (
             <Reveal delay={0.3}>
-              <div className="flex flex-wrap gap-4 justify-center mt-10">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mt-8 sm:mt-10 px-4 sm:px-0">
                 {cta.map((button, index) => (
                   <Link
                     key={index}
                     to={button.href}
-                    className={`group inline-flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-[0.15em] font-medium transition-all duration-300 ${
+                    className={`group inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3.5 sm:py-4 text-xs sm:text-sm uppercase tracking-[0.12em] sm:tracking-[0.15em] font-medium transition-all duration-300 ${
                       button.variant === 'secondary'
                         ? 'bg-transparent border border-white/20 text-white/80 hover:bg-white/5 hover:border-white/40 hover:text-white'
                         : 'bg-white text-harpia-black hover:bg-harpia-white hover:shadow-lg hover:shadow-white/10'
@@ -136,8 +136,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   >
                     {button.label}
                     <ArrowRight
-                      size={16}
-                      className="group-hover:translate-x-1 transition-transform duration-300"
+                      size={14}
+                      className="sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-300"
                     />
                   </Link>
                 ))}
