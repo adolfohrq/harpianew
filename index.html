@@ -5,8 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Harpia Agência | Enxergue Mais Longe</title>
     <link rel="icon" type="image/svg+xml" href="/Harpia-01.svg" />
-    <!-- Preconnect to image CDN for faster loading -->
+
+    <!-- Preconnect to external resources for faster loading -->
     <link rel="preconnect" href="https://picsum.photos" />
+    <link rel="dns-prefetch" href="https://picsum.photos" />
+
+    <!-- Preload critical fonts for faster text rendering -->
+    <link
+      rel="preload"
+      href="/fonts/silk-serif/Silk Serif Bold.otf"
+      as="font"
+      type="font/otf"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/dosis/Dosis-Regular.otf"
+      as="font"
+      type="font/otf"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/dosis/Dosis-Medium.otf"
+      as="font"
+      type="font/otf"
+      crossorigin="anonymous"
+    />
+
+    <!-- Preload logo for faster LCP -->
+    <link rel="preload" href="/harpia-logo.png" as="image" />
+
+    <!-- Prefetch likely next pages for faster navigation -->
+    <link rel="prefetch" href="/servicos" />
+    <link rel="prefetch" href="/portfolio" />
+    <link rel="prefetch" href="/contato" />
+
     <meta
       name="description"
       content="Harpia Agência - Fotografia, Branding e Marketing Digital com visão estratégica. Enxergue mais longe."

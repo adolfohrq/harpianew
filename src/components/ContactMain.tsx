@@ -12,6 +12,7 @@ import {
   Award,
 } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
 
 const SERVICES = [
   { id: 'branding', label: 'Branding & Identidade', icon: Sparkles },
@@ -50,7 +51,6 @@ export const ContactMain: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log('Form submitted:', formData);
     setIsSubmitting(false);
     setSubmitted(true);
 
@@ -85,11 +85,11 @@ export const ContactMain: React.FC = () => {
         <Reveal>
           <div className="text-center mb-16 md:mb-24">
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-px bg-linear-to-r from-transparent to-black/20" />
+              <GradientLine direction="right" variant="dark" size="lg" />
               <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-500 font-medium">
                 Fale Conosco
               </span>
-              <div className="w-16 h-px bg-linear-to-l from-transparent to-black/20" />
+              <GradientLine direction="left" variant="dark" size="lg" />
             </div>
 
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-harpia-black mb-6 leading-tight">
@@ -114,7 +114,7 @@ export const ContactMain: React.FC = () => {
               <div className="space-y-4">
                 {/* Email */}
                 <a
-                  href="mailto:harpiagencia@gmail.com"
+                  href="mailto:contato@agenciaharpia.com.br"
                   className="group block p-6 bg-gray-50 border border-gray-100 rounded-sm hover:bg-white hover:border-gray-200 hover:shadow-lg transition-all duration-500"
                 >
                   <div className="flex items-center gap-4">
@@ -126,7 +126,7 @@ export const ContactMain: React.FC = () => {
                         Email
                       </span>
                       <span className="text-harpia-black font-medium text-lg group-hover:text-gray-700 transition-colors">
-                        harpiagencia@gmail.com
+                        contato@agenciaharpia.com.br
                       </span>
                     </div>
                   </div>
@@ -134,7 +134,7 @@ export const ContactMain: React.FC = () => {
 
                 {/* Phone */}
                 <a
-                  href="tel:+5511999999999"
+                  href="tel:+5548999661913"
                   className="group block p-6 bg-gray-50 border border-gray-100 rounded-sm hover:bg-white hover:border-gray-200 hover:shadow-lg transition-all duration-500"
                 >
                   <div className="flex items-center gap-4">
@@ -146,7 +146,7 @@ export const ContactMain: React.FC = () => {
                         Telefone
                       </span>
                       <span className="text-harpia-black font-medium text-lg group-hover:text-gray-700 transition-colors">
-                        (11) 99999-9999
+                        (48) 99966-1913
                       </span>
                     </div>
                   </div>
@@ -163,7 +163,7 @@ export const ContactMain: React.FC = () => {
                         Localização
                       </span>
                       <span className="text-harpia-black font-medium text-lg">
-                        Brasil - Atendimento Global
+                        Tubarão, SC - Brasil
                       </span>
                     </div>
                   </div>

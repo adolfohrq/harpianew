@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { Navbar, Footer, Preloader } from './components';
+import { PageSkeleton } from './components/ui';
 // Lazy load pages for better performance
 const {
   Home,
@@ -55,19 +56,19 @@ const App: React.FC = () => {
           ></div>
         </div>
 
+        {/* Skip Link para acessibilidade */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-white focus:text-harpia-black focus:rounded-md focus:outline-none"
+        >
+          Pular para o conteúdo principal
+        </a>
+
         <Navbar links={NAV_LINKS} />
 
         {/* Main Content */}
-        <main className="relative">
-          <Suspense
-            fallback={
-              <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-pulse text-white text-xl tracking-widest">
-                  Carregando...
-                </div>
-              </div>
-            }
-          >
+        <main id="main-content" role="main" aria-label="Conteúdo principal" className="relative">
+          <Suspense fallback={<PageSkeleton />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/servicos" element={<Services />} />

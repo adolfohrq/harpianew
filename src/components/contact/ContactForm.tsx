@@ -267,7 +267,6 @@ export const ContactForm: React.FC = () => {
 
     // Simulate API call
     setTimeout(() => {
-      console.log('Form submitted:', formData);
       setIsSubmitting(false);
       setSubmitStatus('success');
 

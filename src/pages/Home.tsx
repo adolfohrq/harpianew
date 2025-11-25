@@ -8,11 +8,14 @@ import { WhyHarpia } from '../components/WhyHarpia';
 import { ClientLogos } from '../components/ClientLogos';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 import { useMetaTags } from '../hooks/useMetaTags';
+import { useStructuredData, HARPIA_ORGANIZATION } from '../hooks/useStructuredData';
 import { Hero } from '../components/Hero';
 import { Manifesto } from '../components/Manifesto';
 import { ServicesHub } from '../components/ServicesHub';
 import { PortfolioPreview } from '../components/PortfolioPreview';
 import { CTASection } from '../components/CTASection';
+
+const BASE_URL = 'https://agenciaharpia.com.br';
 
 export const Home: React.FC = () => {
   useMetaTags({
@@ -22,8 +25,21 @@ export const Home: React.FC = () => {
     keywords: 'agência marketing, design digital, branding, estratégia, digital agency',
     ogTitle: 'Harpia - Agência de Marketing Premium',
     ogDescription: 'Conectando visões. Voando mais alto. Enxergando mais longe.',
-    canonical: window.location.origin,
+    ogImage: '/og/home.jpg',
+    canonical: BASE_URL,
   });
+
+  // Structured Data para a página inicial
+  useStructuredData([
+    HARPIA_ORGANIZATION,
+    {
+      type: 'WebPage',
+      name: 'Harpia Agência - Home',
+      description:
+        'Agência de marketing digital especializada em fotografia, branding e estratégias digitais.',
+      url: BASE_URL,
+    },
+  ]);
 
   return (
     <div className="w-full relative">

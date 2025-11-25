@@ -1,5 +1,6 @@
 import React from 'react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
 
 const MILESTONES = [
   {
@@ -52,11 +53,11 @@ export const AboutTimeline: React.FC = () => {
         <Reveal>
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-12 h-px bg-linear-to-r from-transparent to-black/20" />
+              <GradientLine direction="right" variant="dark" />
               <span className="text-xs uppercase tracking-[0.3em] text-gray-500 font-medium">
                 Trajetória
               </span>
-              <div className="w-12 h-px bg-linear-to-l from-transparent to-black/20" />
+              <GradientLine direction="left" variant="dark" />
             </div>
             <h2 className="text-4xl md:text-6xl font-serif text-harpia-black mb-6 leading-tight">
               Uma história de <span className="italic text-gray-400">crescimento</span> e

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
 
 export const Manifesto: React.FC = () => {
   return (
@@ -30,11 +31,11 @@ export const Manifesto: React.FC = () => {
           <div className="flex flex-col items-center text-center">
             {/* Label */}
             <div className="flex items-center gap-4 mb-12 md:mb-16">
-              <div className="w-12 h-px bg-linear-to-r from-transparent to-white/30" />
+              <GradientLine direction="right" />
               <span className="font-sans text-[10px] md:text-xs font-medium uppercase tracking-[0.4em] text-white/40">
                 Manifesto
               </span>
-              <div className="w-12 h-px bg-linear-to-l from-transparent to-white/30" />
+              <GradientLine direction="left" />
             </div>
 
             {/* Quote Block */}

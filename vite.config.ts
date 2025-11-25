@@ -1,23 +1,36 @@
 import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { execSync } from 'child_process';
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
+/**
+ * Plugin para gerar sitemap.xml e robots.txt após o build
+ * Lê configuração de src/config/seo.config.ts automaticamente
+ */
+function sitemapPlugin() {
   return {
-    server: {
-      port: 5020,
-      host: '0.0.0.0',
-    },
-    plugins: [react()],
-    define: {
-      'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-    },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-      },
+    name: 'vite-plugin-sitemap',
+    closeBundle() {
+      try {
+        execSync('node scripts/build-sitemap.js', { stdio: 'inherit' });
+      } catch {
+        console.error(
+          '⚠️ Erro ao gerar sitemap. Execute manualmente: node scripts/build-sitemap.js'
+        );
+      }
     },
   };
+}
+
+export default defineConfig({
+  server: {
+    port: 5020,
+    host: '0.0.0.0',
+  },
+  plugins: [react(), sitemapPlugin()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
 });

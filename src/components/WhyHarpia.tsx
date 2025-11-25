@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Eye, Target, Zap, Users } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
 
 interface Differential {
   icon: React.ReactNode;
@@ -71,11 +72,11 @@ export const WhyHarpia: React.FC = () => {
         <Reveal>
           <div className="text-center mb-16 md:mb-20">
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-px bg-linear-to-r from-transparent to-black/20" />
+              <GradientLine direction="right" variant="dark" size="lg" />
               <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-500 font-medium">
                 Diferenciais
               </span>
-              <div className="w-16 h-px bg-linear-to-l from-transparent to-black/20" />
+              <GradientLine direction="left" variant="dark" size="lg" />
             </div>
 
             <h2 className="text-harpia-black mb-6">
@@ -161,13 +162,13 @@ export const WhyHarpia: React.FC = () => {
         {/* Footer */}
         <Reveal delay={0.4}>
           <div className="mt-12 md:mt-16 flex items-center justify-center gap-4 text-gray-400">
-            <div className="w-12 h-px bg-linear-to-r from-transparent to-black/10" />
+            <GradientLine direction="right" variant="subtle" />
             <span className="text-xs uppercase tracking-[0.2em]">
               {DIFFERENTIALS.length} Pilares
             </span>
             <div className="w-8 h-px bg-black/10" />
             <span className="text-xs uppercase tracking-[0.2em]">Nossa Essência</span>
-            <div className="w-12 h-px bg-linear-to-l from-transparent to-black/10" />
+            <GradientLine direction="left" variant="subtle" />
           </div>
         </Reveal>
       </div>

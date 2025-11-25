@@ -13,19 +13,19 @@ const contactInfo: ContactInfoItem[] = [
   {
     icon: <Mail className="w-5 h-5" />,
     label: 'Email',
-    value: 'harpiagencia@gmail.com',
-    href: 'mailto:harpiagencia@gmail.com',
+    value: 'contato@agenciaharpia.com.br',
+    href: 'mailto:contato@agenciaharpia.com.br',
   },
   {
     icon: <Phone className="w-5 h-5" />,
     label: 'Telefone',
-    value: '(11) 99999-9999',
-    href: 'tel:+5511999999999',
+    value: '(48) 99966-1913',
+    href: 'tel:+5548999661913',
   },
   {
     icon: <MapPin className="w-5 h-5" />,
     label: 'Localização',
-    value: 'Brasil - Atendimento Global',
+    value: 'Tubarão, SC - Brasil',
     href: null,
   },
 ];

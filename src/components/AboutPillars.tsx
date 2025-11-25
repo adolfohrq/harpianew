@@ -1,6 +1,7 @@
 import React from 'react';
 import { Target, Zap, Users, Rocket } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
 
 const PILLARS = [
   {
@@ -53,11 +54,11 @@ export const AboutPillars: React.FC = () => {
         <Reveal>
           <div className="text-center mb-20">
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-12 h-px bg-linear-to-r from-transparent to-white/30" />
+              <GradientLine direction="right" />
               <span className="text-xs uppercase tracking-[0.3em] text-white/50 font-medium">
                 O que nos torna únicos
               </span>
-              <div className="w-12 h-px bg-linear-to-l from-transparent to-white/30" />
+              <GradientLine direction="left" />
             </div>
             <h2 className="text-4xl md:text-6xl font-serif text-white mb-6 leading-tight">
               Os 4 Pilares do <span className="italic text-white/40">Voo</span>

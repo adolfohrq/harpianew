@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { Reveal } from '../Reveal';
+import { GradientLine } from './GradientLine';
 
 interface BreadcrumbItem {
   label: string;
@@ -94,11 +95,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           {subtitle && (
             <Reveal>
               <div className="flex items-center justify-center gap-4 mb-6">
-                <div className="w-12 h-px bg-linear-to-r from-transparent to-white/30" />
+                <GradientLine direction="right" />
                 <span className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/50 font-medium">
                   {subtitle}
                 </span>
-                <div className="w-12 h-px bg-linear-to-l from-transparent to-white/30" />
+                <GradientLine direction="left" />
               </div>
             </Reveal>
           )}

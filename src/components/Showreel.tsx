@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
 
 const VIDEO_SRC = '/video.mp4';
 
@@ -91,11 +92,11 @@ export const Showreel = () => {
         <div className="text-center mb-16 md:mb-20">
           <Reveal>
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-px bg-linear-to-r from-transparent to-white/30" />
+              <GradientLine direction="right" size="lg" />
               <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-white/40 font-medium">
                 Showreel 2024
               </span>
-              <div className="w-16 h-px bg-linear-to-l from-transparent to-white/30" />
+              <GradientLine direction="left" size="lg" />
             </div>
           </Reveal>
 

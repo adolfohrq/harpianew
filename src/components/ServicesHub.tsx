@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { SERVICES } from '../data';
 import { Reveal } from './Reveal';
-import { OptimizedImage } from './ui';
+import { OptimizedImage, GradientLine } from './ui';
 import type { ServiceItem } from '../types';
 
 interface ServiceCardProps {
@@ -135,11 +135,11 @@ export const ServicesHub: React.FC = () => {
         <Reveal>
           <div className="text-center mb-16 md:mb-20">
             <div className="flex items-center justify-center gap-4 mb-8">
-              <div className="w-16 h-px bg-linear-to-r from-transparent to-black/20" />
+              <GradientLine direction="right" variant="dark" size="lg" />
               <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-gray-500 font-medium">
                 O que fazemos
               </span>
-              <div className="w-16 h-px bg-linear-to-l from-transparent to-black/20" />
+              <GradientLine direction="left" variant="dark" size="lg" />
             </div>
 
             <h2 className="text-harpia-black mb-6">

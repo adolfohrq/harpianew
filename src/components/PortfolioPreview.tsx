@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { PROJECTS, SERVICES } from '../data';
 import { Reveal } from './Reveal';
-import { OptimizedImage } from './ui/OptimizedImage';
+import { OptimizedImage, GradientLine } from './ui';
 
 // Categorias baseadas nos serviços
 const CATEGORIES = ['Todos', ...SERVICES.map((s) => s.title)];
@@ -59,11 +59,11 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
           <Reveal>
             <div className="text-center mb-12 md:mb-16">
               <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="w-16 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
+                <GradientLine direction="right" size="lg" />
                 <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-white/50 font-medium">
                   Portfolio
                 </span>
-                <div className="w-16 h-px bg-linear-to-l from-transparent via-white/20 to-transparent" />
+                <GradientLine direction="left" size="lg" />
               </div>
 
               <h2 className="font-serif text-4xl md:text-6xl text-white mb-6 leading-[1.1]">

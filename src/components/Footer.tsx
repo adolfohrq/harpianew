@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Facebook, Linkedin, Mail, ArrowRight, Sparkles } from 'lucide-react';
+import { Instagram, Mail, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NAV_LINKS } from '../data';
 
@@ -9,23 +9,17 @@ export const Footer: React.FC = () => {
   const socialLinks = [
     {
       name: 'Instagram',
-      url: 'https://instagram.com/harpia',
+      url: 'https://www.instagram.com/harpia.agencia',
       icon: Instagram,
-    },
-    {
-      name: 'LinkedIn',
-      url: 'https://linkedin.com/company/harpia',
-      icon: Linkedin,
-    },
-    {
-      name: 'Facebook',
-      url: 'https://facebook.com/harpia',
-      icon: Facebook,
     },
   ];
 
   return (
-    <footer className="relative bg-harpia-black overflow-hidden">
+    <footer
+      role="contentinfo"
+      aria-label="Rodapé do site"
+      className="relative bg-harpia-black overflow-hidden"
+    >
       {/* Ambient Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Radial gradient glow */}
@@ -103,7 +97,7 @@ export const Footer: React.FC = () => {
 
               {/* Email CTA */}
               <a
-                href="mailto:harpiagencia@gmail.com"
+                href="mailto:contato@agenciaharpia.com.br"
                 className="group inline-flex items-center gap-3 px-5 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full transition-all duration-300"
               >
                 <Mail
@@ -111,7 +105,7 @@ export const Footer: React.FC = () => {
                   className="text-gray-400 group-hover:text-harpia-white transition-colors"
                 />
                 <span className="font-sans text-xs text-gray-400 group-hover:text-harpia-white">
-                  harpiagencia@gmail.com
+                  contato@agenciaharpia.com.br
                 </span>
               </a>
             </div>

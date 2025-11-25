@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Reveal } from './Reveal';
-import { OptimizedImage } from './ui/OptimizedImage';
+import { OptimizedImage, GradientLine } from './ui';
 
 export const CTASection: React.FC = () => {
   return (
@@ -28,11 +28,11 @@ export const CTASection: React.FC = () => {
         <Reveal>
           {/* Subtitle */}
           <div className="mb-6 flex items-center justify-center gap-3">
-            <div className="h-px w-12 bg-linear-to-r from-transparent to-white/40"></div>
+            <GradientLine direction="right" />
             <p className="font-sans text-xs md:text-sm uppercase tracking-[0.3em] text-harpia-white/60">
               Pronto para decolar?
             </p>
-            <div className="h-px w-12 bg-linear-to-l from-transparent to-white/40"></div>
+            <GradientLine direction="left" />
           </div>
 
           {/* Main heading */}

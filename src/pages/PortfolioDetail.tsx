@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import {
   ArrowUpRight,
@@ -20,6 +20,13 @@ export const PortfolioDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  // Refs para focus trap no lightbox
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const prevButtonRef = useRef<HTMLButtonElement>(null);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
 
   const projectIndex = useMemo(() => {
     return PROJECTS.findIndex((p) => p.slug === slug);
@@ -55,17 +62,17 @@ export const PortfolioDetail: React.FC = () => {
 
   const closeLightbox = () => setLightboxOpen(false);
 
-  const goToPrev = () => {
-    const len = project?.gallery?.length ?? 0;
-    if (len === 0) return;
-    setLightboxIndex((i) => (i <= 0 ? len - 1 : i - 1));
-  };
+  const galleryLength = project?.gallery?.length ?? 0;
 
-  const goToNext = () => {
-    const len = project?.gallery?.length ?? 0;
-    if (len === 0) return;
-    setLightboxIndex((i) => (i >= len - 1 ? 0 : i + 1));
-  };
+  const goToPrev = useCallback(() => {
+    if (galleryLength === 0) return;
+    setLightboxIndex((i) => (i <= 0 ? galleryLength - 1 : i - 1));
+  }, [galleryLength]);
+
+  const goToNext = useCallback(() => {
+    if (galleryLength === 0) return;
+    setLightboxIndex((i) => (i >= galleryLength - 1 ? 0 : i + 1));
+  }, [galleryLength]);
 
   // Handle body overflow for lightbox
   useEffect(() => {
@@ -85,6 +92,62 @@ export const PortfolioDetail: React.FC = () => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxOpen, goToPrev, goToNext]);
+
+  // Focus trap para acessibilidade do lightbox
+  useEffect(() => {
+    if (!lightboxOpen) {
+      // Restaura foco ao elemento anterior quando fecha
+      if (previousActiveElement.current) {
+        previousActiveElement.current.focus();
+        previousActiveElement.current = null;
+      }
+      return;
+    }
+
+    // Salva o elemento ativo atual antes de abrir
+    previousActiveElement.current = document.activeElement as HTMLElement;
+
+    // Move foco para o botão de fechar quando abre
+    const focusTimer = setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+
+    // Focus trap: impede Tab de sair do lightbox
+    const handleTabKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = [
+        closeButtonRef.current,
+        prevButtonRef.current,
+        nextButtonRef.current,
+      ].filter(Boolean) as HTMLElement[];
+
+      if (focusableElements.length === 0) return;
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        // Shift+Tab: vai do primeiro para o último
+        if (document.activeElement === firstElement) {
+          e.preventDefault();
+          lastElement.focus();
+        }
+      } else {
+        // Tab: vai do último para o primeiro
+        if (document.activeElement === lastElement) {
+          e.preventDefault();
+          firstElement.focus();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleTabKey);
+    return () => {
+      clearTimeout(focusTimer);
+      window.removeEventListener('keydown', handleTabKey);
+    };
   }, [lightboxOpen]);
 
   if (!project) {
@@ -375,15 +438,22 @@ export const PortfolioDetail: React.FC = () => {
 
       {/* Lightbox */}
       {lightboxOpen && project.gallery && (
-        <div className="fixed inset-0 z-[9999] bg-harpia-black/95 backdrop-blur-sm">
+        <div
+          ref={lightboxRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Galeria de imagens - ${project.title}`}
+          className="fixed inset-0 z-[9999] bg-harpia-black/95 backdrop-blur-sm"
+        >
           {/* Backdrop click to close */}
           <div className="absolute inset-0" onClick={closeLightbox} />
 
           {/* Close button */}
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={closeLightbox}
-            className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
+            className="absolute top-6 right-6 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
             aria-label="Fechar galeria"
           >
             <X size={24} />
@@ -391,9 +461,10 @@ export const PortfolioDetail: React.FC = () => {
 
           {/* Navigation - Previous */}
           <button
+            ref={prevButtonRef}
             type="button"
             onClick={goToPrev}
-            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
+            className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
             aria-label="Imagem anterior"
           >
             <ChevronLeft size={24} />
@@ -401,9 +472,10 @@ export const PortfolioDetail: React.FC = () => {
 
           {/* Navigation - Next */}
           <button
+            ref={nextButtonRef}
             type="button"
             onClick={goToNext}
-            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors"
+            className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
             aria-label="Próxima imagem"
           >
             <ChevronRight size={24} />

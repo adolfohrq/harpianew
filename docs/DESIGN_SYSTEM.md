@@ -151,11 +151,37 @@ Os estilos em `@layer base` têm baixa especificidade. Classes Tailwind aplicada
 
 ### Containers
 
-```css
-/* Padrão de container */
-.max-w-7xl mx-auto px-6
+O projeto usa um componente `<Container />` reutilizável para consistência de layout:
 
-/* Variantes */
+```tsx
+import { Container } from '@/components/ui';
+
+// Uso básico (div com max-w-7xl mx-auto px-6 relative z-10)
+<Container>
+  <h1>Conteúdo</h1>
+</Container>
+
+// Com elemento semântico diferente
+<Container as="section" className="py-20">
+  <h2>Seção</h2>
+</Container>
+
+// Com classes adicionais
+<Container className="bg-white py-32">
+  <p>Conteúdo com fundo branco</p>
+</Container>
+```
+
+**Props do Container:**
+
+- `children`: Conteúdo do container
+- `as`: Elemento HTML (`'div'` | `'section'` | `'article'` | `'main'` | `'header'` | `'footer'`) - default: `'div'`
+- `className`: Classes adicionais
+
+**Variantes de largura** (aplicar via className):
+
+```css
+.max-w-7xl  /* Padrão - seções principais */
 .max-w-5xl  /* Conteúdo narrativo */
 .max-w-4xl  /* CTAs e quotes */
 .max-w-2xl  /* Descrições curtas */
@@ -243,6 +269,103 @@ aspect-16/10        /* 16:10 - Portfolio */
   loading="lazy"
 />
 ```
+
+### `<GradientLine>`
+
+**Propósito**: Linha decorativa com gradiente, usada para separadores e labels de seção.
+
+**Localização**: `src/components/ui/GradientLine.tsx`
+
+**Props**:
+
+- `direction`: `'left'` | `'right'` (default: `'right'`)
+- `variant`: `'light'` | `'dark'` | `'subtle'` (default: `'light'`)
+- `size`: `'sm'` | `'md'` | `'lg'` | `'xl'` (default: `'md'`)
+- `className`: Classes adicionais (opcional)
+
+**Variantes**:
+
+| Variant  | Cor        | Uso                  |
+| -------- | ---------- | -------------------- |
+| `light`  | `white/30` | Fundos escuros       |
+| `dark`   | `black/20` | Fundos claros        |
+| `subtle` | `black/10` | Detalhes muito sutis |
+
+**Tamanhos**:
+
+| Size | Largura |
+| ---- | ------- |
+| `sm` | `w-8`   |
+| `md` | `w-12`  |
+| `lg` | `w-16`  |
+| `xl` | `w-24`  |
+
+**Uso comum (par de linhas)**:
+
+```tsx
+import { GradientLine } from '@/components/ui';
+
+// Padrão mais comum - labels de seção
+<div className="flex items-center justify-center gap-4">
+  <GradientLine direction="right" />
+  <span className="text-xs uppercase tracking-[0.3em]">Label</span>
+  <GradientLine direction="left" />
+</div>
+
+// Em fundo claro
+<div className="flex items-center gap-4">
+  <GradientLine direction="right" variant="dark" size="lg" />
+  <span>Título</span>
+  <GradientLine direction="left" variant="dark" size="lg" />
+</div>
+```
+
+### `<Skeleton>` / `<PageSkeleton>` / `<CardSkeleton>`
+
+**Propósito**: Componentes de loading placeholder para melhorar a percepção de velocidade.
+
+**Localização**: `src/components/ui/Skeleton.tsx`
+
+**Componentes disponíveis**:
+
+| Componente       | Descrição                                        |
+| ---------------- | ------------------------------------------------ |
+| `<Skeleton>`     | Elemento básico de skeleton                      |
+| `<PageSkeleton>` | Skeleton para página inteira (usado no Suspense) |
+| `<CardSkeleton>` | Skeleton para cards individuais                  |
+
+**Props do Skeleton**:
+
+- `variant`: `'text'` | `'circular'` | `'rectangular'` (default: `'rectangular'`)
+- `width`: string ou number (opcional)
+- `height`: string ou number (opcional)
+- `animation`: `'pulse'` | `'wave'` | `'none'` (default: `'pulse'`)
+- `className`: Classes adicionais (opcional)
+
+**Props do PageSkeleton**:
+
+- `variant`: `'default'` | `'portfolio'` | `'services'` (default: `'default'`)
+
+**Uso**:
+
+```tsx
+import { Skeleton, PageSkeleton, CardSkeleton } from '@/components/ui';
+
+// Skeleton básico
+<Skeleton variant="text" width="60%" height={24} />
+<Skeleton variant="circular" width={48} height={48} />
+<Skeleton className="w-full aspect-video" />
+
+// Skeleton de página (usado no App.tsx)
+<Suspense fallback={<PageSkeleton />}>
+  <Routes>...</Routes>
+</Suspense>
+
+// Skeleton de card
+<CardSkeleton className="w-full" />
+```
+
+---
 
 ### `<SectionHeader>`
 

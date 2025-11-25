@@ -1,14 +1,40 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
 import { Reveal } from './Reveal';
+import { GradientLine } from './ui';
+
+// Função para obter preferência inicial (evita setState no effect)
+const getInitialMotionPreference = () => {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+};
 
 export const Hero: React.FC = () => {
   const parallaxRef = useRef<HTMLVideoElement>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(getInitialMotionPreference);
 
+  // Escuta mudanças na preferência de movimento reduzido
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Parallax com throttle e respeito a prefers-reduced-motion
+  useEffect(() => {
+    // Skip parallax se usuário prefere movimento reduzido
+    if (prefersReducedMotion) return;
+
     let rafId: number;
     let isInView = false;
+    let lastScrollTime = 0;
+    const THROTTLE_MS = 16; // ~60fps
 
     const intersectionObserver = new IntersectionObserver(
       (entries) => {
@@ -22,6 +48,12 @@ export const Hero: React.FC = () => {
     }
 
     const handleScroll = () => {
+      const now = Date.now();
+
+      // Throttle: só executa a cada 16ms
+      if (now - lastScrollTime < THROTTLE_MS) return;
+      lastScrollTime = now;
+
       if (isInView && parallaxRef.current) {
         const scrollPosition = window.scrollY;
         rafId = requestAnimationFrame(() => {
@@ -40,7 +72,7 @@ export const Hero: React.FC = () => {
       cancelAnimationFrame(rafId);
       intersectionObserver.disconnect();
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-harpia-black">
@@ -98,11 +130,11 @@ export const Hero: React.FC = () => {
         {/* Badge */}
         <Reveal>
           <div className="flex items-center justify-center gap-3 mb-8">
-            <div className="w-12 h-px bg-linear-to-r from-transparent to-white/30" />
+            <GradientLine direction="right" />
             <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/40 font-medium">
               Agência de Marketing Digital
             </span>
-            <div className="w-12 h-px bg-linear-to-l from-transparent to-white/30" />
+            <GradientLine direction="left" />
           </div>
         </Reveal>
 
