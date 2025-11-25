@@ -1,364 +1,261 @@
-import { useState, useEffect, useRef } from 'react';
-import { X, Play, Film, Volume2, VolumeX, Sparkles } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
 import { Reveal } from './Reveal';
 
-const VIDEO_ID = 'TvZY7BofuX0';
+const VIDEO_SRC = '/video.mp4';
 
 export const Showreel = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpening, setIsOpening] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const cardRef = useRef<HTMLDivElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [showControls, setShowControls] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleOpen = () => {
-    setIsOpening(true);
-    setTimeout(() => {
-      setIsOpen(true);
-    }, 400);
-  };
-
-  const handleClose = () => {
-    setIsOpen(false);
-    setTimeout(() => {
-      setIsOpening(false);
-    }, 300);
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsMuted(!isMuted);
-    if (iframeRef.current) {
-      iframeRef.current.contentWindow?.postMessage(
-        JSON.stringify({
-          event: 'command',
-          func: isMuted ? 'unMute' : 'mute',
-        }),
-        '*'
-      );
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
-    setMousePosition({ x, y });
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const progress = (videoRef.current.currentTime / videoRef.current.duration) * 100;
+      setProgress(progress);
+    }
   };
 
-  const handleMouseLeave = () => {
-    setMousePosition({ x: 0, y: 0 });
+  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const clickPosition = (e.clientX - rect.left) / rect.width;
+      videoRef.current.currentTime = clickPosition * videoRef.current.duration;
+    }
   };
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'unset';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+  const handleFullscreen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (containerRef.current) {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        containerRef.current.requestFullscreen();
+      }
+    }
+  };
 
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
-    };
-    window.addEventListener('keydown', handleEsc);
-    return () => window.removeEventListener('keydown', handleEsc);
-  }, []);
+  const handleVideoEnd = () => {
+    setIsPlaying(false);
+    setProgress(0);
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+    }
+  };
 
   return (
-    <>
-      <section className="py-24 md:py-32 bg-harpia-black border-y border-white/5 relative overflow-hidden">
-        {/* Background Decorative Elements */}
-        <div className="absolute inset-0 pointer-events-none opacity-20">
-          <div
-            className="absolute top-1/3 right-1/3 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-pulse"
-            style={{ animationDuration: '8s' }}
-          />
-          <div
-            className="absolute bottom-1/4 left-1/3 w-[400px] h-[400px] bg-white/5 rounded-full blur-[120px] animate-pulse"
-            style={{ animationDuration: '10s' }}
-          />
+    <section className="py-24 md:py-32 lg:py-40 bg-harpia-black relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-50"
+        style={{
+          backgroundImage: 'url(/5.jpg)',
+        }}
+      />
+
+      {/* Dark Overlay Gradient */}
+      <div className="absolute inset-0 bg-linear-to-br from-harpia-black/30 via-harpia-black/40 to-harpia-black/50 pointer-events-none" />
+
+      {/* Background Elements */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-px h-full bg-linear-to-b from-transparent via-white/5 to-transparent" />
+        <div className="absolute top-0 right-1/4 w-px h-full bg-linear-to-b from-transparent via-white/5 to-transparent" />
+        <div className="absolute top-1/2 left-0 w-full h-px bg-linear-to-r from-transparent via-white/5 to-transparent" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <Reveal>
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="w-16 h-px bg-linear-to-r from-transparent to-white/30" />
+              <span className="text-[10px] md:text-xs tracking-[0.4em] uppercase text-white/40 font-medium">
+                Showreel 2024
+              </span>
+              <div className="w-16 h-px bg-linear-to-l from-transparent to-white/30" />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <h2 className="text-white mb-6">
+              CRIATIVIDADE
+              <br />
+              <span className="italic text-white/40 font-light">em Movimento</span>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.2}>
+            <p className="text-white/60 text-base md:text-lg font-light max-w-2xl mx-auto">
+              Uma jornada visual pelos nossos projetos mais impactantes. Design, estratégia e
+              resultados em cada frame.
+            </p>
+          </Reveal>
         </div>
 
-        {/* Film grain texture */}
-        <div
-          className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay"
-          style={{
-            backgroundImage:
-              "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\")",
-          }}
-        />
+        {/* Video Player */}
+        <Reveal delay={0.3}>
+          <div
+            ref={containerRef}
+            className="relative w-full max-w-5xl mx-auto group"
+            onMouseEnter={() => setShowControls(true)}
+            onMouseLeave={() => isPlaying && setShowControls(false)}
+          >
+            {/* Video Frame */}
+            <div className="relative aspect-video bg-harpia-carbon overflow-hidden rounded-sm border border-white/10">
+              {/* Corner Accents */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-white/20 z-20 pointer-events-none" />
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-white/20 z-20 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-white/20 z-20 pointer-events-none" />
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-white/20 z-20 pointer-events-none" />
 
-        <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
-          {/* Header Cinematográfico */}
-          <div className="mb-16 md:mb-20 text-center">
-            <Reveal>
-              <span className="inline-block font-sans text-xs font-medium uppercase tracking-[0.4em] text-gray-500 mb-8 border border-white/10 px-4 py-2 rounded-full backdrop-blur-sm">
-                Showreel
-              </span>
-            </Reveal>
+              {/* Video */}
+              <video
+                ref={videoRef}
+                src={VIDEO_SRC}
+                muted={isMuted}
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                onTimeUpdate={handleTimeUpdate}
+                onEnded={handleVideoEnd}
+                onClick={togglePlay}
+              />
 
-            <Reveal delay={100}>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-white mb-6 tracking-tight leading-tight">
-                NOSSO TRABALHO
-                <br />
-                <span className="italic text-gray-400 font-light">em Movimento</span>
-              </h2>
-            </Reveal>
-
-            <Reveal delay={200}>
-              <p className="text-gray-400 font-sans text-base md:text-lg leading-relaxed font-light max-w-2xl mx-auto mb-3">
-                45 segundos de pura criatividade. Uma jornada visual pelos nossos projetos mais
-                impactantes de 2024.
-              </p>
-            </Reveal>
-
-            <Reveal delay={300}>
-              <div className="flex items-center justify-center gap-3 text-white/40">
-                <Film className="w-4 h-4" strokeWidth={1.5} />
-                <span className="text-xs uppercase tracking-[0.3em] font-light">
-                  Cinema de Marca
-                </span>
-                <Sparkles className="w-4 h-4" strokeWidth={1.5} />
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Video Card Premium */}
-          <Reveal delay={400}>
-            <div
-              ref={cardRef}
-              className="relative w-full aspect-video md:aspect-21/9 bg-harpia-carbon overflow-hidden group cursor-pointer rounded-sm border border-white/10 hover:border-white/30 transition-all duration-500 hover:shadow-2xl hover:shadow-black/50"
-              onClick={handleOpen}
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                transform: `perspective(1000px) rotateX(${-mousePosition.y * 0.05}deg) rotateY(${mousePosition.x * 0.05}deg)`,
-                transition: 'transform 0.1s ease-out',
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label="Abrir showreel em tela cheia"
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleOpen();
-                }
-              }}
-            >
-              {/* Floating light orb */}
+              {/* Overlay Gradient (fades when playing) */}
               <div
-                className="absolute w-96 h-96 bg-white/5 rounded-full blur-3xl pointer-events-none transition-all duration-300 opacity-0 group-hover:opacity-100"
-                style={{
-                  left: `${50 + mousePosition.x}%`,
-                  top: `${50 + mousePosition.y}%`,
-                  transform: 'translate(-50%, -50%)',
-                }}
+                className={`absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-black/30 transition-opacity duration-500 pointer-events-none ${
+                  isPlaying && !showControls ? 'opacity-0' : 'opacity-100'
+                }`}
               />
 
-              {/* Thumbnail */}
-              <img
-                src={`https://img.youtube.com/vi/${VIDEO_ID}/maxresdefault.jpg`}
-                alt="Harpia Showreel 2024"
-                loading="lazy"
-                decoding="async"
-                width="1920"
-                height="1080"
-                className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.02] brightness-75 group-hover:brightness-90"
-              />
-
-              {/* Vignette */}
-              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-black/50" />
-
-              {/* Scanlines effect */}
+              {/* Center Play Button (shows when paused) */}
               <div
-                className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.05] transition-opacity pointer-events-none"
-                style={{
-                  backgroundImage:
-                    'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.03) 4px)',
-                }}
-              />
+                className={`absolute inset-0 flex items-center justify-center transition-all duration-500 cursor-pointer ${
+                  isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
+                onClick={togglePlay}
+              >
+                <div className="relative group/play">
+                  {/* Pulse ring */}
+                  <div className="absolute inset-0 w-24 h-24 md:w-32 md:h-32 bg-white/10 rounded-full animate-ping opacity-20" />
 
-              {/* Edge glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-white/40 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-white/40 to-transparent" />
-                <div className="absolute top-0 left-0 bottom-0 w-px bg-linear-to-b from-transparent via-white/40 to-transparent" />
-                <div className="absolute top-0 right-0 bottom-0 w-px bg-linear-to-b from-transparent via-white/40 to-transparent" />
+                  {/* Button */}
+                  <div className="relative w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center hover:bg-white/20 hover:border-white/40 transition-all duration-300 hover:scale-105">
+                    <Play
+                      className="w-10 h-10 md:w-14 md:h-14 text-white ml-1"
+                      fill="currentColor"
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Center Play Button */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-6">
-                <div className="relative">
-                  {/* Outer glow ring */}
-                  <div className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 bg-white/10 rounded-full blur-xl group-hover:bg-white/20 transition-all duration-500" />
-
-                  {/* Play button */}
-                  <div className="relative w-20 h-20 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center transform group-hover:scale-110 transition-all duration-500 shadow-2xl">
-                    <Play className="w-8 h-8 md:w-12 md:h-12 text-black ml-1" fill="currentColor" />
+              {/* Bottom Controls */}
+              <div
+                className={`absolute bottom-0 left-0 right-0 p-4 md:p-6 transition-all duration-300 ${
+                  showControls || !isPlaying
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-4'
+                }`}
+              >
+                {/* Progress Bar */}
+                <div
+                  className="w-full h-1 bg-white/20 rounded-full mb-4 cursor-pointer group/progress"
+                  onClick={handleProgressClick}
+                >
+                  <div
+                    className="h-full bg-white rounded-full relative transition-all duration-100"
+                    style={{ width: `${progress}%` }}
+                  >
+                    {/* Progress Handle */}
+                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg" />
                   </div>
                 </div>
 
-                {/* Call to Action Text */}
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                  <p className="text-white font-sans text-sm md:text-base uppercase tracking-[0.3em] font-light">
-                    Assistir Showreel
-                  </p>
+                {/* Controls Row */}
+                <div className="flex items-center justify-between">
+                  {/* Left Controls */}
+                  <div className="flex items-center gap-4">
+                    {/* Play/Pause */}
+                    <button
+                      onClick={togglePlay}
+                      className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                      aria-label={isPlaying ? 'Pausar' : 'Play'}
+                    >
+                      {isPlaying ? (
+                        <Pause className="w-5 h-5" fill="currentColor" />
+                      ) : (
+                        <Play className="w-5 h-5 ml-0.5" fill="currentColor" />
+                      )}
+                    </button>
+
+                    {/* Mute */}
+                    <button
+                      onClick={toggleMute}
+                      className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                      aria-label={isMuted ? 'Ativar som' : 'Silenciar'}
+                    >
+                      {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+                    </button>
+                  </div>
+
+                  {/* Right Controls */}
+                  <div className="flex items-center gap-4">
+                    {/* Fullscreen */}
+                    <button
+                      onClick={handleFullscreen}
+                      className="w-10 h-10 flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                      aria-label="Tela cheia"
+                    >
+                      <Maximize className="w-5 h-5" />
+                    </button>
+                  </div>
                 </div>
               </div>
-
-              {/* Film strip perforations (top) */}
-              <div className="absolute top-2 left-0 right-0 flex justify-between px-2 opacity-20 group-hover:opacity-30 transition-opacity pointer-events-none">
-                {[...Array(20)].map((_, i) => (
-                  <div key={`top-${i}`} className="w-1 h-2 bg-white/50 rounded-sm" />
-                ))}
-              </div>
-
-              {/* Film strip perforations (bottom) */}
-              <div className="absolute bottom-2 left-0 right-0 flex justify-between px-2 opacity-20 group-hover:opacity-30 transition-opacity pointer-events-none">
-                {[...Array(20)].map((_, i) => (
-                  <div key={`bottom-${i}`} className="w-1 h-2 bg-white/50 rounded-sm" />
-                ))}
-              </div>
             </div>
-          </Reveal>
 
-          {/* Hint & Stats */}
-          <Reveal delay={500}>
-            <div className="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
-              {/* Duration */}
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-white/30 rounded-full" />
-                <span className="text-white/40 text-xs uppercase tracking-[0.25em] font-light">
-                  Duração: 45s
+            {/* Video Info Bar */}
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
+              <div className="flex items-center gap-6 text-white/40">
+                <span className="text-xs uppercase tracking-[0.2em] font-light flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-white/40 rounded-full" />
+                  4K Ultra HD
+                </span>
+                <span className="text-xs uppercase tracking-[0.2em] font-light flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 bg-white/40 rounded-full" />
+                  60fps
                 </span>
               </div>
 
-              {/* Quality */}
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-white/30 rounded-full" />
-                <span className="text-white/40 text-xs uppercase tracking-[0.25em] font-light">
-                  4K • 60fps
-                </span>
-              </div>
-
-              {/* Hint */}
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-white/30 rounded-full" />
-                <span className="text-white/40 text-xs uppercase tracking-[0.25em] font-light">
-                  Clique para assistir
-                </span>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* Theatrical Curtain Opening Modal */}
-      {(isOpening || isOpen) && (
-        <div className="fixed inset-0 z-[100]">
-          {/* Curtain Left */}
-          <div
-            className="absolute top-0 left-0 bottom-0 w-1/2 bg-black transition-transform duration-700 ease-in-out"
-            style={{
-              transform: isOpen ? 'translateX(-100%)' : 'translateX(0)',
-            }}
-          >
-            <div className="absolute right-0 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
-          </div>
-
-          {/* Curtain Right */}
-          <div
-            className="absolute top-0 right-0 bottom-0 w-1/2 bg-black transition-transform duration-700 ease-in-out"
-            style={{
-              transform: isOpen ? 'translateX(100%)' : 'translateX(0)',
-            }}
-          >
-            <div className="absolute left-0 top-0 bottom-0 w-px bg-linear-to-b from-transparent via-white/20 to-transparent" />
-          </div>
-
-          {/* Main Content - Appears after curtain opens */}
-          <div
-            className={`absolute inset-0 bg-black flex items-center justify-center p-6 transition-opacity duration-500 ${
-              isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-            }`}
-            onClick={handleClose}
-          >
-            {/* Close Button */}
-            <button
-              className="absolute top-6 right-6 md:top-8 md:right-8 z-50 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 hover:rotate-90 group/close backdrop-blur-sm"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleClose();
-              }}
-              aria-label="Fechar vídeo"
-            >
-              <div className="absolute inset-0 border border-white/10 group-hover/close:border-white/40 group-hover/close:bg-white/5 transition-all rounded-full" />
-              <X size={20} strokeWidth={2} />
-            </button>
-
-            {/* Mute Toggle */}
-            <button
-              className="absolute top-6 left-6 md:top-8 md:left-8 z-50 w-12 h-12 flex items-center justify-center text-white/60 hover:text-white transition-all duration-300 group/mute backdrop-blur-sm"
-              onClick={toggleMute}
-              aria-label={isMuted ? 'Ativar som' : 'Silenciar'}
-            >
-              <div className="absolute inset-0 border border-white/10 group-hover/mute:border-white/40 group-hover/mute:bg-white/5 transition-all rounded-full" />
-              {isMuted ? (
-                <VolumeX size={18} strokeWidth={2} />
-              ) : (
-                <Volume2 size={18} strokeWidth={2} />
-              )}
-            </button>
-
-            {/* Video Container with fade in */}
-            <div
-              className={`w-full max-w-6xl aspect-video relative transition-all duration-700 delay-300 ${isOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-8'}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Video border frame */}
-              <div className="absolute -inset-px bg-linear-to-br from-white/20 via-transparent to-white/10 rounded-sm" />
-
-              {/* Video */}
-              <div className="relative w-full h-full bg-black overflow-hidden rounded-sm">
-                {isOpen && (
-                  <iframe
-                    ref={iframeRef}
-                    width="100%"
-                    height="100%"
-                    src={`https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`}
-                    title="Harpia Showreel 2024"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full"
-                  />
-                )}
-              </div>
-
-              {/* Corner decorations */}
-              <div className="absolute top-0 left-0 w-4 h-4 border-t border-l border-white/30" />
-              <div className="absolute top-0 right-0 w-4 h-4 border-t border-r border-white/30" />
-              <div className="absolute bottom-0 left-0 w-4 h-4 border-b border-l border-white/30" />
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-white/30" />
-            </div>
-
-            {/* Bottom hint */}
-            <div
-              className={`absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3 transition-all duration-700 delay-500 ${
-                isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              <div className="w-2 h-2 bg-white/20 rounded-full" />
-              <span className="text-white/30 text-xs uppercase tracking-[0.3em] font-light">
-                Pressione ESC ou clique fora para fechar
+              <span className="text-xs uppercase tracking-[0.2em] text-white/30 font-light">
+                Harpia Agency © 2024
               </span>
-              <div className="w-2 h-2 bg-white/20 rounded-full" />
             </div>
           </div>
-        </div>
-      )}
-    </>
+        </Reveal>
+      </div>
+    </section>
   );
 };
