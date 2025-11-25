@@ -784,7 +784,7 @@ export const VisualGovernance: React.FC = () => {
                     Portfolio Card
                   </h4>
                   <div className="block relative group overflow-hidden aspect-16/10 bg-harpia-carbon rounded-sm border border-white/10 hover:border-white/30 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 max-w-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
                     <div className="absolute top-6 left-6 z-20">
                       <span className="font-sans text-xs text-white/80 border border-white/25 px-3 py-1.5 rounded-full backdrop-blur-sm bg-black/20">
                         01
@@ -808,7 +808,7 @@ export const VisualGovernance: React.FC = () => {
                   <h4 className="text-sm font-mono text-white/60 mb-6 uppercase tracking-widest">
                     Stat Card
                   </h4>
-                  <div className="p-8 text-center border border-white/5 hover:bg-white/[0.02] transition-colors duration-500 max-w-xs">
+                  <div className="p-8 text-center border border-white/5 hover:bg-white/2 transition-colors duration-500 max-w-xs">
                     <div className="mb-4">
                       <span className="font-serif text-6xl text-white block leading-none font-light">
                         150
@@ -958,7 +958,7 @@ export const VisualGovernance: React.FC = () => {
                     </div>
                     <div className="relative h-1 bg-white/5 overflow-hidden rounded-full">
                       <div
-                        className="absolute inset-y-0 left-0 bg-gradient-to-r from-white/40 to-white rounded-full transition-all duration-700"
+                        className="absolute inset-y-0 left-0 bg-linear-to-r from-white/40 to-white rounded-full transition-all duration-700"
                         style={{ width: '75%' }}
                       />
                     </div>
@@ -1324,7 +1324,7 @@ export const VisualGovernance: React.FC = () => {
                 </div>
 
                 <div className="p-6 border border-black/10 rounded-lg bg-white relative overflow-hidden group shadow-sm">
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/0 via-black/5 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-linear-to-br from-black/0 via-black/5 to-black/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <h4 className="relative z-10 font-bold mb-2 text-harpia-black">Shine Effect</h4>
                   <p className="relative z-10 text-sm text-gray-600">
                     Passe o mouse para ver o brilho.
@@ -1371,7 +1371,7 @@ export const VisualGovernance: React.FC = () => {
                   </div>
 
                   <div className="h-64 border border-black/10 rounded-lg relative overflow-hidden flex items-center justify-center bg-white">
-                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/40 to-transparent"></div>
+                    <div className="absolute inset-0 bg-linear-to-t from-white via-white/40 to-transparent"></div>
                     <span className="bg-white px-4 py-2 rounded border border-black/10 z-10 text-black font-mono text-sm">
                       Vignette Overlay
                     </span>
@@ -1504,7 +1504,7 @@ export const VisualGovernance: React.FC = () => {
                 {/* Border Radius Violation */}
                 <div className="p-8 border-2 border-red-500/20 bg-red-50 rounded-lg">
                   <div className="flex items-start gap-4 mb-6">
-                    <AlertTriangle size={24} className="text-red-500 flex-shrink-0 mt-1" />
+                    <AlertTriangle size={24} className="text-red-500 shrink-0 mt-1" />
                     <div>
                       <h4 className="text-xl font-bold text-red-700 mb-2">
                         Border Radius Incorreto
@@ -1560,7 +1560,7 @@ export const VisualGovernance: React.FC = () => {
                 {/* Missing Aria Labels */}
                 <div className="p-8 border-2 border-yellow-500/20 bg-yellow-50 rounded-lg">
                   <div className="flex items-start gap-4 mb-6">
-                    <AlertTriangle size={24} className="text-yellow-600 flex-shrink-0 mt-1" />
+                    <AlertTriangle size={24} className="text-yellow-600 shrink-0 mt-1" />
                     <div>
                       <h4 className="text-xl font-bold text-yellow-700 mb-2">
                         Falta de Aria-Labels
@@ -1600,7 +1600,7 @@ export const VisualGovernance: React.FC = () => {
                 {/* Inconsistent Hover States */}
                 <div className="p-8 border-2 border-orange-500/20 bg-orange-50 rounded-lg">
                   <div className="flex items-start gap-4 mb-6">
-                    <AlertTriangle size={24} className="text-orange-600 flex-shrink-0 mt-1" />
+                    <AlertTriangle size={24} className="text-orange-600 shrink-0 mt-1" />
                     <div>
                       <h4 className="text-xl font-bold text-orange-700 mb-2">
                         Estados Hover Inconsistentes

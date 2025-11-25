@@ -35,10 +35,10 @@ const App: React.FC = () => {
       <ScrollToTop />
       <div className="min-h-screen bg-harpia-black text-white font-sans">
         {/* Global Animated Grain Overlay */}
-        <div className="fixed inset-0 z-[9999] pointer-events-none overflow-hidden">
+        <div className="fixed inset-0 z-9999 pointer-events-none overflow-hidden">
           <div
             ref={noiseRef}
-            className="absolute -top-[100%] -left-[100%] w-[300%] h-[300%] bg-noise opacity-[0.04] animate-noise transition-opacity duration-150 ease-out will-change-opacity"
+            className="absolute -top-full -left-full w-[300%] h-[300%] bg-noise opacity-[0.04] animate-noise transition-opacity duration-150 ease-out will-change-opacity"
           ></div>
         </div>
 
