@@ -103,10 +103,10 @@ export const Footer: React.FC = () => {
 
       {/* Main Footer Content */}
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-            {/* Left: Brand Section */}
-            <div className="lg:col-span-4 space-y-6">
+        <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+            {/* Brand Section */}
+            <div className="lg:col-span-1 space-y-5">
               <Link to="/" className="inline-block group">
                 <img
                   src="/harpia-logo.png"
@@ -114,68 +114,82 @@ export const Footer: React.FC = () => {
                   className="h-8 w-auto group-hover:opacity-70 transition-opacity"
                 />
               </Link>
-              <p className="font-sans text-sm text-gray-500 leading-relaxed max-w-sm">
-                Agência de marketing estratégico para marcas que aspiram grandeza. Desde 2020,
-                criando experiências digitais memoráveis.
+              <p className="font-sans text-sm text-gray-500 leading-relaxed">
+                Agência de marketing estratégico para marcas que aspiram grandeza.
               </p>
-
-              {/* Email CTA */}
-              <a
-                href="mailto:contato@agenciaharpia.com.br"
-                className="group inline-flex items-center gap-3 px-5 py-3 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-full transition-all duration-300"
-              >
-                <Mail
-                  size={16}
-                  className="text-gray-400 group-hover:text-harpia-white transition-colors"
-                />
-                <span className="font-sans text-xs text-gray-400 group-hover:text-harpia-white">
-                  contato@agenciaharpia.com.br
-                </span>
-              </a>
             </div>
 
-            {/* Center: Navigation Links */}
-            <div className="lg:col-span-5">
-              <div className="space-y-4">
-                <h4 className="font-sans text-[11px] text-white/60 uppercase tracking-[0.3em] mb-6">
-                  Navegação
-                </h4>
-                <nav className="grid grid-cols-2 gap-3">
-                  {NAV_LINKS.map((link) => (
-                    <Link
-                      key={link.path}
-                      to={link.path}
-                      className="group block font-sans text-sm text-gray-400 hover:text-harpia-white transition-colors"
-                    >
-                      <span className="inline-flex items-center gap-2">
-                        {link.label}
-                        <ArrowRight
-                          size={12}
-                          className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-                        />
-                      </span>
-                    </Link>
-                  ))}
-                </nav>
+            {/* Navigation Links */}
+            <div className="lg:col-span-1">
+              <h4 className="font-sans text-[11px] text-white/60 uppercase tracking-[0.3em] mb-5">
+                Navegação
+              </h4>
+              <nav className="space-y-3">
+                {NAV_LINKS.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className="group block font-sans text-sm text-gray-400 hover:text-harpia-white transition-colors"
+                  >
+                    <span className="inline-flex items-center gap-2">
+                      {link.label}
+                      <ArrowRight
+                        size={12}
+                        className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
+                      />
+                    </span>
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            {/* Contact Info */}
+            <div className="lg:col-span-1">
+              <h4 className="font-sans text-[11px] text-white/60 uppercase tracking-[0.3em] mb-5">
+                Contato
+              </h4>
+              <div className="space-y-3">
+                <a
+                  href="mailto:contato@agenciaharpia.com.br"
+                  className="group flex items-center gap-3 font-sans text-sm text-gray-400 hover:text-harpia-white transition-colors"
+                >
+                  <Mail size={14} className="text-gray-500 group-hover:text-white/70" />
+                  <span>contato@agenciaharpia.com.br</span>
+                </a>
+                <a
+                  href="https://wa.me/5548999661913"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-3 font-sans text-sm text-gray-400 hover:text-harpia-white transition-colors"
+                >
+                  <span className="text-gray-500 group-hover:text-white/70">
+                    <WhatsAppIcon size={14} />
+                  </span>
+                  <span>(48) 99966-1913</span>
+                </a>
+                <p className="flex items-center gap-3 font-sans text-sm text-gray-500">
+                  <span className="w-3.5" />
+                  Tubarão, SC - Brasil
+                </p>
               </div>
             </div>
 
-            {/* Right: Social Links */}
-            <div className="lg:col-span-3 space-y-6">
-              <h4 className="font-sans text-[11px] text-white/60 uppercase tracking-[0.3em]">
-                Conecte-se
+            {/* Social Links */}
+            <div className="lg:col-span-1">
+              <h4 className="font-sans text-[11px] text-white/60 uppercase tracking-[0.3em] mb-5">
+                Redes Sociais
               </h4>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex gap-3">
                 {/* WhatsApp */}
                 <a
                   href="https://wa.me/5548999661913"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex items-center justify-center w-12 h-12 bg-white/5 hover:bg-white border border-white/10 hover:border-white rounded-full transition-all duration-500 overflow-hidden"
+                  className="group relative flex items-center justify-center w-11 h-11 bg-white/5 hover:bg-white border border-white/10 hover:border-white rounded-full transition-all duration-500 overflow-hidden"
                   aria-label="WhatsApp"
                 >
                   <span className="relative z-10 text-gray-400 group-hover:text-harpia-black transition-colors duration-300">
-                    <WhatsAppIcon size={18} />
+                    <WhatsAppIcon size={16} />
                   </span>
                   <div className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
                 </a>
@@ -185,15 +199,33 @@ export const Footer: React.FC = () => {
                   href="https://www.instagram.com/harpia.agencia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex items-center justify-center w-12 h-12 bg-white/5 hover:bg-white border border-white/10 hover:border-white rounded-full transition-all duration-500 overflow-hidden"
+                  className="group relative flex items-center justify-center w-11 h-11 bg-white/5 hover:bg-white border border-white/10 hover:border-white rounded-full transition-all duration-500 overflow-hidden"
                   aria-label="Instagram"
                 >
                   <span className="relative z-10 text-gray-400 group-hover:text-harpia-black transition-colors duration-300">
-                    <InstagramIcon size={18} />
+                    <InstagramIcon size={16} />
                   </span>
                   <div className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
                 </a>
+
+                {/* Email */}
+                <a
+                  href="mailto:contato@agenciaharpia.com.br"
+                  className="group relative flex items-center justify-center w-11 h-11 bg-white/5 hover:bg-white border border-white/10 hover:border-white rounded-full transition-all duration-500 overflow-hidden"
+                  aria-label="Email"
+                >
+                  <Mail
+                    size={16}
+                    className="relative z-10 text-gray-400 group-hover:text-harpia-black transition-colors duration-300"
+                  />
+                  <div className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
+                </a>
               </div>
+
+              {/* Tagline */}
+              <p className="mt-6 font-sans text-xs text-gray-600 italic">
+                Desde 2020, criando experiências digitais memoráveis.
+              </p>
             </div>
           </div>
         </div>

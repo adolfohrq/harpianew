@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
+import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Navbar, Footer, Preloader } from './components';
 import { PageSkeleton } from './components/ui';
 // Lazy load pages for better performance
@@ -29,7 +29,7 @@ const {
   NotFound: lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound }))),
 };
 import { NAV_LINKS } from './data';
-import { Send } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 // Helper component to scroll to top on route change
 const ScrollToTop = () => {
@@ -86,20 +86,47 @@ const App: React.FC = () => {
         {/* Footer - Normal flow */}
         <Footer />
 
-        {/* Floating CTA Button */}
-        <Link
-          to="/contato"
-          className="fixed bottom-8 right-8 z-50 p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-white hover:bg-white hover:text-black transition-all duration-500 shadow-2xl hover:shadow-white/20 group"
-          aria-label="Fale Conosco"
-        >
-          <Send
-            size={24}
-            strokeWidth={1.5}
-            className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-300"
-          />
-        </Link>
+        {/* Back to Top Button */}
+        <BackToTopButton />
       </div>
     </Router>
+  );
+};
+
+// Back to Top Button Component
+const BackToTopButton: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      setIsVisible(window.scrollY > 400);
+    };
+
+    window.addEventListener('scroll', toggleVisibility, { passive: true });
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  return (
+    <button
+      onClick={scrollToTop}
+      className={`fixed bottom-6 right-6 z-50 p-3 bg-harpia-black text-white border border-harpia-gray rounded-full hover:bg-white hover:text-harpia-black hover:border-white transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_25px_rgba(0,0,0,0.5)] group ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      }`}
+      aria-label="Voltar ao topo"
+    >
+      <ArrowUp
+        size={20}
+        strokeWidth={2}
+        className="group-hover:-translate-y-0.5 transition-transform duration-300"
+      />
+    </button>
   );
 };
 
