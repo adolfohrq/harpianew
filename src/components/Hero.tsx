@@ -92,10 +92,7 @@ export const Hero: React.FC = () => {
             (e.target as HTMLVideoElement).style.display = 'none';
           }}
         >
-          <source
-            src="https://cdn.pixabay.com/video/2024/02/09/199958-911694865_large.mp4"
-            type="video/mp4"
-          />
+          <source src="/video-hero.mp4" type="video/mp4" />
         </video>
 
         {/* Gradient Overlays */}
