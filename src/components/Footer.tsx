@@ -239,19 +239,19 @@ export const Footer: React.FC = () => {
               </p>
 
               <div className="flex items-center gap-6">
-                <a
-                  href="#"
+                <Link
+                  to="/privacidade"
                   className="font-sans text-[10px] text-gray-600 hover:text-gray-400 uppercase tracking-[0.3em] transition-colors"
                 >
                   Privacidade
-                </a>
+                </Link>
                 <div className="w-px h-3 bg-white/10" />
-                <a
-                  href="#"
+                <Link
+                  to="/termos"
                   className="font-sans text-[10px] text-gray-600 hover:text-gray-400 uppercase tracking-[0.3em] transition-colors"
                 >
                   Termos
-                </a>
+                </Link>
               </div>
 
               <p className="font-sans text-[10px] text-gray-700 uppercase tracking-[0.3em]">

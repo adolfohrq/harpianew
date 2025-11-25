@@ -6,17 +6,17 @@ import { PageSkeleton } from './components/ui';
 const {
   Home,
   Services,
-  Packages,
   Contact,
   AboutPage,
   Portfolio,
   PortfolioDetail,
   VisualGovernance,
+  Privacy,
+  Terms,
   NotFound,
 } = {
   Home: lazy(() => import('./pages/Home').then((m) => ({ default: m.Home }))),
   Services: lazy(() => import('./pages/Services').then((m) => ({ default: m.Services }))),
-  Packages: lazy(() => import('./pages/Packages').then((m) => ({ default: m.Packages }))),
   Contact: lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact }))),
   AboutPage: lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage }))),
   Portfolio: lazy(() => import('./pages/Portfolio').then((m) => ({ default: m.Portfolio }))),
@@ -26,6 +26,8 @@ const {
   VisualGovernance: lazy(() =>
     import('./pages/VisualGovernance').then((m) => ({ default: m.VisualGovernance }))
   ),
+  Privacy: lazy(() => import('./pages/Privacy').then((m) => ({ default: m.Privacy }))),
+  Terms: lazy(() => import('./pages/Terms').then((m) => ({ default: m.Terms }))),
   NotFound: lazy(() => import('./pages/NotFound').then((m) => ({ default: m.NotFound }))),
 };
 import { NAV_LINKS } from './data';
@@ -72,12 +74,13 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/servicos" element={<Services />} />
-              <Route path="/pacotes" element={<Packages />} />
               <Route path="/sobre" element={<AboutPage />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
               <Route path="/visual-governance" element={<VisualGovernance />} />
               <Route path="/contato" element={<Contact />} />
+              <Route path="/privacidade" element={<Privacy />} />
+              <Route path="/termos" element={<Terms />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
