@@ -3,6 +3,7 @@ export * from './Services';
 export * from './Packages';
 export * from './Contact';
 export * from './AboutPage';
-export * from './About2';
+export * from './Portfolio';
+export * from './PortfolioDetail';
 export * from './NotFound';
 export * from './VisualGovernance';

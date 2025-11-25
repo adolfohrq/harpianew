@@ -2,13 +2,26 @@ import React, { useEffect, useRef, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Link } from 'react-router-dom';
 import { Navbar, Footer, Preloader } from './components';
 // Lazy load pages for better performance
-const { Home, Services, Packages, Contact, AboutPage, About2, VisualGovernance, NotFound } = {
+const {
+  Home,
+  Services,
+  Packages,
+  Contact,
+  AboutPage,
+  Portfolio,
+  PortfolioDetail,
+  VisualGovernance,
+  NotFound,
+} = {
   Home: lazy(() => import('./pages/Home').then((m) => ({ default: m.Home }))),
   Services: lazy(() => import('./pages/Services').then((m) => ({ default: m.Services }))),
   Packages: lazy(() => import('./pages/Packages').then((m) => ({ default: m.Packages }))),
   Contact: lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact }))),
   AboutPage: lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage }))),
-  About2: lazy(() => import('./pages/About2').then((m) => ({ default: m.About2 }))),
+  Portfolio: lazy(() => import('./pages/Portfolio').then((m) => ({ default: m.Portfolio }))),
+  PortfolioDetail: lazy(() =>
+    import('./pages/PortfolioDetail').then((m) => ({ default: m.PortfolioDetail }))
+  ),
   VisualGovernance: lazy(() =>
     import('./pages/VisualGovernance').then((m) => ({ default: m.VisualGovernance }))
   ),
@@ -60,7 +73,8 @@ const App: React.FC = () => {
               <Route path="/servicos" element={<Services />} />
               <Route path="/pacotes" element={<Packages />} />
               <Route path="/sobre" element={<AboutPage />} />
-              <Route path="/about2" element={<About2 />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
               <Route path="/visual-governance" element={<VisualGovernance />} />
               <Route path="/contato" element={<Contact />} />
               <Route path="*" element={<NotFound />} />

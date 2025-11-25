@@ -170,7 +170,7 @@ const COMPONENT_INVENTORY: ComponentUsage[] = [
     name: 'CTASection',
     file: 'CTASection.tsx',
     category: 'Main',
-    usedIn: ['Home', 'About2'],
+    usedIn: ['Home', 'About', 'Services', 'Packages', 'Contact'],
     description: 'Call-to-action com imagem de fundo',
   },
   {
@@ -191,7 +191,7 @@ const COMPONENT_INVENTORY: ComponentUsage[] = [
     name: 'Reveal',
     file: 'Reveal.tsx',
     category: 'Main',
-    usedIn: ['Home', 'About', 'About2', 'Services', 'Packages'],
+    usedIn: ['Home', 'About', 'Services', 'Packages'],
     description: 'Animação de entrada on-scroll',
   },
   {
@@ -214,7 +214,7 @@ const COMPONENT_INVENTORY: ComponentUsage[] = [
     name: 'SectionHeader',
     file: 'ui/SectionHeader.tsx',
     category: 'UI',
-    usedIn: ['About', 'About2', 'VisualGovernance'],
+    usedIn: ['About', 'VisualGovernance'],
     description: 'Header padronizado para seções',
   },
   {
@@ -235,14 +235,14 @@ const COMPONENT_INVENTORY: ComponentUsage[] = [
     name: 'OptimizedImage',
     file: 'ui/OptimizedImage.tsx',
     category: 'UI',
-    usedIn: ['About2', 'Services'],
+    usedIn: ['Home', 'About', 'Services'],
     description: 'Wrapper de imagem com lazy loading',
   },
   {
     name: 'HeroSection',
     file: 'ui/HeroSection.tsx',
     category: 'UI',
-    usedIn: ['About', 'About2', 'Services', 'Packages', 'Contact'],
+    usedIn: ['About', 'Services', 'Packages', 'Contact'],
     description: 'Hero section reutilizável',
   },
 

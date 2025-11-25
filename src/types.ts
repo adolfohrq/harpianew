@@ -23,12 +23,31 @@ export interface PricingPackage {
   features: PackageFeature[];
 }
 
+export interface ProjectResult {
+  metric: string;
+  value: string;
+  description: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   category: string;
   image: string;
   slug: string;
+  description?: string;
+  client?: string;
+  year?: string;
+  services?: string[];
+  challenge?: string;
+  solution?: string;
+  results?: ProjectResult[];
+  gallery?: string[];
+  testimonial?: {
+    text: string;
+    author: string;
+    role: string;
+  };
 }
 
 export interface Testimonial {

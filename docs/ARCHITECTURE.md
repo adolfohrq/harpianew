@@ -142,12 +142,13 @@ harpianew/
 │   ├── hooks/               # Custom React hooks
 │   │   └── useMetaTags.ts   # Hook para gerenciamento de meta tags
 │   ├── pages/               # Páginas/rotas da aplicação
-│   │   ├── About2.tsx
 │   │   ├── AboutPage.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Home.tsx
 │   │   ├── NotFound.tsx
 │   │   ├── Packages.tsx
+│   │   ├── Portfolio.tsx
+│   │   ├── PortfolioDetail.tsx
 │   │   ├── Services.tsx
 │   │   ├── VisualGovernance.tsx
 │   │   └── index.ts         # Barrel export
@@ -201,6 +202,8 @@ App (Router, Preloader, ScrollToTop)
 │       │   └── Testimonials
 │       ├── Services
 │       ├── Packages
+│       ├── Portfolio (listagem de projetos)
+│       │   └── PortfolioDetail (/:slug)
 │       ├── Contact
 │       └── NotFound
 ├── Footer (fixed, revealed on scroll)
@@ -430,11 +433,31 @@ export interface PricingPackage {
   features: PackageFeature[];
 }
 
+export interface ProjectResult {
+  metric: string;
+  value: string;
+  description: string;
+}
+
 export interface Project {
   id: string;
   title: string;
   category: string;
   image: string;
+  slug: string;
+  description?: string;
+  client?: string;
+  year?: string;
+  services?: string[];
+  challenge?: string;
+  solution?: string;
+  results?: ProjectResult[];
+  gallery?: string[];
+  testimonial?: {
+    text: string;
+    author: string;
+    role: string;
+  };
 }
 
 export interface Testimonial {
@@ -477,7 +500,8 @@ const App: React.FC = () => {
             <Route path="/servicos" element={<Services />} />
             <Route path="/pacotes" element={<Packages />} />
             <Route path="/sobre" element={<AboutPage />} />
-            <Route path="/about2" element={<About2 />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
             <Route path="/visual-governance" element={<VisualGovernance />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
@@ -1552,6 +1576,6 @@ Para dúvidas ou sugestões sobre a arquitetura do projeto:
 
 ---
 
-**Última atualização**: 2025-11-24
-**Versão**: 1.1.0
+**Última atualização**: 2025-11-25
+**Versão**: 1.2.0
 **Mantido por**: Equipe Harpia
