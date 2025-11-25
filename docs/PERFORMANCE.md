@@ -15,7 +15,7 @@ Guia objetivo para melhorar desempenho no desktop e mobile.
 
 ## Prioridade Alta
 
-### 1. Fontes - Reduzir Variantes 🟡
+### 1. Fontes - Reduzir Variantes ✅ IMPLEMENTADO
 
 **Problema**: 21 arquivos de fonte carregados (7 Dosis + 14 Silk Serif).
 
@@ -23,17 +23,19 @@ Guia objetivo para melhorar desempenho no desktop e mobile.
 
 ```css
 /* Manter apenas as variantes usadas */
-/* Dosis: 400, 500, 600, 700 (remover 200, 300, 800) */
-/* Silk Serif: 400, 600, 700, 900 + italic apenas para 400 */
+/* Dosis: 300, 400, 500, 600, 700 (removidos 200, 800) */
+/* Silk Serif: 700, 900 (removidos 200, 300, 400, 500, 600 + todos italics) */
 ```
+
+**Resultado final**: 7 arquivos (5 Dosis + 2 Silk Serif) vs 21 originais.
 
 **Impacto**: -500KB+ no carregamento inicial.
 
-**Risco**: Médio - Precisa verificar se algum componente usa pesos removidos.
+**Status**: Implementado em 2025-11-25.
 
 ---
 
-### 2. Fontes - Converter para WOFF2 🟢
+### 2. Fontes - Converter para WOFF2 ✅ IMPLEMENTADO
 
 **Problema**: Fontes em OTF (maior tamanho).
 
@@ -59,6 +61,8 @@ Guia objetivo para melhorar desempenho no desktop e mobile.
 **Impacto**: -40% tamanho das fontes.
 
 **Risco**: Nenhum - WOFF2 tem suporte universal em browsers modernos.
+
+**Status**: Implementado em 2025-11-25 (Dosis e Silk Serif).
 
 ---
 
@@ -358,8 +362,8 @@ location ~* \.[a-f0-9]{8}\.(js|css)$ {
 
 | Tarefa                         | Impacto | Esforço | Segurança | Status |
 | ------------------------------ | ------- | ------- | --------- | ------ |
-| Converter fontes para WOFF2    | Alto    | Baixo   | 🟢        | ⬚      |
-| Reduzir variantes de fonte     | Alto    | Baixo   | 🟡        | ⬚      |
+| Converter fontes para WOFF2    | Alto    | Baixo   | 🟢        | ✅     |
+| Reduzir variantes de fonte     | Alto    | Baixo   | 🟡        | ✅     |
 | Adicionar WebP nas imagens     | Alto    | Médio   | 🟡        | ⬚      |
 | Otimizar vite.config.ts        | Médio   | Baixo   | 🟢        | ✅     |
 | Remover prefetch ineficaz      | Baixo   | Baixo   | 🟢        | ✅     |
