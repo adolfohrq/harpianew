@@ -139,16 +139,22 @@ harpianew/
 │   │   ├── testimonials.ts  # Depoimentos de clientes
 │   │   └── index.ts         # Barrel export
 │   ├── hooks/               # Custom React hooks
-│   │   └── useMetaTags.ts   # Hook para gerenciamento de meta tags e SEO
+│   │   ├── useMetaTags.ts   # Hook para gerenciamento de meta tags e SEO
+│   │   ├── useStructuredData.ts  # Hook para Schema.org (JSON-LD) e SEO técnico
+│   │   └── index.ts         # Barrel export
+│   ├── config/              # Configurações da aplicação
+│   │   ├── seo.config.ts    # Configuração centralizada de SEO
+│   │   └── index.ts         # Barrel export
 │   ├── pages/               # Páginas/rotas da aplicação
 │   │   ├── AboutPage.tsx
 │   │   ├── Contact.tsx
 │   │   ├── Home.tsx
 │   │   ├── NotFound.tsx
-│   │   ├── Packages.tsx
 │   │   ├── Portfolio.tsx
 │   │   ├── PortfolioDetail.tsx
+│   │   ├── Privacy.tsx      # Política de Privacidade
 │   │   ├── Services.tsx
+│   │   ├── Terms.tsx        # Termos de Serviço
 │   │   ├── VisualGovernance.tsx
 │   │   └── index.ts         # Barrel export
 │   ├── test/                # Configuração de testes
@@ -200,10 +206,11 @@ App (Router, Preloader, ScrollToTop)
 │       │   ├── Projects Grid (Marquee)
 │       │   └── Testimonials
 │       ├── Services
-│       ├── Packages
 │       ├── Portfolio (listagem de projetos)
 │       │   └── PortfolioDetail (/:slug)
 │       ├── Contact
+│       ├── Privacy (Política de Privacidade)
+│       ├── Terms (Termos de Serviço)
 │       └── NotFound
 ├── Footer (fixed, revealed on scroll)
 └── Floating CTA Button
@@ -518,12 +525,13 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/servicos" element={<Services />} />
-            <Route path="/pacotes" element={<Packages />} />
             <Route path="/sobre" element={<AboutPage />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
             <Route path="/visual-governance" element={<VisualGovernance />} />
             <Route path="/contato" element={<Contact />} />
+            <Route path="/privacidade" element={<Privacy />} />
+            <Route path="/termos" element={<Terms />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
@@ -835,6 +843,66 @@ export const Portfolio: React.FC = () => {
 - Cria/atualiza meta tags `property` (og:title, og:description, og:image, og:type)
 - Suporta URL canônica via `<link rel="canonical">`
 - Atualiza automaticamente quando props mudam
+
+#### useStructuredData (Custom Hook)
+
+Hook customizado para gerenciamento de Schema.org (JSON-LD) para SEO técnico.
+
+**Localização**: `src/hooks/useStructuredData.ts`
+
+**Exports**:
+
+```typescript
+// Hook principal
+useStructuredData(schemas: StructuredDataType[])
+
+// Constantes
+HARPIA_ORGANIZATION  // Schema Organization padrão da empresa
+
+// Funções auxiliares
+createPageSchema(options)      // Cria schema WebPage
+createServiceSchema(options)   // Cria schema Service
+createPortfolioSchema(options) // Cria schema CreativeWork
+```
+
+**Tipos disponíveis**:
+
+```typescript
+interface OrganizationSchema { ... }
+interface WebPageSchema { ... }
+interface ServiceSchema { ... }
+interface CreativeWorkSchema { ... }
+interface BreadcrumbSchema { ... }
+type StructuredDataType = OrganizationSchema | WebPageSchema | ServiceSchema | ...
+```
+
+**Uso**:
+
+```tsx
+import { useStructuredData, createPageSchema, HARPIA_ORGANIZATION } from '../hooks';
+
+export const Services: React.FC = () => {
+  useStructuredData([
+    HARPIA_ORGANIZATION,
+    createPageSchema({
+      name: 'Serviços',
+      description: 'Nossos serviços de marketing',
+      url: '/servicos',
+    }),
+  ]);
+
+  return (
+    // ...
+  );
+};
+```
+
+**Funcionalidades**:
+
+- Injeta schemas JSON-LD no `<head>` da página
+- Suporta múltiplos schemas por página
+- Remove schemas ao desmontar componente
+- Tipos TypeScript completos para todos os schemas
 
 #### useState
 

@@ -271,9 +271,7 @@ export const GLOBAL_KEYWORDS = [
   'digital',
   'fotografia',
   'branding',
-  'Tubarão',
-  'Santa Catarina',
-  'SC',
+  'São Paulo',
   'Brasil',
 ];
 

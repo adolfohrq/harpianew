@@ -30,7 +30,8 @@ src/
 │   └── contact/     # Componentes de Contato
 ├── pages/           # Páginas (lazy-loaded)
 ├── data/            # Dados estáticos
-├── hooks/           # Custom hooks
+├── hooks/           # Custom hooks (useMetaTags, useStructuredData)
+├── config/          # Configurações (seo.config.ts)
 ├── types.ts         # Interfaces TypeScript
 └── index.css        # Tailwind + animações
 ```
@@ -77,16 +78,19 @@ import { HeroSection } from '@/components/ui'; // UI components
 
 **OBRIGATÓRIO**: Ao realizar mudanças importantes, SEMPRE atualizar a documentação correspondente:
 
-| Tipo de Mudança                      | Arquivos a Atualizar                     |
-| ------------------------------------ | ---------------------------------------- |
-| Novo componente UI reutilizável      | `docs/DESIGN_SYSTEM.md`                  |
-| Mudança de roteamento/router         | `docs/ARCHITECTURE.md`, `README.md`      |
-| Nova página/rota                     | `docs/ARCHITECTURE.md`                   |
-| Mudança na stack (dependências core) | `README.md`, `docs/ARCHITECTURE.md`      |
-| Novo padrão de código                | `docs/ARCHITECTURE.md`                   |
-| Novas cores/tipografia               | `docs/DESIGN_SYSTEM.md`, `src/index.css` |
-| Novo hook customizado                | `docs/ARCHITECTURE.md`                   |
-| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`      |
+| Tipo de Mudança                      | Arquivos a Atualizar                            |
+| ------------------------------------ | ----------------------------------------------- |
+| Novo componente UI reutilizável      | `docs/DESIGN_SYSTEM.md`                         |
+| Mudança de roteamento/router         | `docs/ARCHITECTURE.md`, `README.md`             |
+| Nova página/rota                     | `docs/ARCHITECTURE.md`, `src/pages/index.ts`    |
+| Remoção de página/rota               | `docs/ARCHITECTURE.md`, `src/pages/index.ts`    |
+| Mudança na stack (dependências core) | `README.md`, `docs/ARCHITECTURE.md`             |
+| Novo padrão de código                | `docs/ARCHITECTURE.md`                          |
+| Novas cores/tipografia               | `docs/DESIGN_SYSTEM.md`, `src/index.css`        |
+| Novo hook customizado                | `docs/ARCHITECTURE.md`, `CLAUDE.md` (estrutura) |
+| Nova pasta em `src/`                 | `CLAUDE.md`, `docs/ARCHITECTURE.md`             |
+| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`             |
+| Remoção de componente/hook           | Remover das docs correspondentes                |
 
 ### Checklist pós-implementação
 
@@ -96,8 +100,28 @@ Após implementar mudanças significativas, perguntar-se:
 2. ✅ Criei/modifiquei um componente reutilizável?
 3. ✅ Alterei configurações de build/roteamento/dependências?
 4. ✅ Introduzi um novo padrão ou convenção?
+5. ✅ Removi algum arquivo/componente/página?
 
 **Se SIM para qualquer item → ATUALIZAR DOCUMENTAÇÃO**
+
+### Auditoria Periódica de Documentação
+
+**Quando executar**: Antes de cada release ou mensalmente.
+
+**Verificar sincronização entre código e docs**:
+
+1. **Páginas**: comparar `App.tsx` com `docs/ARCHITECTURE.md`
+2. **Componentes UI**: comparar `src/components/ui/index.ts` com `docs/DESIGN_SYSTEM.md`
+3. **Hooks**: comparar `src/hooks/index.ts` com `docs/ARCHITECTURE.md`
+4. **Estrutura**: comparar pastas `src/` com `CLAUDE.md`
+
+**Checklist de auditoria**:
+
+- [ ] Todas as rotas em `App.tsx` estão documentadas?
+- [ ] Todos os exports em `pages/index.ts` existem como arquivos?
+- [ ] Todos os hooks em `hooks/index.ts` estão documentados?
+- [ ] A estrutura em `CLAUDE.md` reflete as pastas reais?
+- [ ] Componentes removidos foram removidos da documentação?
 
 ## Documentação Detalhada
 
