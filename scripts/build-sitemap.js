@@ -14,6 +14,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.resolve(rootDir, 'dist');
+const appFile = path.resolve(rootDir, 'src/App.tsx');
 
 // Lê e parseia o arquivo de configuração TypeScript
 function loadConfig() {
@@ -59,6 +60,49 @@ function loadConfig() {
   }
 
   return { baseUrl, companyName, staticRoutes, portfolioSlugs };
+}
+
+/**
+ * Valida se todas as rotas do sitemap existem no App.tsx
+ * Retorna array de rotas inválidas (não encontradas)
+ */
+function validateRoutes(staticRoutes) {
+  const appContent = fs.readFileSync(appFile, 'utf-8');
+
+  // Extrai todas as rotas definidas no App.tsx
+  const routeRegex = /<Route\s+path=["']([^"']+)["']/g;
+  const appRoutes = new Set();
+  let match;
+  while ((match = routeRegex.exec(appContent)) !== null) {
+    appRoutes.add(match[1]);
+  }
+
+  const invalidRoutes = [];
+  const validRoutes = [];
+
+  for (const route of staticRoutes) {
+    // Rota dinâmica de portfolio é validada separadamente
+    if (route.path.startsWith('/portfolio/')) {
+      // Verifica se existe rota /portfolio/:slug no App.tsx
+      if (appRoutes.has('/portfolio/:slug')) {
+        validRoutes.push(route);
+      } else {
+        invalidRoutes.push({
+          path: route.path,
+          reason: 'Rota dinâmica /portfolio/:slug não encontrada no App.tsx',
+        });
+      }
+    } else if (appRoutes.has(route.path)) {
+      validRoutes.push(route);
+    } else {
+      invalidRoutes.push({
+        path: route.path,
+        reason: `Rota não encontrada no App.tsx`,
+      });
+    }
+  }
+
+  return { validRoutes, invalidRoutes, appRoutes: Array.from(appRoutes) };
 }
 
 function generateSitemap(config) {
@@ -115,6 +159,28 @@ try {
 
   const config = loadConfig();
 
+  // Valida rotas antes de gerar o sitemap
+  const allRoutesForValidation = [
+    ...config.staticRoutes,
+    ...config.portfolioSlugs.map((slug) => ({
+      path: `/portfolio/${slug}`,
+      priority: 0.7,
+      changefreq: 'monthly',
+    })),
+  ];
+
+  const { invalidRoutes } = validateRoutes(allRoutesForValidation);
+
+  if (invalidRoutes.length > 0) {
+    console.log('\n⚠️  Rotas do sitemap não encontradas no App.tsx:');
+    invalidRoutes.forEach((route) => {
+      console.log(`   ❌ ${route.path} - ${route.reason}`);
+    });
+    console.log('\n   Verifique se as rotas estão definidas em:');
+    console.log('   - src/App.tsx (Routes)');
+    console.log('   - src/config/seo.config.ts (SITEMAP_CONFIG.staticRoutes)\n');
+  }
+
   // Gera sitemap.xml
   const sitemapContent = generateSitemap(config);
   fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapContent, 'utf-8');
@@ -130,6 +196,12 @@ try {
   console.log(`   - Rotas estáticas: ${config.staticRoutes.length}`);
   console.log(`   - Projetos portfolio: ${config.portfolioSlugs.length}`);
   console.log(`   - Total de URLs: ${config.staticRoutes.length + config.portfolioSlugs.length}`);
+
+  if (invalidRoutes.length > 0) {
+    console.log(`   - ⚠️  Rotas inválidas: ${invalidRoutes.length}`);
+  } else {
+    console.log('   - ✅ Todas as rotas validadas');
+  }
 } catch (error) {
   console.error('❌ Erro ao gerar sitemap:', error.message);
   process.exit(1);

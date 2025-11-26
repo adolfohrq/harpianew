@@ -50,7 +50,7 @@ Se encontrar, **alertar o usuário** e remover do staging.
 1. Execute `git status` para ver as mudanças
 2. Execute `git diff` para analisar o que mudou
 3. **Verifique se há arquivos sensíveis** antes de adicionar
-4. Adicione os arquivos apropriados com `git add`
+4. Adicione os arquivos com `git add .`
 5. Crie o commit com a mensagem fornecida (ou sugira uma baseada nas mudanças)
 6. Mostre o resultado do commit
 7. Pergunte se o usuário quer que seja feito push

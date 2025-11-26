@@ -30,7 +30,7 @@ src/
 │   └── contact/     # Componentes de Contato
 ├── pages/           # Páginas (lazy-loaded)
 ├── data/            # Dados estáticos
-├── hooks/           # Custom hooks (useMetaTags, useStructuredData)
+├── hooks/           # Custom hooks (useMetaTags, useStructuredData, useAnalytics)
 ├── config/          # Configurações (seo.config.ts)
 ├── test/            # Configuração de testes (setup.ts)
 ├── types.ts         # Interfaces TypeScript
@@ -134,12 +134,14 @@ useStructuredData([
 | Mudança na stack (dependências core) | `README.md`, `docs/ARCHITECTURE.md`                                      |
 | Novo padrão de código                | `docs/ARCHITECTURE.md`                                                   |
 | Novas cores/tipografia               | `docs/DESIGN_SYSTEM.md`, `src/index.css`                                 |
-| Novo hook customizado                | `docs/ARCHITECTURE.md`, `CLAUDE.md` (estrutura)                          |
-| Nova pasta em `src/`                 | `CLAUDE.md`, `docs/ARCHITECTURE.md`                                      |
-| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`                                      |
+| Novo hook customizado                | `docs/ARCHITECTURE.md`, `CLAUDE.md` (estrutura), `README.md`             |
+| Nova pasta em `src/`                 | `CLAUDE.md`, `docs/ARCHITECTURE.md`, `README.md`                         |
+| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`, `README.md`                         |
 | Remoção de componente/hook           | Remover das docs correspondentes                                         |
 | Mudança em dados da empresa/contato  | `src/config/seo.config.ts`                                               |
 | Mudança em redes sociais             | `src/config/seo.config.ts`                                               |
+| Nova documentação em `docs/`         | `README.md` (seção Documentação)                                         |
+| Novo script npm                      | `README.md` (tabela Scripts)                                             |
 
 ## Regra de Atualização de Configurações (src/config/)
 
@@ -179,6 +181,51 @@ Após implementar mudanças significativas, perguntar-se:
 
 **Se SIM para qualquer item → ATUALIZAR DOCUMENTAÇÃO**
 
+## Regra de Atualização do README.md
+
+**OBRIGATÓRIO**: O `README.md` é o ponto de entrada para novos desenvolvedores. Manter sempre atualizado.
+
+### Quando atualizar o README
+
+| Mudança                            | Seção do README a Atualizar      |
+| ---------------------------------- | -------------------------------- |
+| Nova pasta em `src/`               | Estrutura                        |
+| Subpasta em `components/`          | Estrutura (árvore de components) |
+| Novo hook customizado              | Estrutura (descrição de hooks)   |
+| Nova dependência core              | Stack                            |
+| Atualização de versão (React, etc) | Stack                            |
+| Novo script npm                    | Scripts (tabela)                 |
+| Nova documentação em `docs/`       | Documentação (lista de links)    |
+| Mudança de porta do dev server     | Stack e Início Rápido            |
+| Remoção de pasta/funcionalidade    | Remover da seção correspondente  |
+
+### Estrutura esperada do README
+
+```markdown
+# Harpia Agência
+
+## Stack → Tecnologias principais com versões
+
+## Início Rápido → Comandos essenciais (install, dev, build, test)
+
+## Estrutura → Árvore de pastas src/ atualizada
+
+## Documentação → Links para todos os docs em docs/
+
+## Scripts → Tabela com todos os scripts npm
+
+## Licença → Informação de licença
+```
+
+### Checklist de verificação do README
+
+- [ ] Estrutura `src/` reflete as pastas reais do projeto?
+- [ ] Todas as subpastas de `components/` estão listadas?
+- [ ] Hooks importantes estão mencionados na estrutura?
+- [ ] Todos os arquivos em `docs/` têm link na seção Documentação?
+- [ ] Tabela de scripts está sincronizada com `package.json`?
+- [ ] Versões na Stack estão corretas?
+
 ### Auditoria Periódica de Documentação
 
 **Quando executar**: Antes de cada release ou mensalmente.
@@ -188,7 +235,8 @@ Após implementar mudanças significativas, perguntar-se:
 1. **Páginas**: comparar `App.tsx` com `docs/ARCHITECTURE.md`
 2. **Componentes UI**: comparar `src/components/ui/index.ts` com `docs/DESIGN_SYSTEM.md`
 3. **Hooks**: comparar `src/hooks/index.ts` com `docs/ARCHITECTURE.md`
-4. **Estrutura**: comparar pastas `src/` com `CLAUDE.md`
+4. **Estrutura**: comparar pastas `src/` com `CLAUDE.md` e `README.md`
+5. **Docs**: comparar arquivos em `docs/` com links no `README.md`
 
 **Checklist de auditoria**:
 
@@ -196,7 +244,41 @@ Após implementar mudanças significativas, perguntar-se:
 - [ ] Todos os exports em `pages/index.ts` existem como arquivos?
 - [ ] Todos os hooks em `hooks/index.ts` estão documentados?
 - [ ] A estrutura em `CLAUDE.md` reflete as pastas reais?
+- [ ] A estrutura em `README.md` reflete as pastas reais?
 - [ ] Componentes removidos foram removidos da documentação?
+- [ ] Todos os docs em `docs/` estão linkados no README?
+- [ ] Scripts no README batem com `package.json`?
+
+## Ferramentas de Desenvolvimento
+
+### Playwright MCP (Testes de UI e Automação)
+
+O projeto está configurado com Playwright MCP para testes automatizados de UI, validação visual e captura de screenshots.
+
+**Configuração**: `C:\Users\adolf\AppData\Roaming\Claude\claude_desktop_config.json`
+
+**Guia completo**: `docs/PLAYWRIGHT_GUIDE.md`
+
+**Uso rápido**:
+
+```bash
+# Iniciar servidor dev
+npm run dev
+
+# No Claude Code (após reiniciar)
+browser_navigate url="http://localhost:5020"
+browser_snapshot  # Ver estrutura da página
+browser_take_screenshot fullPage=true filename="teste.png"
+```
+
+**Casos de uso**:
+
+- Testar formulário de contato
+- Validar responsividade (desktop/tablet/mobile)
+- Verificar SEO visual (meta tags, headings)
+- Capturar screenshots para documentação
+- Testar animações e interações
+- Auditar acessibilidade
 
 ## Documentação Detalhada
 
@@ -204,3 +286,4 @@ Para padrões completos, consulte:
 
 - `docs/ARCHITECTURE.md` - Estrutura, rotas, padrões de código
 - `docs/DESIGN_SYSTEM.md` - Cores, tipografia, componentes UI, exemplos
+- `docs/PLAYWRIGHT_GUIDE.md` - Guia completo de testes com Playwright MCP

@@ -30,9 +30,14 @@ npm test
 ```
 src/
 ├── components/     # Componentes React
+│   ├── ui/         # Componentes reutilizáveis
+│   ├── services/   # Componentes de Serviços
+│   └── contact/    # Componentes de Contato
 ├── pages/          # Páginas (lazy-loaded)
 ├── data/           # Dados estáticos
-├── hooks/          # Custom hooks
+├── hooks/          # Custom hooks (useMetaTags, useStructuredData)
+├── config/         # Configurações (SEO, sitemap)
+├── test/           # Configuração de testes
 └── types.ts        # TypeScript interfaces
 ```
 
@@ -40,6 +45,7 @@ src/
 
 - [Arquitetura](docs/ARCHITECTURE.md) - Estrutura, rotas, padrões
 - [Design System](docs/DESIGN_SYSTEM.md) - Cores, tipografia, UI
+- [Playwright Guide](docs/PLAYWRIGHT_GUIDE.md) - Testes de UI e automação
 
 ## Scripts
 

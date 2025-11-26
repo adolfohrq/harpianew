@@ -1,4 +1,5 @@
 export { useMetaTags } from './useMetaTags';
+export { usePageTracking, trackEvent, analytics } from './useAnalytics';
 export {
   useStructuredData,
   HARPIA_ORGANIZATION,

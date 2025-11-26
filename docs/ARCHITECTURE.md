@@ -139,6 +139,7 @@ harpianew/
 │   │   ├── testimonials.ts  # Depoimentos de clientes
 │   │   └── index.ts         # Barrel export
 │   ├── hooks/               # Custom React hooks
+│   │   ├── useAnalytics.ts  # Hook para Google Analytics 4 (pageviews e eventos)
 │   │   ├── useMetaTags.ts   # Hook para gerenciamento de meta tags e SEO
 │   │   ├── useStructuredData.ts  # Hook para Schema.org (JSON-LD) e SEO técnico
 │   │   └── index.ts         # Barrel export
@@ -796,6 +797,67 @@ export const Button = ({ label, onClick }: ButtonProps) => { ... }
 ```
 
 ### Hooks
+
+#### usePageTracking / useAnalytics (Custom Hook)
+
+Hook customizado para integração com Google Analytics 4 (GA4).
+
+**Localização**: `src/hooks/useAnalytics.ts`
+
+**Exports**:
+
+```typescript
+// Hook para rastrear mudanças de página
+usePageTracking()
+
+// Função para eventos customizados
+trackEvent(eventName: string, params?: Record<string, string | number | boolean>)
+
+// Objeto com eventos pré-definidos
+analytics.contactFormStart()
+analytics.contactFormSubmit()
+analytics.ctaClick(ctaName, location)
+analytics.portfolioView(projectName)
+analytics.whatsappClick(source)
+analytics.socialClick(platform)
+analytics.sectionView(sectionName)
+```
+
+**Uso básico** (tracking de rotas - já configurado em App.tsx):
+
+```tsx
+import { usePageTracking } from '../hooks';
+
+const ScrollToTop = () => {
+  usePageTracking(); // Rastreia mudanças de página automaticamente
+  // ...
+};
+```
+
+**Uso para eventos customizados**:
+
+```tsx
+import { analytics, trackEvent } from '@/hooks';
+
+// Eventos pré-definidos
+<button onClick={() => analytics.ctaClick('Solicitar Orçamento', 'hero')}>
+  Solicitar Orçamento
+</button>
+
+// Evento customizado
+<button onClick={() => trackEvent('download_pdf', { document: 'portfolio' })}>
+  Baixar PDF
+</button>
+```
+
+**Funcionalidades**:
+
+- Rastreia pageviews automaticamente com React Router
+- Suporta eventos customizados
+- Eventos pré-definidos para ações comuns do site
+- Type-safe com TypeScript
+
+---
 
 #### useMetaTags (Custom Hook)
 

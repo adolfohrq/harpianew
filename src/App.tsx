@@ -32,10 +32,15 @@ const {
 };
 import { NAV_LINKS } from './data';
 import { ArrowUp } from 'lucide-react';
+import { usePageTracking } from './hooks';
 
-// Helper component to scroll to top on route change
+// Helper component to scroll to top on route change and track pageviews
 const ScrollToTop = () => {
   const { pathname } = useLocation();
+
+  // Google Analytics - rastreia mudanças de página
+  usePageTracking();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
