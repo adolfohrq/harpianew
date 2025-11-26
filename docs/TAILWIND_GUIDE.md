@@ -446,7 +446,7 @@ Tailwind usa abordagem **mobile first**. Sem prefixo = mobile, com prefixo = a p
 ```html
 <div class="aspect-video">16:9</div>
 <div class="aspect-square">1:1</div>
-<div class="aspect-[4/3]">4:3 customizado</div>
+<div class="aspect-4/3">4:3 customizado</div>
 ```
 
 ### Esconder Overflow

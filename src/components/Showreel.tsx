@@ -4,6 +4,7 @@ import { Reveal } from './Reveal';
 import { GradientLine, OptimizedImage } from './ui';
 
 const VIDEO_SRC = '/video.mp4';
+const VIDEO_POSTER = '/video-poster.jpg';
 
 export const Showreel = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -139,6 +140,7 @@ export const Showreel = () => {
               <video
                 ref={videoRef}
                 src={VIDEO_SRC}
+                poster={VIDEO_POSTER}
                 muted={isMuted}
                 playsInline
                 preload="metadata"

@@ -1,65 +1,195 @@
-Execute uma auditoria completa da documentação e SEO do projeto.
+Execute uma auditoria completa da documentação, SEO e sincronização do projeto Harpia.
 
-## Verificações
+## Arquivos a Verificar
+
+### Documentação Principal
+
+- `CLAUDE.md` - Guia rápido para Claude Code
+- `README.md` - Documentação pública do projeto
+- `docs/ARCHITECTURE.md` - Arquitetura e padrões
+- `docs/DESIGN_SYSTEM.md` - Sistema de design e UI
+- `docs/PLAYWRIGHT_GUIDE.md` - Guia de testes
+- `docs/TAILWIND_GUIDE.md` - Guia de Tailwind v4
+- `docs/VIDEO_OPTIMIZATION.md` - Otimização de vídeos
+
+### Código Fonte
+
+- `src/pages/index.ts` - Exports de páginas
+- `src/components/ui/index.ts` - Exports de UI
+- `src/hooks/index.ts` - Exports de hooks
+- `src/data/index.ts` - Exports de dados
+- `src/config/seo.config.ts` - Configuração SEO
+- `src/lib/validations/index.ts` - Validações Zod
+- `App.tsx` - Rotas da aplicação
+
+---
+
+## Verificações Obrigatórias
 
 ### 1. Sincronização de Páginas
 
-- Compare as rotas em `App.tsx` com `docs/ARCHITECTURE.md`
-- Verifique se todos os exports em `src/pages/index.ts` existem como arquivos
-- Verifique se todas as rotas têm lazy loading configurado
+| Verificar               | Arquivos                                |
+| ----------------------- | --------------------------------------- |
+| Rotas existem no código | `App.tsx` ↔ `src/pages/*.tsx`          |
+| Exports corretos        | `src/pages/index.ts` ↔ arquivos `.tsx` |
+| Documentado             | `docs/ARCHITECTURE.md` seção Rotas      |
+| Lazy loading            | Todas as páginas usam `React.lazy()`    |
 
 ### 2. Sincronização de Componentes UI
 
-- Compare `src/components/ui/index.ts` com `docs/DESIGN_SYSTEM.md`
-- Verifique se componentes removidos foram removidos da documentação
-- Liste componentes sem testes
+| Verificar        | Arquivos                                        |
+| ---------------- | ----------------------------------------------- |
+| Exports corretos | `src/components/ui/index.ts` ↔ arquivos `.tsx` |
+| Documentado      | `docs/DESIGN_SYSTEM.md`                         |
+| Tem testes       | `src/components/ui/*.test.tsx`                  |
+
+**Componentes esperados** (verificar se todos existem e estão documentados):
+
+- OptimizedImage, SectionHeader, DifferentialCard, TestimonialCard
+- HeroSection, GradientLine, Container, Skeleton, LazyVideo
+- InstagramIcon, WhatsAppIcon
 
 ### 3. Sincronização de Hooks
 
-- Compare `src/hooks/index.ts` com `docs/ARCHITECTURE.md`
+| Verificar        | Arquivos                               |
+| ---------------- | -------------------------------------- |
+| Exports corretos | `src/hooks/index.ts` ↔ arquivos `.ts` |
+| Documentado      | `docs/ARCHITECTURE.md` seção Hooks     |
+| Tem testes       | `src/hooks/*.test.ts`                  |
 
-### 4. Estrutura de Pastas
+**Hooks esperados**:
 
-- Compare pastas em `src/` com a estrutura documentada em `CLAUDE.md`
+- useMetaTags, useStructuredData, useAnalytics (usePageTracking, trackEvent)
 
-### 5. Configuração de SEO (NOVO)
+### 4. Sincronização de Data Files
 
-- Verifique se todas as rotas em `App.tsx` estão em `SITEMAP_CONFIG.staticRoutes`
-- Verifique se todas as páginas têm entrada em `PAGE_SEO`
-- Verifique se `useMetaTags` é chamado em todas as páginas
-- Verifique se `useStructuredData` é chamado em todas as páginas
+| Verificar          | Arquivos                              |
+| ------------------ | ------------------------------------- |
+| Exports corretos   | `src/data/index.ts` ↔ arquivos `.ts` |
+| Tipos cobrem dados | `src/types.ts`                        |
 
-### 6. Sitemap e Robots
+**Data files esperados**:
 
-- Verifique se `dist/sitemap.xml` existe após build
-- Verifique se `dist/robots.txt` existe após build
-- Valide se todas as URLs do sitemap são acessíveis
+- projects, services, testimonials, packages, navigation, about
 
-### 7. Data Files
+### 5. Sincronização de Validações
 
-- Compare exports em `src/data/index.ts` com arquivos existentes
-- Verifique se tipos em `src/types.ts` cobrem todos os data files
+| Verificar        | Arquivos                                         |
+| ---------------- | ------------------------------------------------ |
+| Exports corretos | `src/lib/validations/index.ts` ↔ arquivos `.ts` |
+| Tem testes       | `src/lib/validations/*.test.ts`                  |
 
-## Output esperado
+### 6. Configuração SEO Completa
 
-Liste em formato de tabela:
+| Verificar                                     | Arquivo                    |
+| --------------------------------------------- | -------------------------- |
+| Todas as rotas em PAGE_SEO                    | `src/config/seo.config.ts` |
+| Todas as rotas em SITEMAP_CONFIG.staticRoutes | `src/config/seo.config.ts` |
+| Páginas usam useMetaTags                      | `src/pages/*.tsx`          |
+| Páginas usam useStructuredData                | `src/pages/*.tsx`          |
+| Imagens OG existem                            | `public/og/*.jpg`          |
 
-### Páginas
+### 7. Estrutura de Pastas
 
-| Rota | App.tsx | pages/index.ts | ARCHITECTURE.md | SEO Config | Status |
+Verificar se a estrutura em `CLAUDE.md` e `README.md` reflete a realidade:
 
-### Componentes UI
+```
+src/
+├── components/
+│   ├── ui/
+│   ├── services/
+│   └── contact/
+├── pages/
+├── data/
+├── hooks/
+├── config/
+├── lib/
+│   └── validations/
+├── test/
+└── types.ts
+```
 
-| Componente | Código | DESIGN_SYSTEM.md | Tem teste? | Status |
+### 8. README.md Sincronizado
 
-### SEO
+| Verificar              | Seção                               |
+| ---------------------- | ----------------------------------- |
+| Todos os docs linkados | Documentação                        |
+| Scripts corretos       | Scripts (comparar com package.json) |
+| Estrutura atualizada   | Estrutura                           |
+| Stack correta          | Stack                               |
 
-| Página | useMetaTags | useStructuredData | PAGE_SEO | Sitemap | Status |
+### 9. Arquivos de Build
 
-### Resumo
+Após `npm run build`, verificar:
 
-1. ✅ Itens sincronizados
-2. ❌ Itens desatualizados (com sugestão de correção)
-3. ⚠️ Itens que precisam de atenção
+- `dist/sitemap.xml` existe
+- `dist/robots.txt` existe
+- Todas as URLs do sitemap são válidas
 
-Pergunte se devo corrigir as inconsistências encontradas.
+### 10. Variáveis de Ambiente
+
+| Arquivo           | Variáveis                          |
+| ----------------- | ---------------------------------- |
+| `.env.example`    | Template com todas as variáveis    |
+| `.env.local`      | VITE_GA_ID (pode ser vazio em dev) |
+| `.env.production` | VITE_GA_ID com valor real          |
+
+---
+
+## Output Esperado
+
+### Tabela: Páginas
+
+| Rota | App.tsx | pages/index.ts | ARCHITECTURE.md | PAGE_SEO | Sitemap | OG Image | Status |
+| ---- | ------- | -------------- | --------------- | -------- | ------- | -------- | ------ |
+
+### Tabela: Componentes UI
+
+| Componente | Código | index.ts | DESIGN_SYSTEM.md | Tem teste? | Status |
+| ---------- | ------ | -------- | ---------------- | ---------- | ------ |
+
+### Tabela: Hooks
+
+| Hook | Código | index.ts | ARCHITECTURE.md | Tem teste? | Status |
+| ---- | ------ | -------- | --------------- | ---------- | ------ |
+
+### Tabela: Data Files
+
+| Arquivo | Código | index.ts | types.ts | Status |
+| ------- | ------ | -------- | -------- | ------ |
+
+### Tabela: SEO por Página
+
+| Página | useMetaTags | useStructuredData | HeroSection+breadcrumb | Status |
+| ------ | ----------- | ----------------- | ---------------------- | ------ |
+
+### Tabela: Documentação
+
+| Doc | Existe | Linkado no README | Atualizado | Status |
+| --- | ------ | ----------------- | ---------- | ------ |
+
+---
+
+## Resumo Final
+
+### ✅ Sincronizado
+
+(listar itens OK)
+
+### ❌ Desatualizado
+
+(listar com sugestão de correção)
+
+### ⚠️ Atenção
+
+(listar warnings)
+
+### 📋 Ações Recomendadas
+
+1. (ação 1)
+2. (ação 2)
+   ...
+
+---
+
+**Pergunte se devo corrigir as inconsistências encontradas automaticamente.**

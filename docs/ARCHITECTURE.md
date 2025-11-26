@@ -664,8 +664,8 @@ Animações customizadas definidas em CSS:
 **Uso**:
 
 ```tsx
-<div className="fixed inset-0 z-[9999] pointer-events-none">
-  <div className="absolute w-[300%] h-[300%] bg-noise opacity-[0.04] animate-noise" />
+<div className="fixed inset-0 z-9999 pointer-events-none">
+  <div className="absolute w-[300%] h-[300%] bg-noise opacity-4 animate-noise" />
 </div>
 ```
 
