@@ -116,7 +116,7 @@ Se encontrar problemas, mostrar correções específicas com:
 ### Local
 
 ```
-docs/seo-reports/[nome-da-pagina].md
+reports/seo-reports/[nome-da-pagina].md
 ```
 
 ### Nomenclatura
@@ -166,14 +166,14 @@ _(ou "Nenhuma pendência.")_
 
 ### Passos obrigatórios
 
-1. Verificar/criar pasta `docs/seo-reports/`
+1. Verificar/criar pasta `reports/seo-reports/`
 2. Se arquivo existe:
    - Preservar histórico existente
    - Adicionar nova entrada no topo do histórico
    - Calcular delta do score
 3. Se não existe:
    - Criar com "Análise inicial" no histórico
-4. Informar ao usuário: `✅ Relatório salvo: docs/seo-reports/[page].md`
+4. Informar ao usuário: `✅ Relatório salvo: reports/seo-reports/[page].md`
 
 ---
 

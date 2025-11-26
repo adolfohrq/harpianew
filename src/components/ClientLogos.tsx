@@ -26,10 +26,7 @@ export const ClientLogos: React.FC = () => {
     <section className="py-32 bg-white relative border-t border-black/5 overflow-hidden">
       {/* Background Decorative Elements */}
       <div className="absolute inset-0 pointer-events-none opacity-40">
-        <div
-          className="absolute bottom-0 left-1/3 w-[600px] h-[600px] bg-gray-100 rounded-full blur-[120px] translate-y-1/2 animate-pulse"
-          style={{ animationDuration: '10s' }}
-        />
+        <div className="absolute bottom-0 left-1/3 w-[600px] h-[600px] bg-gray-100 rounded-full blur-[120px] translate-y-1/2" />
       </div>
 
       {/* Subtle Grid Pattern */}

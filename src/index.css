@@ -5,12 +5,16 @@
    Pesos utilizados: 300, 400, 500, 600, 700
    ========================================================================== */
 
+/*
+   font-display: optional = não causa CLS (usa fallback se fonte não carregou em 100ms)
+   Como temos preload no index.html, a fonte geralmente carrega a tempo
+*/
 @font-face {
   font-family: 'Dosis';
   src: url('/fonts/dosis/Dosis-Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -18,7 +22,7 @@
   src: url('/fonts/dosis/Dosis-Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -26,7 +30,7 @@
   src: url('/fonts/dosis/Dosis-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -34,7 +38,7 @@
   src: url('/fonts/dosis/Dosis-SemiBold.woff2') format('woff2');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -42,7 +46,7 @@
   src: url('/fonts/dosis/Dosis-Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 /* ==========================================================================
@@ -86,6 +90,16 @@
 @layer base {
   body {
     @apply bg-harpia-black text-harpia-white antialiased;
+  }
+
+  /* ==========================================================================
+     CLS Prevention - Reserva espaço para mídia antes de carregar
+     ========================================================================== */
+
+  img,
+  video {
+    height: auto;
+    max-width: 100%;
   }
 
   /* ==========================================================================
