@@ -292,3 +292,54 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
+
+/* ==========================================================================
+   Responsive Background Image Position
+   Ajusta o ponto focal da imagem para diferentes tamanhos de tela
+   ========================================================================== */
+
+/* CTA Section - foco mais para cima em mobile, centraliza em desktop */
+.bg-position-cta {
+  object-position: center 60%;
+}
+
+@media (min-width: 640px) {
+  .bg-position-cta {
+    object-position: center 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .bg-position-cta {
+    object-position: center 40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bg-position-cta {
+    object-position: center 30%;
+  }
+}
+
+/* Showreel Section - foco similar mas ligeiramente diferente */
+.bg-position-showreel {
+  object-position: center 60%;
+}
+
+@media (min-width: 640px) {
+  .bg-position-showreel {
+    object-position: center 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .bg-position-showreel {
+    object-position: center 40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bg-position-showreel {
+    object-position: center 35%;
+  }
+}

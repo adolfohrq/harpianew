@@ -25,6 +25,9 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
     setIsLoading(false);
   };
 
+  // Verifica se className já define uma opacidade customizada
+  const hasCustomOpacity = className?.includes('opacity-');
+
   return (
     <img
       src={imgSrc}
@@ -32,7 +35,7 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
       loading="lazy"
       onError={handleError}
       onLoad={handleLoad}
-      className={`transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'} ${className || ''}`}
+      className={`transition-opacity duration-300 ${isLoading ? 'opacity-0' : hasCustomOpacity ? '' : 'opacity-100'} ${className || ''}`}
       {...props}
     />
   );

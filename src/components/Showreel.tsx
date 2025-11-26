@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
 import { Reveal } from './Reveal';
-import { GradientLine } from './ui';
+import { GradientLine, OptimizedImage } from './ui';
 
 const VIDEO_SRC = '/video.mp4';
 
@@ -70,12 +70,15 @@ export const Showreel = () => {
   return (
     <section className="py-24 md:py-32 lg:py-40 bg-harpia-black relative overflow-hidden">
       {/* Background Image with Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-50"
-        style={{
-          backgroundImage: 'url(/5.webp)',
-        }}
-      />
+      <div className="absolute inset-0">
+        <OptimizedImage
+          src="/5.webp"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover opacity-50 bg-position-showreel"
+          loading="lazy"
+        />
+      </div>
 
       {/* Dark Overlay Gradient */}
       <div className="absolute inset-0 bg-linear-to-br from-harpia-black/30 via-harpia-black/40 to-harpia-black/50 pointer-events-none" />

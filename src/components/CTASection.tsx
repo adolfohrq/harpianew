@@ -9,7 +9,13 @@ export const CTASection: React.FC = () => {
     <section className="py-40 md:py-48 relative bg-harpia-carbon overflow-hidden">
       {/* Background Image Layer */}
       <div className="absolute inset-0 z-0">
-        <OptimizedImage src="/3.webp" alt="Harpia voando" className="w-full h-full object-cover" />
+        <OptimizedImage
+          src="/3.webp"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover bg-position-cta"
+          loading="eager"
+        />
         {/* Overlay Gradient premium - leve para manter legibilidade */}
         <div className="absolute inset-0 bg-linear-to-b from-harpia-black/60 via-harpia-black/50 to-harpia-black/70" />
       </div>

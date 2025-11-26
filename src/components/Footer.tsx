@@ -111,9 +111,7 @@ export const Footer: React.FC = () => {
                 <img
                   src="/harpia-logo.webp"
                   alt="Harpia Logo"
-                  className="h-8 group-hover:opacity-70 transition-opacity"
-                  width={120}
-                  height={32}
+                  className="h-6 sm:h-7 md:h-8 w-auto group-hover:opacity-70 transition-opacity"
                 />
               </Link>
               <p className="font-sans text-sm text-gray-500 leading-relaxed">
