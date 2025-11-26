@@ -157,6 +157,7 @@ export const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               to="/servicos"
+              aria-label="Ver nossos serviços de marketing digital"
               className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-harpia-black font-medium text-xs uppercase tracking-[0.15em] hover:bg-harpia-white hover:shadow-xl hover:shadow-white/10 transition-all duration-300"
             >
               Nossos Serviços
@@ -168,6 +169,7 @@ export const Hero: React.FC = () => {
 
             <Link
               to="/contato"
+              aria-label="Iniciar um novo projeto conosco"
               className="group inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/70 font-medium text-xs uppercase tracking-[0.15em] hover:bg-white/5 hover:border-white/30 hover:text-white transition-all duration-300"
             >
               <Play size={12} className="fill-current" />

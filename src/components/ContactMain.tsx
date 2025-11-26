@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Mail,
   Phone,
@@ -408,9 +409,9 @@ export const ContactMain: React.FC = () => {
                         {/* Privacy */}
                         <p className="text-center text-xs text-gray-400">
                           Ao enviar, você concorda com nossa{' '}
-                          <a href="#" className="text-harpia-black hover:underline">
+                          <Link to="/privacidade" className="text-harpia-black hover:underline">
                             Política de Privacidade
-                          </a>
+                          </Link>
                         </p>
                       </form>
                     )}

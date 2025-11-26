@@ -1,32 +1,32 @@
 import React from 'react';
-import { Testimonials } from '../components/Testimonials';
-import { Marquee } from '../components/Marquee';
-import { Process } from '../components/Process';
-import { Showreel } from '../components/Showreel';
-import { Stats } from '../components/Stats';
-import { WhyHarpia } from '../components/WhyHarpia';
-import { ClientLogos } from '../components/ClientLogos';
-import { ErrorBoundary } from '../components/ErrorBoundary';
-import { useMetaTags } from '../hooks/useMetaTags';
-import { useStructuredData, HARPIA_ORGANIZATION } from '../hooks/useStructuredData';
-import { Hero } from '../components/Hero';
-import { Manifesto } from '../components/Manifesto';
-import { ServicesHub } from '../components/ServicesHub';
-import { PortfolioPreview } from '../components/PortfolioPreview';
-import { CTASection } from '../components/CTASection';
-
-const BASE_URL = 'https://agenciaharpia.com.br';
+import { useMetaTags } from '@/hooks/useMetaTags';
+import { useStructuredData, HARPIA_ORGANIZATION } from '@/hooks/useStructuredData';
+import { PAGE_SEO, getKeywords, getCanonicalUrl, COMPANY_INFO } from '@/config/seo.config';
+import {
+  Testimonials,
+  Marquee,
+  Process,
+  Showreel,
+  Stats,
+  WhyHarpia,
+  ClientLogos,
+  ErrorBoundary,
+  Hero,
+  Manifesto,
+  ServicesHub,
+  PortfolioPreview,
+  CTASection,
+} from '@/components';
 
 export const Home: React.FC = () => {
   useMetaTags({
-    title: 'Harpia - Agência de Marketing Premium | Conectando Visões',
-    description:
-      'Somos uma agência de marketing especializada em criar pontes entre empresas e seus clientes. Estratégia, design e tecnologia para impactar seu negócio.',
-    keywords: 'agência marketing, design digital, branding, estratégia, digital agency',
-    ogTitle: 'Harpia - Agência de Marketing Premium',
-    ogDescription: 'Conectando visões. Voando mais alto. Enxergando mais longe.',
-    ogImage: '/og/home.jpg',
-    canonical: BASE_URL,
+    title: PAGE_SEO.home.title,
+    description: PAGE_SEO.home.description,
+    keywords: getKeywords(PAGE_SEO.home.keywords),
+    ogTitle: PAGE_SEO.home.ogTitle,
+    ogDescription: PAGE_SEO.home.ogDescription,
+    ogImage: PAGE_SEO.home.ogImage,
+    canonical: getCanonicalUrl('/'),
   });
 
   // Structured Data para a página inicial
@@ -35,9 +35,8 @@ export const Home: React.FC = () => {
     {
       type: 'WebPage',
       name: 'Harpia Agência - Home',
-      description:
-        'Agência de marketing digital especializada em fotografia, branding e estratégias digitais.',
-      url: BASE_URL,
+      description: COMPANY_INFO.description,
+      url: COMPANY_INFO.url,
     },
   ]);
 

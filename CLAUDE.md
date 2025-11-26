@@ -69,6 +69,52 @@ import { Component } from '@/components'; // Path alias
 import { HeroSection } from '@/components/ui'; // UI components
 ```
 
+### SEO em Páginas (padrão obrigatório)
+
+```tsx
+// Imports obrigatórios
+import { useMetaTags } from '@/hooks/useMetaTags';
+import { useStructuredData, HARPIA_ORGANIZATION, createPageSchema } from '@/hooks/useStructuredData';
+import { PAGE_SEO, getKeywords, getCanonicalUrl } from '@/config/seo.config';
+
+// Dentro do componente
+useMetaTags({
+  title: PAGE_SEO.nomePagina.title,
+  description: PAGE_SEO.nomePagina.description,
+  keywords: getKeywords(PAGE_SEO.nomePagina.keywords),
+  ogImage: PAGE_SEO.nomePagina.ogImage,
+  canonical: getCanonicalUrl('/rota'),
+});
+
+useStructuredData([
+  HARPIA_ORGANIZATION,
+  createPageSchema(PAGE_SEO.nomePagina.title, PAGE_SEO.nomePagina.description, '/rota', [
+    { name: 'Nome da Página', path: '/rota' },
+  ]),
+]);
+
+// HeroSection com breadcrumb (exceto Home)
+<HeroSection breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Página' }]} ... />
+```
+
+## Comandos Customizados (.claude/commands/)
+
+| Comando                 | Descrição                                                  |
+| ----------------------- | ---------------------------------------------------------- |
+| `/dev`                  | Inicia servidor de desenvolvimento (localhost:5020)        |
+| `/build`                | Build de produção + verificação de sitemap/robots          |
+| `/preview`              | Build + servidor de preview para testar produção           |
+| `/check`                | Verificação completa (lint + testes + build)               |
+| `/test {modo}`          | Executa testes (watch, coverage, ou componente específico) |
+| `/lint-fix`             | Executa linter e corrige problemas automaticamente         |
+| `/commit {msg}`         | Cria commit seguindo conventional commits                  |
+| `/seo {pagina}`         | Análise SEO completa + relatório em docs/seo-reports/      |
+| `/new-page {nome}`      | Cria nova página com template SEO completo                 |
+| `/new-component {nome}` | Cria componente seguindo padrões do projeto                |
+| `/add-data {tipo}`      | Adiciona dados (project, service, testimonial)             |
+| `/refactor {arquivo}`   | Refatora arquivo seguindo padrões                          |
+| `/audit-docs`           | Auditoria completa de documentação e SEO                   |
+
 ## Notas
 
 - BrowserRouter (URLs limpas)
@@ -79,19 +125,47 @@ import { HeroSection } from '@/components/ui'; // UI components
 
 **OBRIGATÓRIO**: Ao realizar mudanças importantes, SEMPRE atualizar a documentação correspondente:
 
-| Tipo de Mudança                      | Arquivos a Atualizar                            |
-| ------------------------------------ | ----------------------------------------------- |
-| Novo componente UI reutilizável      | `docs/DESIGN_SYSTEM.md`                         |
-| Mudança de roteamento/router         | `docs/ARCHITECTURE.md`, `README.md`             |
-| Nova página/rota                     | `docs/ARCHITECTURE.md`, `src/pages/index.ts`    |
-| Remoção de página/rota               | `docs/ARCHITECTURE.md`, `src/pages/index.ts`    |
-| Mudança na stack (dependências core) | `README.md`, `docs/ARCHITECTURE.md`             |
-| Novo padrão de código                | `docs/ARCHITECTURE.md`                          |
-| Novas cores/tipografia               | `docs/DESIGN_SYSTEM.md`, `src/index.css`        |
-| Novo hook customizado                | `docs/ARCHITECTURE.md`, `CLAUDE.md` (estrutura) |
-| Nova pasta em `src/`                 | `CLAUDE.md`, `docs/ARCHITECTURE.md`             |
-| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`             |
-| Remoção de componente/hook           | Remover das docs correspondentes                |
+| Tipo de Mudança                      | Arquivos a Atualizar                                                     |
+| ------------------------------------ | ------------------------------------------------------------------------ |
+| Novo componente UI reutilizável      | `docs/DESIGN_SYSTEM.md`                                                  |
+| Mudança de roteamento/router         | `docs/ARCHITECTURE.md`, `README.md`                                      |
+| Nova página/rota                     | `docs/ARCHITECTURE.md`, `src/pages/index.ts`, `src/config/seo.config.ts` |
+| Remoção de página/rota               | `docs/ARCHITECTURE.md`, `src/pages/index.ts`, `src/config/seo.config.ts` |
+| Mudança na stack (dependências core) | `README.md`, `docs/ARCHITECTURE.md`                                      |
+| Novo padrão de código                | `docs/ARCHITECTURE.md`                                                   |
+| Novas cores/tipografia               | `docs/DESIGN_SYSTEM.md`, `src/index.css`                                 |
+| Novo hook customizado                | `docs/ARCHITECTURE.md`, `CLAUDE.md` (estrutura)                          |
+| Nova pasta em `src/`                 | `CLAUDE.md`, `docs/ARCHITECTURE.md`                                      |
+| Mudança estrutural de pastas         | `CLAUDE.md`, `docs/ARCHITECTURE.md`                                      |
+| Remoção de componente/hook           | Remover das docs correspondentes                                         |
+| Mudança em dados da empresa/contato  | `src/config/seo.config.ts`                                               |
+| Mudança em redes sociais             | `src/config/seo.config.ts`                                               |
+
+## Regra de Atualização de Configurações (src/config/)
+
+**OBRIGATÓRIO**: Ao criar/remover páginas ou alterar dados do site, atualizar `src/config/seo.config.ts`:
+
+| Ação                        | O que atualizar em `seo.config.ts`                              |
+| --------------------------- | --------------------------------------------------------------- |
+| Nova página                 | Adicionar entrada em `PAGE_SEO` + `SITEMAP_CONFIG.staticRoutes` |
+| Remover página              | Remover de `PAGE_SEO` + `SITEMAP_CONFIG.staticRoutes`           |
+| Mudança de URL da página    | Atualizar path em `SITEMAP_CONFIG.staticRoutes`                 |
+| Novo projeto no portfolio   | Adicionar em `PORTFOLIO_PROJECTS`                               |
+| Mudança de dados da empresa | Atualizar `COMPANY_INFO`                                        |
+| Mudança de contato          | Atualizar `CONTACT_INFO`                                        |
+| Nova rede social            | Adicionar em `SOCIAL_LINKS`                                     |
+| Novo serviço oferecido      | Adicionar em `SERVICES_LIST`                                    |
+
+### Checklist ao criar nova página
+
+1. [ ] Criar arquivo em `src/pages/NomePagina.tsx`
+2. [ ] Exportar em `src/pages/index.ts`
+3. [ ] Adicionar rota em `App.tsx`
+4. [ ] Adicionar `PAGE_SEO.nomePagina` em `seo.config.ts`
+5. [ ] Adicionar rota em `SITEMAP_CONFIG.staticRoutes`
+6. [ ] Usar `useMetaTags` com `PAGE_SEO.nomePagina`
+7. [ ] Usar `useStructuredData` com `HARPIA_ORGANIZATION`
+8. [ ] Criar imagem OG em `public/og/nome-pagina.jpg` (1200x630px)
 
 ### Checklist pós-implementação
 

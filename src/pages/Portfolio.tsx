@@ -1,37 +1,37 @@
 import React from 'react';
-import { useMetaTags } from '../hooks/useMetaTags';
-import { useStructuredData, createPageSchema } from '../hooks/useStructuredData';
-import { HeroSection } from '../components/ui';
-import { PortfolioPreview } from '../components/PortfolioPreview';
-import { ClientLogos } from '../components/ClientLogos';
-import { CTASection } from '../components/CTASection';
-
-const BASE_URL = 'https://agenciaharpia.com.br';
+import { useMetaTags } from '@/hooks/useMetaTags';
+import {
+  useStructuredData,
+  HARPIA_ORGANIZATION,
+  createPageSchema,
+} from '@/hooks/useStructuredData';
+import { PAGE_SEO, getKeywords, getCanonicalUrl } from '@/config/seo.config';
+import { HeroSection } from '@/components/ui';
+import { PortfolioPreview } from '@/components/PortfolioPreview';
+import { ClientLogos } from '@/components/ClientLogos';
+import { CTASection } from '@/components';
 
 export const Portfolio: React.FC = () => {
   useMetaTags({
-    title: 'Portfólio - Harpia Agência',
-    description:
-      'Conheça nossos projetos. Cases de sucesso em fotografia, branding, design e marketing digital.',
-    keywords: 'portfolio, projetos, cases, fotografia, branding, design, marketing digital',
-    ogImage: '/og/portfolio.jpg',
-    canonical: `${BASE_URL}/portfolio`,
+    title: PAGE_SEO.portfolio.title,
+    description: PAGE_SEO.portfolio.description,
+    keywords: getKeywords(PAGE_SEO.portfolio.keywords),
+    ogImage: PAGE_SEO.portfolio.ogImage,
+    canonical: getCanonicalUrl('/portfolio'),
   });
 
-  // Structured Data para a página de portfolio
-  useStructuredData(
-    createPageSchema(
-      'Portfólio - Harpia Agência',
-      'Cases de sucesso em fotografia, branding, design e marketing digital.',
-      '/portfolio',
-      [{ name: 'Portfólio', path: '/portfolio' }]
-    )
-  );
+  useStructuredData([
+    HARPIA_ORGANIZATION,
+    createPageSchema(PAGE_SEO.portfolio.title, PAGE_SEO.portfolio.description, '/portfolio', [
+      { name: 'Portfólio', path: '/portfolio' },
+    ]),
+  ]);
 
   return (
     <div className="w-full relative bg-white">
       {/* Hero Section */}
       <HeroSection
+        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Portfólio' }]}
         subtitle="Nossos Trabalhos"
         title={
           <>

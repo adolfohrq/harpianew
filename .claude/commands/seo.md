@@ -4,76 +4,116 @@ Analise e otimize o SEO de uma página ou do projeto inteiro.
 
 Se nenhum argumento for passado, analisa todas as páginas.
 
-## Verificações por página
+## Verificações por página (SCAN COMPLETO)
 
 ### 1. Meta Tags (useMetaTags)
 
-- [ ] `title` está definido e tem menos de 60 caracteres
-- [ ] `description` está definida e tem 150-160 caracteres
-- [ ] `keywords` inclui palavras-chave relevantes
-- [ ] `canonical` aponta para URL correta
-- [ ] `ogTitle` e `ogDescription` estão definidos
-- [ ] `ogImage` aponta para imagem válida
+- [ ] `title` definido e < 60 caracteres
+- [ ] `description` entre 150-160 caracteres
+- [ ] `keywords` usando `getKeywords()` centralizado
+- [ ] `canonical` usando `getCanonicalUrl()` centralizado
+- [ ] `ogTitle` e `ogDescription` definidos
+- [ ] `ogImage` aponta para imagem existente em `/public/og/`
+- [ ] `robots` não está bloqueando indexação
 
 ### 2. Structured Data (useStructuredData)
 
-- [ ] `HARPIA_ORGANIZATION` está incluído
-- [ ] Schema da página (WebPage, Service, CreativeWork) está definido
-- [ ] Breadcrumbs estão corretos
+- [ ] `HARPIA_ORGANIZATION` incluído
+- [ ] Schema da página (WebPage, Service, CreativeWork) definido
+- [ ] Breadcrumbs corretos (exceto home)
+- [ ] JSON-LD válido (sem erros de sintaxe)
+- [ ] URLs absolutas no schema
 
 ### 3. Configuração Central (seo.config.ts)
 
 - [ ] Página tem entrada em `PAGE_SEO`
 - [ ] Rota está em `SITEMAP_CONFIG.staticRoutes`
-- [ ] Prioridade e changefreq estão adequados
+- [ ] Prioridade adequada (home=1.0, principais=0.8, outras=0.6)
+- [ ] changefreq coerente com frequência de atualização
 
 ### 4. Conteúdo da Página
 
 - [ ] H1 único e relevante
-- [ ] Hierarquia de headings correta (h1 > h2 > h3)
-- [ ] Imagens têm alt text descritivo
+- [ ] Hierarquia de headings correta (h1 > h2 > h3, sem pular níveis)
+- [ ] Imagens têm `alt` descritivo
+- [ ] Imagens usam `<OptimizedImage />` ou têm `loading="lazy"`
 - [ ] Links internos usam `<Link>` do React Router
+- [ ] Não há links quebrados (verificar hrefs)
 
-## Output esperado
+### 5. Performance & Técnico
+
+- [ ] Imports usando path alias `@/`
+- [ ] Sem valores hardcoded (URLs, textos de SEO)
+- [ ] Aria-labels em elementos interativos (CTAs, botões)
+- [ ] Viewport meta tag presente
+- [ ] Sem conteúdo duplicado
+
+### 6. Acessibilidade (impacta SEO)
+
+- [ ] Contraste de texto adequado
+- [ ] Focus states visíveis em links/botões
+- [ ] Landmarks semânticos (`<main>`, `<nav>`, `<footer>`)
+
+## Output esperado (CONSOLE)
 
 ```
-🔍 Análise de SEO: /servicos
+🔍 SEO: /servicos
 
 📝 Meta Tags
-   ✅ Title: "Serviços | Harpia Agência" (32 chars)
-   ✅ Description: "Conheça nossos serviços..." (158 chars)
-   ✅ Keywords: 8 palavras-chave
-   ✅ Canonical: https://agenciaharpia.com.br/servicos
-   ✅ OG Image: /images/og-services.jpg
+   ✅ title: "Serviços | Harpia" (32c)
+   ✅ description: 158c ✓
+   ✅ keywords: getKeywords() ✓
+   ✅ canonical: getCanonicalUrl() ✓
+   ✅ og: title ✓ desc ✓ image ✓
 
 📊 Structured Data
-   ✅ Organization schema
+   ✅ HARPIA_ORGANIZATION
    ✅ WebPage schema
    ✅ Breadcrumb: Home > Serviços
 
-📁 SEO Config
-   ✅ PAGE_SEO.services definido
-   ✅ Sitemap: priority 0.8, changefreq monthly
+⚙️ Config
+   ✅ PAGE_SEO.services
+   ✅ Sitemap: 0.8 / monthly
 
 📄 Conteúdo
    ✅ H1: "SERVIÇOS QUE ELEVAM SUA MARCA"
-   ✅ Hierarquia: h1 (1) > h2 (4) > h3 (8)
-   ⚠️ 2 imagens sem alt text
+   ✅ Headings: h1(1) → h2(4) → h3(8)
+   ⚠️ 2 imagens sem alt
+
+🔧 Técnico
+   ✅ Path alias @/
+   ✅ Lazy loading
+   ✅ Aria-labels
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Score SEO: 95/100
+Score: 95/100
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️ CORREÇÕES NECESSÁRIAS:
+
+1. src/components/Services.tsx:45
+   → Adicionar alt em <img>
+
+   // Antes
+   <img src={service.image} />
+
+   // Depois
+   <img src={service.image} alt={service.title} />
 ```
 
 ## Sugestões de melhoria
 
-Se encontrar problemas, sugira correções específicas com código.
+Se encontrar problemas, mostrar correções específicas com:
+
+- Arquivo e linha
+- Código antes/depois
+- Comando para corrigir (se aplicável)
+
+---
 
 ## Geração de Relatório (OBRIGATÓRIO)
 
-Após a análise, SEMPRE gerar/atualizar um arquivo de relatório:
-
-### Local do relatório
+### Local
 
 ```
 docs/seo-reports/[nome-da-pagina].md
@@ -81,77 +121,69 @@ docs/seo-reports/[nome-da-pagina].md
 
 ### Nomenclatura
 
-- Home → `docs/seo-reports/home.md`
-- Services → `docs/seo-reports/services.md`
-- Portfolio → `docs/seo-reports/portfolio.md`
-- Contact → `docs/seo-reports/contact.md`
-- AboutPage → `docs/seo-reports/about.md`
+- Home → `home.md`
+- Services → `services.md`
+- Portfolio → `portfolio.md`
+- Contact → `contact.md`
+- About → `about.md`
 
-### Estrutura do relatório
+### Estrutura do relatório (OBJETIVA, SEM TABELAS)
 
 ```markdown
-# Relatório SEO: [Nome da Página]
+# SEO: [Página] — XX/100
 
-> **Última análise:** DD/MM/YYYY às HH:MM
-> **Score:** XX/100
+> Última análise: DD/MM/YYYY às HH:MM (BRT - São Paulo)
 
 ## Resumo
 
-| Categoria       | Status   | Pontos |
-| --------------- | -------- | ------ |
-| Meta Tags       | ✅/⚠️/❌ | XX/25  |
-| Structured Data | ✅/⚠️/❌ | XX/20  |
-| SEO Config      | ✅/⚠️/❌ | XX/20  |
-| Conteúdo        | ✅/⚠️/❌ | XX/20  |
-| Boas Práticas   | ✅/⚠️/❌ | XX/15  |
+**Meta Tags** XX/25 — title(XXc) desc(XXc) og(✓/✗)
+**Schema** XX/20 — Org(✓) Page(✓) Bread(✓/✗)
+**Config** XX/20 — PAGE_SEO(✓) Sitemap(X.X/freq)
+**Conteúdo** XX/20 — H1(✓) Hierarquia(✓) Alt(X/Y)
+**Técnico** XX/15 — Alias(✓) Lazy(✓) Aria(✓)
 
-## Detalhes da Análise
+## Pendências
 
-### Meta Tags
+- [ ] Descrição curta do problema → `arquivo:linha`
+- [ ] Outro problema → `arquivo:linha`
 
-[Detalhes completos...]
+_(ou "Nenhuma pendência.")_
 
-### Structured Data
+## Histórico
 
-[Detalhes completos...]
-
-### SEO Config
-
-[Detalhes completos...]
-
-### Conteúdo
-
-[Detalhes completos...]
-
-## Problemas Encontrados
-
-1. [Problema 1 com sugestão de correção]
-2. [Problema 2 com sugestão de correção]
-
-## Histórico de Análises
-
-| Data             | Score  | Principais Mudanças |
-| ---------------- | ------ | ------------------- |
-| DD/MM/YYYY HH:MM | XX/100 | Análise inicial     |
+- **DD/MM HH:MM** — XX pts (Δ +X) — Descrição breve
+- **DD/MM HH:MM** — XX pts — Análise inicial
 ```
 
-### Regras para o relatório
+### Regras do relatório
 
-1. **Criar pasta se não existir**: `docs/seo-reports/`
-2. **Verificar se arquivo existe**: Se já existir, atualizar mantendo o histórico
-3. **Adicionar ao histórico**: Sempre adicionar nova entrada na tabela de histórico
-4. **Data/hora atual**: Usar formato `DD/MM/YYYY às HH:MM`
-5. **Manter histórico**: Preservar entradas anteriores da tabela de histórico
+1. **Máximo ~60 linhas** — ser conciso
+2. **Sem tabelas** — usar listas e texto inline
+3. **Pendências como checklist** — `- [ ]` para ações
+4. **Sem código no relatório** — correções ficam no console
+5. **Delta no histórico** — mostrar evolução do score
+6. **Horário BRT** — obter horário real de São Paulo executando: `node -e "console.log(new Date().toLocaleString('pt-BR', {timeZone: 'America/Sao_Paulo'}))"`
 
 ### Passos obrigatórios
 
-1. Verificar se `docs/seo-reports/` existe, criar se necessário
-2. Verificar se o arquivo `.md` da página já existe
-3. Se existir:
-   - Ler o histórico existente
-   - Adicionar nova entrada no histórico
-   - Reescrever o conteúdo com a análise atualizada
-4. Se não existir:
-   - Criar arquivo novo com análise completa
-   - Iniciar histórico com "Análise inicial"
-5. Informar ao usuário que o relatório foi salvo/atualizado
+1. Verificar/criar pasta `docs/seo-reports/`
+2. Se arquivo existe:
+   - Preservar histórico existente
+   - Adicionar nova entrada no topo do histórico
+   - Calcular delta do score
+3. Se não existe:
+   - Criar com "Análise inicial" no histórico
+4. Informar ao usuário: `✅ Relatório salvo: docs/seo-reports/[page].md`
+
+---
+
+## Fluxo de Correção
+
+**IMPORTANTE:** Após a análise, se o usuário pedir para corrigir os problemas:
+
+1. Aplicar as correções necessárias nos arquivos
+2. **Re-executar a análise completa** da mesma página
+3. Atualizar o relatório com o novo score
+4. Mostrar o delta de evolução
+
+Isso garante que o relatório sempre reflita o estado atual do código.

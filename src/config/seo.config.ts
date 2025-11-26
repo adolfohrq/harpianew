@@ -106,12 +106,12 @@ export const SOCIAL_LINKS = {
 export const PAGE_SEO = {
   // ----- HOME -----
   home: {
-    title: 'Harpia - Agência de Marketing Premium | Conectando Visões',
+    title: 'Harpia - Agência de Marketing Digital | Tubarão/SC',
     description:
       'Somos uma agência de marketing especializada em criar pontes entre empresas e seus clientes. Estratégia, design e tecnologia para impactar seu negócio.',
     keywords:
       'agência marketing, design digital, branding, estratégia, digital agency, marketing digital, fotografia profissional',
-    ogTitle: 'Harpia - Agência de Marketing Premium',
+    ogTitle: 'Harpia - Agência de Marketing Digital',
     ogDescription: 'Conectando visões. Voando mais alto. Enxergando mais longe.',
     ogImage: '/og/home.jpg',
   },
@@ -124,15 +124,6 @@ export const PAGE_SEO = {
     keywords:
       'fotografia profissional, branding, design, marketing digital, conteúdo, identidade visual',
     ogImage: '/og/servicos.jpg',
-  },
-
-  // ----- PACOTES -----
-  packages: {
-    title: 'Pacotes - Harpia Agência',
-    description:
-      'Pacotes de serviços personalizados para cada fase do seu negócio. Do essencial ao premium.',
-    keywords: 'pacotes marketing, planos, preços, serviços de marketing',
-    ogImage: '/og/pacotes.jpg',
   },
 
   // ----- PORTFOLIO -----
@@ -157,9 +148,27 @@ export const PAGE_SEO = {
   contact: {
     title: 'Contato - Harpia Agência',
     description:
-      'Entre em contato conosco. Estamos prontos para transformar sua marca e impulsionar seu negócio.',
-    keywords: 'contato, orçamento, fale conosco, whatsapp',
+      'Entre em contato com a Harpia Agência. Estamos prontos para transformar sua marca e impulsionar seu negócio com estratégias de marketing digital personalizadas.',
+    keywords: 'contato, orçamento, fale conosco, whatsapp, agência marketing',
     ogImage: '/og/contato.jpg',
+  },
+
+  // ----- PRIVACIDADE -----
+  privacy: {
+    title: 'Política de Privacidade - Harpia Agência',
+    description:
+      'Política de privacidade da Harpia Agência. Saiba como coletamos, usamos e protegemos suas informações pessoais conforme a LGPD.',
+    keywords: 'política de privacidade, LGPD, proteção de dados, dados pessoais',
+    ogImage: '/og/privacidade.jpg',
+  },
+
+  // ----- TERMOS -----
+  terms: {
+    title: 'Termos de Uso - Harpia Agência',
+    description:
+      'Termos de uso da Harpia Agência. Conheça as condições e regras para utilização dos nossos serviços e site.',
+    keywords: 'termos de uso, condições de uso, termos e condições, regras',
+    ogImage: '/og/termos.jpg',
   },
 
   // ----- 404 -----
@@ -249,10 +258,11 @@ export const SITEMAP_CONFIG = {
   staticRoutes: [
     { path: '/', priority: 1.0, changefreq: 'weekly' as const },
     { path: '/servicos', priority: 0.9, changefreq: 'monthly' as const },
-    { path: '/pacotes', priority: 0.8, changefreq: 'monthly' as const },
     { path: '/portfolio', priority: 0.9, changefreq: 'weekly' as const },
     { path: '/sobre', priority: 0.7, changefreq: 'monthly' as const },
     { path: '/contato', priority: 0.8, changefreq: 'monthly' as const },
+    { path: '/privacidade', priority: 0.3, changefreq: 'yearly' as const },
+    { path: '/termos', priority: 0.3, changefreq: 'yearly' as const },
   ],
 
   // Prioridade padrão para páginas de portfolio
@@ -271,7 +281,9 @@ export const GLOBAL_KEYWORDS = [
   'digital',
   'fotografia',
   'branding',
-  'São Paulo',
+  'Tubarão',
+  'Santa Catarina',
+  'SC',
   'Brasil',
 ];
 

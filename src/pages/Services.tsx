@@ -1,34 +1,30 @@
 import React from 'react';
-import { useMetaTags } from '../hooks/useMetaTags';
+import { useMetaTags } from '@/hooks/useMetaTags';
 import {
   useStructuredData,
+  HARPIA_ORGANIZATION,
   createPageSchema,
   createServiceSchema,
-} from '../hooks/useStructuredData';
-import { HeroSection } from '../components/ui';
-import { ServicesGrid, ServicesBenefits, ServicesStats } from '../components/services';
-import { CTASection } from '../components/CTASection';
-
-const BASE_URL = 'https://agenciaharpia.com.br';
+} from '@/hooks/useStructuredData';
+import { PAGE_SEO, getKeywords, getCanonicalUrl } from '@/config/seo.config';
+import { HeroSection } from '@/components/ui';
+import { ServicesGrid, ServicesBenefits, ServicesStats } from '@/components/services';
+import { CTASection } from '@/components';
 
 export const Services: React.FC = () => {
   useMetaTags({
-    title: 'Serviços - Harpia Agência',
-    description:
-      'Fotografia, Branding, Conteúdo e Marketing Digital. Soluções completas para elevar sua marca.',
-    keywords: 'fotografia, branding, design, marketing digital, conteúdo',
-    ogImage: '/og/servicos.jpg',
-    canonical: `${BASE_URL}/servicos`,
+    title: PAGE_SEO.services.title,
+    description: PAGE_SEO.services.description,
+    keywords: getKeywords(PAGE_SEO.services.keywords),
+    ogImage: PAGE_SEO.services.ogImage,
+    canonical: getCanonicalUrl('/servicos'),
   });
 
-  // Structured Data para a página de serviços
   useStructuredData([
-    createPageSchema(
-      'Serviços - Harpia Agência',
-      'Serviços de fotografia, branding, conteúdo e marketing digital.',
-      '/servicos',
-      [{ name: 'Serviços', path: '/servicos' }]
-    ),
+    HARPIA_ORGANIZATION,
+    createPageSchema(PAGE_SEO.services.title, PAGE_SEO.services.description, '/servicos', [
+      { name: 'Serviços', path: '/servicos' },
+    ]),
     createServiceSchema('Fotografia Profissional', 'Fotografia de alta qualidade para sua marca.'),
     createServiceSchema(
       'Branding',
@@ -41,6 +37,7 @@ export const Services: React.FC = () => {
     <div className="w-full relative bg-white">
       {/* Hero Section */}
       <HeroSection
+        breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Serviços' }]}
         subtitle="Excelência em Cada Detalhe"
         title={
           <>
