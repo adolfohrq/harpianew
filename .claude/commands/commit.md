@@ -15,3 +15,4 @@ Crie um commit seguindo conventional commits.
 3. Adicione os arquivos apropriados com `git add`
 4. Crie o commit com a mensagem fornecida (ou sugira uma baseada nas mudanças)
 5. Mostre o resultado do commit
+6. Pergunte se o usuário quer que seja feito push
