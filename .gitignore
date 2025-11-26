@@ -22,3 +22,17 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build artifacts
+dist.zip
+*.zip
+
+# Playwright
+.playwright-mcp/
+
+# Test/Lint results
+lint-results.json
+test-results.json
+
+# Claude local settings
+.claude/settings.local.json
