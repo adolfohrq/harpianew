@@ -6,16 +6,16 @@
 
 ## Sumário Executivo
 
-| Categoria    | Crítico     | Importante  | Melhoria |
-| ------------ | ----------- | ----------- | -------- |
-| Segurança    | ~~2~~ 0 ✅  | 0           | 0        |
-| Código       | ~~1~~ 0 ✅  | ~~4~~ 2 ✅  | 3        |
-| Testes       | 0           | 1           | 2        |
-| Performance  | 0           | 2           | 2        |
-| Documentação | 0           | 1           | 1        |
-| **Total**    | ~~3~~ **1** | ~~8~~ **6** | **8**    |
+| Categoria    | Crítico    | Importante  | Melhoria |
+| ------------ | ---------- | ----------- | -------- |
+| Segurança    | ~~2~~ 0 ✅ | 0           | 0        |
+| Código       | ~~1~~ 0 ✅ | ~~4~~ 0 ✅  | 3        |
+| Testes       | 0          | 1           | 2        |
+| Performance  | 0          | 2           | 2        |
+| Documentação | 0          | ~~1~~ 0 ✅  | 1        |
+| **Total**    | **0** ✅   | ~~8~~ **3** | **8**    |
 
-> **Progresso:** 6 itens resolvidos nesta sessão!
+> **Progresso:** 9 itens resolvidos nesta sessão!
 
 ---
 
@@ -29,17 +29,15 @@
 
 ---
 
-### 3. VisualGovernance.tsx não deve estar em produção
+### ~~3. VisualGovernance.tsx não deve estar em produção~~ ✅ RESOLVIDO
 
-**Problema:** Arquivo de 2018 linhas que é uma página de testes/documentação visual, não uma página real do site.
+**Status:** Rota agora só aparece em desenvolvimento (`import.meta.env.DEV`)
 
-**Arquivo:** [src/pages/VisualGovernance.tsx](src/pages/VisualGovernance.tsx)
+**O que foi feito:**
 
-**Opções:**
-
-1. **Mover para pasta de documentação:** `docs/examples/VisualGovernance.tsx`
-2. **Remover da build de produção:** Adicionar rota apenas em desenvolvimento
-3. **Dividir em componentes menores:** Se for manter, extrair sub-componentes
+- Adicionado check `isDev` em `App.tsx`
+- Rota `/visual-governance` só renderiza quando `import.meta.env.DEV === true`
+- Em produção, a página não é acessível
 
 ---
 
@@ -99,48 +97,28 @@
 
 ---
 
-### 7. GA4 hardcoded no HTML
+### ~~7. GA4 hardcoded no HTML~~ ✅ RESOLVIDO
 
-**Problema:** ID do Google Analytics está fixo no código.
+**Status:** GA4 agora usa variável de ambiente.
 
-**Arquivo:** [index.html](index.html#L34)
+**O que foi feito:**
 
-**Solução:**
-
-```html
-<!-- Usar variável de ambiente -->
-<script>
-  window.GA_ID = '%VITE_GA_ID%';
-</script>
-```
-
-E no `.env`:
-
-```env
-VITE_GA_ID=G-XXXXXXXXXX
-```
+- Criado `.env.production` com `VITE_GA_ID=G-NSQ9LPFYZQ`
+- `index.html` carrega GA dinamicamente via `%VITE_GA_ID%`
+- Script só executa se a variável estiver definida
 
 ---
 
-### 8. PORTFOLIO_PROJECTS pode desincronizar
+### ~~8. PORTFOLIO_PROJECTS pode desincronizar~~ ✅ RESOLVIDO
 
-**Problema:** Projetos duplicados em 2 lugares:
+**Status:** Fonte de dados unificada.
 
-- `src/config/seo.config.ts` (4 projetos hardcoded)
-- `src/data/projects.ts` (lista completa)
+**O que foi feito:**
 
-**Solução:** Unificar fonte de dados:
-
-```typescript
-// seo.config.ts
-import { PROJECTS } from '@/data/projects';
-
-export const PORTFOLIO_PROJECTS = PROJECTS.map((p) => ({
-  slug: p.slug,
-  title: p.title,
-  lastModified: p.lastModified || new Date().toISOString(),
-}));
-```
+- `seo.config.ts` agora importa de `src/data/projects.ts`
+- `PORTFOLIO_PROJECTS` é derivado de `PROJECTS`
+- `build-sitemap.js` lê slugs diretamente de `projects.ts`
+- Build confirma 6 projetos sincronizados
 
 ---
 
@@ -318,7 +296,7 @@ return (
 - [x] ~~Atualizar `.gitignore`~~ ✅
 - [ ] Invalidar e regenerar API key exposta (se aplicável)
 - [x] ~~Executar `npm run format`~~ ✅
-- [ ] Decidir destino de VisualGovernance
+- [x] ~~Decidir destino de VisualGovernance~~ ✅ (dev-only)
 
 ### Fase 2 - Importantes (Esta Semana)
 
@@ -326,8 +304,9 @@ return (
 - [x] ~~Adicionar `useStructuredData` em PortfolioDetail~~ ✅
 - [x] ~~Corrigir classes Tailwind para sintaxe canônica~~ ✅
 - [x] ~~Remover teste dummy Simple.test.tsx~~ ✅
-- [ ] Mover GA4 ID para variável de ambiente
-- [ ] Unificar PORTFOLIO_PROJECTS com projects.ts
+- [x] ~~Mover GA4 ID para variável de ambiente~~ ✅
+- [x] ~~Unificar PORTFOLIO_PROJECTS com projects.ts~~ ✅
+- [x] ~~VisualGovernance dev-only~~ ✅
 
 ### Fase 3 - Melhorias (Este Mês)
 
@@ -340,13 +319,15 @@ return (
 
 ## Métricas de Sucesso
 
-| Métrica                  | Atual | Meta |
-| ------------------------ | ----- | ---- |
-| Erros de lint            | 3     | 0    |
-| Cobertura de testes      | ~5%   | >60% |
-| Bundle size (sem vídeos) | ~29MB | <5MB |
-| Lighthouse Performance   | ?     | >90  |
-| Arquivos >500 linhas     | 2     | 0    |
+| Métrica                  | Inicial | Atual | Meta |
+| ------------------------ | ------- | ----- | ---- |
+| Erros de lint            | 3       | 0 ✅  | 0    |
+| Itens críticos           | 3       | 0 ✅  | 0    |
+| Itens importantes        | 8       | 3     | 0    |
+| Cobertura de testes      | ~5%     | ~5%   | >60% |
+| Bundle size (sem vídeos) | ~29MB   | ~29MB | <5MB |
+| Lighthouse Performance   | ?       | ?     | >90  |
+| Arquivos >500 linhas     | 2       | 2     | 0    |
 
 ---
 

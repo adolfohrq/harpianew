@@ -9,6 +9,8 @@
  * Após editar, execute `npm run build` para gerar o sitemap atualizado.
  */
 
+import { PROJECTS } from '../data/projects';
+
 // =============================================================================
 // 1. INFORMAÇÕES DA EMPRESA (Schema.org Organization)
 // =============================================================================
@@ -222,32 +224,14 @@ export const SERVICES_LIST = [
 ];
 
 // =============================================================================
-// 6. PROJETOS DO PORTFOLIO (slugs para sitemap)
+// 6. PROJETOS DO PORTFOLIO (derivado de src/data/projects.ts)
 // =============================================================================
 
-export const PORTFOLIO_PROJECTS = [
-  {
-    slug: 'branding-cafe-origem',
-    name: 'Café Origem - Branding Completo',
-    description: 'Desenvolvimento de identidade visual para cafeteria artesanal.',
-  },
-  {
-    slug: 'fotografia-moda-verao',
-    name: 'Coleção Verão 2024',
-    description: 'Ensaio fotográfico para coleção de moda verão.',
-  },
-  {
-    slug: 'identidade-visual-tech',
-    name: 'TechStart - Identidade Visual',
-    description: 'Branding completo para startup de tecnologia.',
-  },
-  {
-    slug: 'campanha-digital-fitness',
-    name: 'FitLife - Campanha Digital',
-    description: 'Campanha de marketing digital para academia.',
-  },
-  // Adicione novos projetos aqui...
-];
+export const PORTFOLIO_PROJECTS = PROJECTS.map((project) => ({
+  slug: project.slug,
+  name: project.title,
+  description: project.description,
+}));
 
 // =============================================================================
 // 7. CONFIGURAÇÕES DO SITEMAP

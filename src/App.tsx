@@ -34,6 +34,9 @@ import { NAV_LINKS } from './data';
 import { ArrowUp } from 'lucide-react';
 import { usePageTracking } from './hooks';
 
+// Verifica se está em modo de desenvolvimento
+const isDev = import.meta.env.DEV;
+
 // Helper component to scroll to top on route change and track pageviews
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -98,7 +101,8 @@ const App: React.FC = () => {
               <Route path="/sobre" element={<AboutPage />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/portfolio/:slug" element={<PortfolioDetail />} />
-              <Route path="/visual-governance" element={<VisualGovernance />} />
+              {/* VisualGovernance só disponível em desenvolvimento */}
+              {isDev && <Route path="/visual-governance" element={<VisualGovernance />} />}
               <Route path="/contato" element={<Contact />} />
               <Route path="/privacidade" element={<Privacy />} />
               <Route path="/termos" element={<Terms />} />

@@ -15,6 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.resolve(rootDir, 'dist');
 const appFile = path.resolve(rootDir, 'src/App.tsx');
+const projectsFile = path.resolve(rootDir, 'src/data/projects.ts');
 
 // Lê e parseia o arquivo de configuração TypeScript
 function loadConfig() {
@@ -47,16 +48,13 @@ function loadConfig() {
     }
   }
 
-  // Extrai PORTFOLIO_PROJECTS slugs
-  const portfolioMatch = content.match(/PORTFOLIO_PROJECTS\s*=\s*\[([\s\S]*?)\];/);
+  // Extrai slugs diretamente de src/data/projects.ts
+  const projectsContent = fs.readFileSync(projectsFile, 'utf-8');
   const portfolioSlugs = [];
-
-  if (portfolioMatch) {
-    const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
-    let match;
-    while ((match = slugRegex.exec(portfolioMatch[1])) !== null) {
-      portfolioSlugs.push(match[1]);
-    }
+  const slugRegex = /slug:\s*['"]([^'"]+)['"]/g;
+  let match;
+  while ((match = slugRegex.exec(projectsContent)) !== null) {
+    portfolioSlugs.push(match[1]);
   }
 
   return { baseUrl, companyName, staticRoutes, portfolioSlugs };

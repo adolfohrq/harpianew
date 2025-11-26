@@ -30,15 +30,26 @@
       content="Harpia Agência - Fotografia, Branding e Marketing Digital com visão estratégica. Enxergue mais longe."
     />
 
-    <!-- Google Analytics 4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSQ9LPFYZQ"></script>
+    <!-- Google Analytics 4 - Carregado dinamicamente via env -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-NSQ9LPFYZQ', { send_page_view: false });
+      (function () {
+        var gaId = '%VITE_GA_ID%';
+        // Só carrega se a variável foi substituída (produção)
+        if (gaId && !gaId.includes('VITE_GA_ID')) {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+          document.head.appendChild(script);
+
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', gaId, { send_page_view: false });
+        }
+      })();
     </script>
 
     <!-- Critical CSS inline para evitar flash de conteúdo sem estilo -->
