@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { Reveal } from '../Reveal';
 import { Send, Loader2, CheckCircle2 } from 'lucide-react';
-
-interface FormData {
-  name: string;
-  email: string;
-  phone: string;
-  company: string;
-  budget: string;
-  message: string;
-}
+import {
+  validateField,
+  validateForm,
+  BUDGET_OPTIONS,
+  INITIAL_FORM_STATE,
+  type ContactFormData,
+  type ContactFormErrors,
+} from '../../lib/validations';
 
 interface FormFieldProps {
   id: string;
-  name: keyof FormData;
+  name: keyof ContactFormData;
   type: string;
   value: string;
   onChange: (
@@ -185,41 +184,11 @@ const FormField: React.FC<FormFieldProps> = ({
 };
 
 export const ContactForm: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    budget: '',
-    message: '',
-  });
-
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_STATE);
+  const [errors, setErrors] = useState<ContactFormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  const validateField = (name: string, value: string): string => {
-    switch (name) {
-      case 'name':
-        if (!value.trim()) return 'Nome é obrigatório';
-        if (value.trim().length < 2) return 'Nome muito curto';
-        return '';
-      case 'email':
-        if (!value.trim()) return 'Email é obrigatório';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Email inválido';
-        return '';
-      case 'phone':
-        if (value && !/^[\d\s()+-]+$/.test(value)) return 'Telefone inválido';
-        return '';
-      case 'message':
-        if (!value.trim()) return 'Mensagem é obrigatória';
-        if (value.trim().length < 10) return 'Mensagem muito curta (mínimo 10 caracteres)';
-        return '';
-      default:
-        return '';
-    }
-  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -227,9 +196,10 @@ export const ContactForm: React.FC = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
+    // Valida em tempo real se o campo já foi tocado
     if (touched[name]) {
-      const error = validateField(name, value);
-      setErrors((prev) => ({ ...prev, [name]: error }));
+      const error = validateField(name as keyof ContactFormData, value);
+      setErrors((prev) => ({ ...prev, [name]: error || '' }));
     }
   };
 
@@ -238,30 +208,29 @@ export const ContactForm: React.FC = () => {
   ) => {
     const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
-    const error = validateField(name, value);
-    setErrors((prev) => ({ ...prev, [name]: error }));
+    const error = validateField(name as keyof ContactFormData, value);
+    setErrors((prev) => ({ ...prev, [name]: error || '' }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate all fields
-    const newErrors: Record<string, string> = {};
+    // Marca todos os campos como tocados
     const newTouched: Record<string, boolean> = {};
-
     Object.keys(formData).forEach((key) => {
       newTouched[key] = true;
-      const error = validateField(key, formData[key as keyof FormData]);
-      if (error) newErrors[key] = error;
     });
-
     setTouched(newTouched);
-    setErrors(newErrors);
 
-    if (Object.keys(newErrors).length > 0) {
+    // Valida todos os campos com Zod
+    const { success, errors: validationErrors } = validateForm(formData);
+
+    if (!success) {
+      setErrors(validationErrors);
       return;
     }
 
+    setErrors({});
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
@@ -272,14 +241,7 @@ export const ContactForm: React.FC = () => {
 
       // Reset form after success
       setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          budget: '',
-          message: '',
-        });
+        setFormData(INITIAL_FORM_STATE);
         setErrors({});
         setTouched({});
         setSubmitStatus('idle');
@@ -412,13 +374,7 @@ export const ContactForm: React.FC = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   label="Orçamento Estimado"
-                  options={[
-                    'Até R$ 5.000',
-                    'R$ 5.000 - R$ 15.000',
-                    'R$ 15.000 - R$ 30.000',
-                    'R$ 30.000 - R$ 50.000',
-                    'Acima de R$ 50.000',
-                  ]}
+                  options={[...BUDGET_OPTIONS]}
                 />
 
                 <FormField

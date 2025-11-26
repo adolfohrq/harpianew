@@ -7,3 +7,4 @@ export { GradientLine } from './GradientLine';
 export { Container } from './Container';
 export { Skeleton, PageSkeleton, CardSkeleton } from './Skeleton';
 export { InstagramIcon, WhatsAppIcon } from './icons';
+export { LazyVideo } from './LazyVideo';
