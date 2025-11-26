@@ -160,8 +160,8 @@ export const ServicesGrid: React.FC = () => {
     <section className="py-24 md:py-32 relative bg-gray-50">
       {/* Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-harpia-black/[0.02] rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-harpia-black/[0.02] rounded-full blur-[80px] -translate-x-1/2 translate-y-1/2" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-harpia-black/2 rounded-full blur-[100px] translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-harpia-black/2 rounded-full blur-[80px] -translate-x-1/2 translate-y-1/2" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -10,6 +10,11 @@ import {
   X,
 } from 'lucide-react';
 import { useMetaTags } from '../hooks/useMetaTags';
+import {
+  useStructuredData,
+  HARPIA_ORGANIZATION,
+  createPortfolioSchema,
+} from '../hooks/useStructuredData';
 import { HeroSection } from '../components/ui';
 import { OptimizedImage } from '../components/ui/OptimizedImage';
 import { Reveal } from '../components/Reveal';
@@ -53,6 +58,20 @@ export const PortfolioDetail: React.FC = () => {
       ? `${project.category}, portfolio, case, ${project.services?.join(', ')}`
       : 'portfolio',
   });
+
+  useStructuredData(
+    project
+      ? [
+          HARPIA_ORGANIZATION,
+          createPortfolioSchema(
+            project.title,
+            project.description,
+            project.image,
+            project.year?.toString()
+          ),
+        ]
+      : []
+  );
 
   // Lightbox handlers
   const openLightbox = (index: number) => {
@@ -180,8 +199,8 @@ export const PortfolioDetail: React.FC = () => {
       <section className="relative bg-white overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-harpia-black/[0.02] rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-harpia-black/[0.02] rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-harpia-black/2 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/3" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-harpia-black/2 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/3" />
         </div>
 
         {/* Top Section - Project Overview */}
@@ -207,7 +226,7 @@ export const PortfolioDetail: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-harpia-black/5 rounded-2xl overflow-hidden">
               {project.client && (
                 <Reveal>
-                  <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/[0.02] transition-colors duration-500">
+                  <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/2 transition-colors duration-500">
                     <div className="flex items-center gap-3 mb-4">
                       <span className="w-8 h-8 rounded-full bg-harpia-black/5 flex items-center justify-center">
                         <span className="w-2 h-2 rounded-full bg-harpia-black/30" />
@@ -225,7 +244,7 @@ export const PortfolioDetail: React.FC = () => {
 
               {project.year && (
                 <Reveal delay={50}>
-                  <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/[0.02] transition-colors duration-500">
+                  <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/2 transition-colors duration-500">
                     <div className="flex items-center gap-3 mb-4">
                       <span className="w-8 h-8 rounded-full bg-harpia-black/5 flex items-center justify-center">
                         <span className="w-2 h-2 rounded-full bg-harpia-black/30" />
@@ -242,7 +261,7 @@ export const PortfolioDetail: React.FC = () => {
               )}
 
               <Reveal delay={100}>
-                <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/[0.02] transition-colors duration-500">
+                <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/2 transition-colors duration-500">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="w-8 h-8 rounded-full bg-harpia-black/5 flex items-center justify-center">
                       <span className="w-2 h-2 rounded-full bg-harpia-black/30" />
@@ -258,7 +277,7 @@ export const PortfolioDetail: React.FC = () => {
               </Reveal>
 
               <Reveal delay={150}>
-                <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/[0.02] transition-colors duration-500">
+                <div className="bg-white p-8 md:p-10 group hover:bg-harpia-black/2 transition-colors duration-500">
                   <div className="flex items-center gap-3 mb-4">
                     <span className="w-8 h-8 rounded-full bg-harpia-black/5 flex items-center justify-center">
                       <span className="w-2 h-2 rounded-full bg-harpia-black/30" />
@@ -306,7 +325,7 @@ export const PortfolioDetail: React.FC = () => {
                 <Reveal>
                   <div className="relative">
                     {/* Large decorative number */}
-                    <span className="absolute -top-8 -left-4 font-serif text-[180px] md:text-[220px] leading-none text-harpia-black/[0.03] select-none pointer-events-none">
+                    <span className="absolute -top-8 -left-4 font-serif text-[180px] md:text-[220px] leading-none text-harpia-black/3 select-none pointer-events-none">
                       01
                     </span>
 
@@ -345,7 +364,7 @@ export const PortfolioDetail: React.FC = () => {
                 <Reveal delay={150}>
                   <div className="relative lg:mt-20">
                     {/* Large decorative number */}
-                    <span className="absolute -top-8 -left-4 font-serif text-[180px] md:text-[220px] leading-none text-harpia-black/[0.03] select-none pointer-events-none">
+                    <span className="absolute -top-8 -left-4 font-serif text-[180px] md:text-[220px] leading-none text-harpia-black/3 select-none pointer-events-none">
                       02
                     </span>
 
@@ -407,7 +426,7 @@ export const PortfolioDetail: React.FC = () => {
                   <button
                     onClick={() => openLightbox(idx)}
                     className={`relative overflow-hidden group cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-white/30 rounded-lg ${
-                      idx === 0 ? 'md:col-span-2 aspect-[21/9]' : 'aspect-[4/3]'
+                      idx === 0 ? 'md:col-span-2 aspect-21/9' : 'aspect-4/3'
                     }`}
                   >
                     <OptimizedImage
@@ -443,7 +462,7 @@ export const PortfolioDetail: React.FC = () => {
           role="dialog"
           aria-modal="true"
           aria-label={`Galeria de imagens - ${project.title}`}
-          className="fixed inset-0 z-[9999] bg-harpia-black/95 backdrop-blur-sm"
+          className="fixed inset-0 z-9999 bg-harpia-black/95 backdrop-blur-sm"
         >
           {/* Backdrop click to close */}
           <div className="absolute inset-0" onClick={closeLightbox} />
@@ -505,7 +524,7 @@ export const PortfolioDetail: React.FC = () => {
         <section className="py-20 md:py-32 bg-white relative overflow-hidden">
           {/* Background quote mark */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-            <Quote size={400} strokeWidth={0.5} className="text-harpia-black/[0.02]" />
+            <Quote size={400} strokeWidth={0.5} className="text-harpia-black/2" />
           </div>
 
           <div className="max-w-4xl mx-auto px-6 relative z-10">
