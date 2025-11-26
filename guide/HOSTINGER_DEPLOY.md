@@ -100,6 +100,18 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 ## 6. `.htaccess` Completo (Recomendado)
 
 ```apache
+# =============================================================================
+# HTACCESS OTIMIZADO PARA REACT SPA - HOSTINGER
+# =============================================================================
+
+# Desabilitar processamento PHP (não precisamos, é SPA estático)
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# REDIRECIONAMENTOS
+# -----------------------------------------------------------------------------
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -108,7 +120,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-  # Redirecionar www para non-www (ou vice-versa)
+  # Redirecionar www para non-www
   RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
   RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
@@ -118,30 +130,106 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   RewriteRule ^ index.html [L]
 </IfModule>
 
-# Cache de assets estáticos (1 ano)
+# -----------------------------------------------------------------------------
+# CACHE DE ASSETS (muito importante para performance!)
+# -----------------------------------------------------------------------------
 <IfModule mod_expires.c>
   ExpiresActive On
+
+  # HTML - cache curto (pode mudar)
+  ExpiresByType text/html "access plus 1 hour"
+
+  # CSS e JS com hash no nome - cache longo
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"
+
+  # Imagens
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fontes
   ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType application/font-woff2 "access plus 1 year"
+
+  # Vídeos
   ExpiresByType video/mp4 "access plus 1 year"
+  ExpiresByType video/webm "access plus 1 year"
+
+  # Outros
+  ExpiresByType application/json "access plus 1 hour"
+  ExpiresByType application/xml "access plus 1 hour"
 </IfModule>
 
-# Compressão GZIP
-<IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json
-</IfModule>
-
-# Headers de segurança
+# Cache-Control headers
 <IfModule mod_headers.c>
+  # Assets com hash - immutable (nunca revalida)
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Imagens e fontes - cache longo
+  <FilesMatch "\.(webp|png|jpg|jpeg|svg|ico|woff2|woff|mp4|webm)$">
+    Header set Cache-Control "public, max-age=31536000"
+  </FilesMatch>
+
+  # HTML - cache curto com revalidação
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# COMPRESSÃO GZIP/BROTLI
+# -----------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  # Comprimir texto
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+  AddOutputFilterByType DEFLATE font/woff
+
+  # Não comprimir arquivos já comprimidos
+  SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|webp|woff2|mp4|webm)$ no-gzip
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# HEADERS DE SEGURANÇA E PERFORMANCE
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # Segurança
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Performance - DNS prefetch para recursos externos
+  Header set Link "</fonts/dosis/Dosis-Regular.woff2>; rel=preload; as=font; crossorigin"
+
+  # Remover headers desnecessários
+  Header unset X-Powered-By
+  Header unset Server
 </IfModule>
+
+# -----------------------------------------------------------------------------
+# OTIMIZAÇÕES EXTRAS
+# -----------------------------------------------------------------------------
+
+# Desabilitar listagem de diretórios
+Options -Indexes
+
+# Desabilitar server signature
+ServerSignature Off
+
+# ETags (opcional - alguns preferem desabilitar com cache longo)
+FileETag MTime Size
 ```
 
 ---

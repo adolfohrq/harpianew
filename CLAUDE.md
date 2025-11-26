@@ -58,7 +58,8 @@ text-harpia-accent #ffffff
 
 - **Named exports** sempre: `export const Component`
 - **Props tipadas**: usar `interface`, nunca `any`
-- **Imagens**: usar `<OptimizedImage />`
+- **Imagens**: usar `<OptimizedImage />` com `loading="lazy"`
+- **Vídeos**: usar `<LazyVideo />` ou `preload="metadata"` + `poster`
 - **Animações on-scroll**: usar `<Reveal />`
 - **Hero de páginas internas**: usar `<HeroSection />`
 
@@ -99,21 +100,21 @@ useStructuredData([
 
 ## Comandos Customizados (.claude/commands/)
 
-| Comando                 | Descrição                                                  |
-| ----------------------- | ---------------------------------------------------------- |
-| `/dev`                  | Inicia servidor de desenvolvimento (localhost:5020)        |
-| `/build`                | Build de produção + verificação de sitemap/robots          |
-| `/preview`              | Build + servidor de preview para testar produção           |
-| `/check`                | Verificação completa (lint + testes + build)               |
-| `/test {modo}`          | Executa testes (watch, coverage, ou componente específico) |
-| `/lint-fix`             | Executa linter e corrige problemas automaticamente         |
-| `/commit {msg}`         | Cria commit seguindo conventional commits                  |
-| `/seo {pagina}`         | Análise SEO completa + relatório em docs/seo-reports/      |
-| `/new-page {nome}`      | Cria nova página com template SEO completo                 |
-| `/new-component {nome}` | Cria componente seguindo padrões do projeto                |
-| `/add-data {tipo}`      | Adiciona dados (project, service, testimonial)             |
-| `/refactor {arquivo}`   | Refatora arquivo seguindo padrões                          |
-| `/audit-docs`           | Auditoria completa de documentação e SEO                   |
+| Comando                 | Descrição                                                          |
+| ----------------------- | ------------------------------------------------------------------ |
+| `/build`                | Build de produção + verificação de sitemap/robots                  |
+| `/preview`              | Build + servidor de preview para testar produção                   |
+| `/check`                | Verificação completa (lint + testes + build)                       |
+| `/test {modo}`          | Executa testes (watch, coverage, ou componente específico)         |
+| `/lint-fix`             | Executa linter e corrige problemas automaticamente                 |
+| `/commit {msg}`         | Cria commit seguindo conventional commits                          |
+| `/seo {pagina}`         | Análise SEO completa + relatório em reports/seo-reports/           |
+| `/performance {pagina}` | Análise de performance + relatório em reports/performance-reports/ |
+| `/new-page {nome}`      | Cria nova página com template SEO completo                         |
+| `/new-component {nome}` | Cria componente seguindo padrões do projeto                        |
+| `/add-data {tipo}`      | Adiciona dados (project, service, testimonial)                     |
+| `/refactor {arquivo}`   | Refatora arquivo seguindo padrões                                  |
+| `/audit-docs`           | Auditoria completa de documentação e SEO                           |
 
 ## Notas
 
@@ -257,7 +258,7 @@ O projeto está configurado com Playwright MCP para testes automatizados de UI, 
 
 **Configuração**: `C:\Users\adolf\AppData\Roaming\Claude\claude_desktop_config.json`
 
-**Guia completo**: `docs/PLAYWRIGHT_GUIDE.md`
+**Guia completo**: `guide/PLAYWRIGHT_GUIDE.md`
 
 **Uso rápido**:
 
@@ -280,10 +281,67 @@ browser_take_screenshot fullPage=true filename="teste.png"
 - Testar animações e interações
 - Auditar acessibilidade
 
+## Estrutura de Pastas Auxiliares
+
+```
+guide/                    # Guias técnicos
+├── PLAYWRIGHT_GUIDE.md   # Testes de UI com Playwright MCP
+├── TAILWIND_GUIDE.md     # Referência rápida de Tailwind CSS
+└── HOSTINGER_DEPLOY.md   # Deploy na Hostinger (com .htaccess otimizado)
+
+reports/                  # Relatórios gerados por comandos
+├── seo-reports/          # Relatórios de SEO por página (/seo)
+└── performance-reports/  # Relatórios de performance (/performance)
+```
+
+## Regras de Performance
+
+### Otimizações obrigatórias
+
+- **Imagens**: Sempre usar `<OptimizedImage />` com `loading="lazy"`
+- **Vídeos**: Usar `<LazyVideo />` ou adicionar `preload="metadata"` e `poster`
+- **Scroll handlers**: Sempre usar `{ passive: true }`
+- **useEffect**: Sempre incluir cleanup function
+- **Listas**: Usar keys estáveis (não usar index quando itens mudam)
+
+### Padrões de performance aplicados
+
+```tsx
+// Scroll handler com passive
+window.addEventListener('scroll', handler, { passive: true });
+
+// useMemo para cálculos pesados
+const filtered = useMemo(() => items.filter(...), [items]);
+
+// useCallback para handlers passados como props
+const handleClick = useCallback(() => { ... }, [deps]);
+
+// React.memo para componentes puros
+const Item = React.memo(({ data }) => <div>{data}</div>);
+```
+
+### Google Analytics (carregamento otimizado)
+
+O GA4 é carregado após 2.5s ou na primeira interação do usuário para não impactar LCP/TTI.
+
+## Deploy (Hostinger)
+
+**Guia completo**: `guide/HOSTINGER_DEPLOY.md`
+
+**Resumo**:
+
+1. `npm run build` - Gera pasta `dist/`
+2. Upload `dist/` → `public_html` na Hostinger
+3. Criar `.htaccess` com configuração do guia
+4. Ativar CDN no painel Hostinger
+5. Limpar cache do CDN após cada deploy
+
 ## Documentação Detalhada
 
 Para padrões completos, consulte:
 
 - `docs/ARCHITECTURE.md` - Estrutura, rotas, padrões de código
 - `docs/DESIGN_SYSTEM.md` - Cores, tipografia, componentes UI, exemplos
-- `docs/PLAYWRIGHT_GUIDE.md` - Guia completo de testes com Playwright MCP
+- `guide/PLAYWRIGHT_GUIDE.md` - Guia completo de testes com Playwright MCP
+- `guide/TAILWIND_GUIDE.md` - Referência rápida de classes Tailwind
+- `guide/HOSTINGER_DEPLOY.md` - Deploy na Hostinger com otimizações
