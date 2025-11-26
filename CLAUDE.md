@@ -32,6 +32,7 @@ src/
 ├── data/            # Dados estáticos
 ├── hooks/           # Custom hooks (useMetaTags, useStructuredData)
 ├── config/          # Configurações (seo.config.ts)
+├── test/            # Configuração de testes (setup.ts)
 ├── types.ts         # Interfaces TypeScript
 └── index.css        # Tailwind + animações
 ```

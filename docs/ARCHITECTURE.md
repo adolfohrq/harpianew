@@ -335,7 +335,7 @@ const ScrollToTop = () => {
 
 Componentes que representam páginas completas.
 
-**Exemplos**: `Home`, `Services`, `Packages`, `Contact`, `NotFound`
+**Exemplos**: `Home`, `Services`, `Contact`, `AboutPage`, `Portfolio`, `Privacy`, `Terms`, `NotFound`
 
 ```tsx
 // Home.tsx
