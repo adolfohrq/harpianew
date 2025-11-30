@@ -204,13 +204,26 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # HEADERS DE SEGURANÇA E PERFORMANCE
 # -----------------------------------------------------------------------------
 <IfModule mod_headers.c>
-  # Segurança
+  # Segurança básica
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-XSS-Protection "1; mode=block"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 
-  # Performance - DNS prefetch para recursos externos
+  # HSTS - Força HTTPS por 1 ano (inclui subdomínios)
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Content Security Policy - Protege contra XSS e injeção de código
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; media-src 'self'; frame-ancestors 'self';"
+
+  # Permissions Policy - Controla recursos do navegador
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Cross-Origin policies
+  Header set Cross-Origin-Opener-Policy "same-origin"
+  Header set Cross-Origin-Embedder-Policy "credentialless"
+
+  # Performance - Preload de fonte principal
   Header set Link "</fonts/dosis/Dosis-Regular.woff2>; rel=preload; as=font; crossorigin"
 
   # Remover headers desnecessários
@@ -353,11 +366,24 @@ Copie **todo o conteúdo abaixo** e cole em um arquivo chamado `.htaccess` na ra
 # HEADERS DE SEGURANÇA E PERFORMANCE
 # -----------------------------------------------------------------------------
 <IfModule mod_headers.c>
-  # Segurança
+  # Segurança básica
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set X-XSS-Protection "1; mode=block"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # HSTS - Força HTTPS por 1 ano (inclui subdomínios)
+  Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+  # Content Security Policy - Protege contra XSS e injeção de código
+  Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; media-src 'self'; frame-ancestors 'self';"
+
+  # Permissions Policy - Controla recursos do navegador
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Cross-Origin policies
+  Header set Cross-Origin-Opener-Policy "same-origin"
+  Header set Cross-Origin-Embedder-Policy "credentialless"
 
   # Performance - Preload de fonte principal
   Header set Link "</fonts/dosis/Dosis-Regular.woff2>; rel=preload; as=font; crossorigin"
@@ -382,3 +408,31 @@ FileETag MTime Size
 ```
 
 > **Importante**: Após criar o arquivo, teste acessando uma rota direta como `https://agenciaharpia.com.br/servicos` - deve carregar normalmente sem erro 404.
+
+---
+
+## 8. Headers de Segurança Adicionados
+
+Os seguintes headers foram configurados para melhorar a segurança e o score do Lighthouse:
+
+| Header                         | Valor                                                  | Propósito                          |
+| ------------------------------ | ------------------------------------------------------ | ---------------------------------- |
+| `Strict-Transport-Security`    | `max-age=31536000; includeSubDomains; preload`         | Força HTTPS por 1 ano              |
+| `Content-Security-Policy`      | Ver configuração completa                              | Previne XSS e injeção de código    |
+| `Permissions-Policy`           | `camera=(), microphone=(), geolocation=(), payment=()` | Desabilita recursos não utilizados |
+| `Cross-Origin-Opener-Policy`   | `same-origin`                                          | Isola o contexto de navegação      |
+| `Cross-Origin-Embedder-Policy` | `credentialless`                                       | Controla recursos cross-origin     |
+| `X-Content-Type-Options`       | `nosniff`                                              | Previne MIME type sniffing         |
+| `X-Frame-Options`              | `SAMEORIGIN`                                           | Previne clickjacking               |
+| `X-XSS-Protection`             | `1; mode=block`                                        | Proteção XSS do navegador          |
+| `Referrer-Policy`              | `strict-origin-when-cross-origin`                      | Controla informação de referrer    |
+
+### Testando os Headers
+
+Após o deploy, verifique os headers com:
+
+```bash
+curl -I https://agenciaharpia.com.br
+```
+
+Ou use o [Security Headers](https://securityheaders.com/) para uma análise completa.

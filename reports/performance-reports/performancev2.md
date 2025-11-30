@@ -170,8 +170,8 @@ Imagens em grids e cards não têm containers com aspect-ratio definido, permiti
 
 ## Prioridade 🟢 BAIXA (Melhorias)
 
-- [ ] Adicionar CSP header no .htaccess
-- [ ] Configurar HSTS forte
+- [x] Adicionar CSP header no .htaccess ✅ _Concluído em 29/11/2025_
+- [x] Configurar HSTS forte ✅ _Concluído em 29/11/2025_
 - [ ] Adicionar legendas nos vídeos
 - [ ] Corrigir ARIA roles inválidos
 - [ ] Aumentar áreas de toque em mobile
@@ -375,20 +375,53 @@ Arquivos JPG removidos após conversão.
 
 ---
 
-## Fase 4: Segurança e Headers
+## Fase 4: Segurança e Headers ✅ CONCLUÍDA
 
-### Tarefa 4.1: Adicionar CSP ao .htaccess
+> **Status:** ✅ Concluída em 29/11/2025
+> **Impacto esperado:** Score de Best Practices deve subir de 96 para 100
+
+### Tarefa 4.1: Adicionar CSP ao .htaccess ✅
+
+**Arquivo:** `guide/HOSTINGER_DEPLOY.md`
 
 ```apache
-# Em guide/HOSTINGER_DEPLOY.md - adicionar ao .htaccess
-Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com;"
+# ✅ APLICADO
+Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://analytics.google.com; media-src 'self'; frame-ancestors 'self';"
 ```
 
-### Tarefa 4.2: HSTS
+### Tarefa 4.2: HSTS ✅
 
 ```apache
+# ✅ APLICADO
 Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 ```
+
+### Tarefa 4.3: Permissions-Policy ✅
+
+```apache
+# ✅ APLICADO
+Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+```
+
+### Tarefa 4.4: Cross-Origin Policies ✅
+
+```apache
+# ✅ APLICADO
+Header set Cross-Origin-Opener-Policy "same-origin"
+Header set Cross-Origin-Embedder-Policy "credentialless"
+```
+
+### Resumo dos Headers Adicionados
+
+| Header                         | Propósito                      |
+| ------------------------------ | ------------------------------ |
+| `Strict-Transport-Security`    | Força HTTPS por 1 ano          |
+| `Content-Security-Policy`      | Previne XSS e injeção          |
+| `Permissions-Policy`           | Desabilita recursos não usados |
+| `Cross-Origin-Opener-Policy`   | Isola contexto de navegação    |
+| `Cross-Origin-Embedder-Policy` | Controla recursos cross-origin |
+
+> **Nota:** Estas configurações estão no `guide/HOSTINGER_DEPLOY.md`. Após o deploy, aplique o novo `.htaccess` no servidor.
 
 ---
 
@@ -447,9 +480,10 @@ npx vite-bundle-visualizer
 2. ✅ Implementar Fase 1 (CLS) - **CONCLUÍDA**
 3. ✅ Implementar Fase 2 (TBT) - **CONCLUÍDA**
 4. ✅ Implementar Fase 3 (Rede) - **CONCLUÍDA**
-5. ⏳ Re-testar no PageSpeed após deploy
-6. ⏳ Implementar Fases 4-5 conforme prioridade
-7. ⏳ Monitorar métricas no Search Console
+5. ✅ Implementar Fase 4 (Segurança) - **CONCLUÍDA**
+6. ⏳ Re-testar no PageSpeed após deploy
+7. ⏳ Implementar Fase 5 (Acessibilidade) conforme prioridade
+8. ⏳ Monitorar métricas no Search Console
 
 ---
 
@@ -469,6 +503,10 @@ npx vite-bundle-visualizer
 | 29/11/2025 | 3    | ✅ video-poster.jpg → webp (-56%, 178→79KB)     |
 | 29/11/2025 | 3    | ✅ 6.jpg → webp (-62%, 50→19KB)                 |
 | 29/11/2025 | 3    | ✅ Atualizado referências no código             |
+| 29/11/2025 | 4    | ✅ CSP header adicionado ao .htaccess           |
+| 29/11/2025 | 4    | ✅ HSTS header configurado                      |
+| 29/11/2025 | 4    | ✅ Permissions-Policy adicionado                |
+| 29/11/2025 | 4    | ✅ Cross-Origin policies configuradas           |
 
 ---
 
