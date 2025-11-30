@@ -44,33 +44,31 @@
     <!-- Google Analytics 4 - Carregado após LCP para não bloquear renderização -->
     <script>
       (function () {
-        var gaId = '%VITE_GA_ID%';
-        if (gaId && !gaId.includes('VITE_GA_ID')) {
-          // Atrasa o carregamento do GA para após o LCP (~2.5s) ou interação do usuário
-          var loadGA = function () {
-            if (window.gaLoaded) return;
-            window.gaLoaded = true;
+        var gaId = 'G-NSQ9LPFYZQ';
+        // Atrasa o carregamento do GA para após o LCP (~2.5s) ou interação do usuário
+        var loadGA = function () {
+          if (window.gaLoaded) return;
+          window.gaLoaded = true;
 
-            var script = document.createElement('script');
-            script.async = true;
-            script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
-            document.head.appendChild(script);
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+          document.head.appendChild(script);
 
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
-            }
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', gaId, { send_page_view: false });
-          };
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          window.gtag = gtag;
+          gtag('js', new Date());
+          gtag('config', gaId, { send_page_view: false });
+        };
 
-          // Carrega após 2.5s (após LCP) ou na primeira interação
-          setTimeout(loadGA, 2500);
-          ['scroll', 'click', 'touchstart', 'keydown'].forEach(function (evt) {
-            window.addEventListener(evt, loadGA, { once: true, passive: true });
-          });
-        }
+        // Carrega após 2.5s (após LCP) ou na primeira interação
+        setTimeout(loadGA, 2500);
+        ['scroll', 'click', 'touchstart', 'keydown'].forEach(function (evt) {
+          window.addEventListener(evt, loadGA, { once: true, passive: true });
+        });
       })();
     </script>
 

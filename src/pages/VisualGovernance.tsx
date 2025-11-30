@@ -195,13 +195,6 @@ const COMPONENT_INVENTORY: ComponentUsage[] = [
     description: 'Animação de entrada on-scroll',
   },
   {
-    name: 'Preloader',
-    file: 'Preloader.tsx',
-    category: 'Main',
-    usedIn: ['App'],
-    description: 'Tela de carregamento inicial',
-  },
-  {
     name: 'ErrorBoundary',
     file: 'ErrorBoundary.tsx',
     category: 'Main',

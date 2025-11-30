@@ -7,7 +7,6 @@ export { Manifesto } from './Manifesto';
 export { Marquee } from './Marquee';
 export { Navbar } from './Navbar';
 export { PortfolioPreview } from './PortfolioPreview';
-export { Preloader } from './Preloader';
 export { Process } from './Process';
 export { Reveal } from './Reveal';
 export { ServicesHub } from './ServicesHub';

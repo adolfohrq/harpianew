@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { Navbar, Footer, Preloader } from './components';
+import { Navbar, Footer } from './components';
 import { PageSkeleton } from './components/ui';
 // Lazy load pages for better performance
 const {
@@ -71,7 +71,6 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Preloader />
       <ScrollToTop />
       <div className="min-h-screen bg-harpia-black text-white font-sans">
         {/* Global Animated Grain Overlay */}

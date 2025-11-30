@@ -1,8 +1,26 @@
 import { Client } from 'basic-ftp';
-import { config } from 'dotenv';
+import { readFileSync } from 'fs';
 
-// Carrega variáveis de ambiente do .env.local
-config({ path: '.env.local' });
+// Carrega variáveis de ambiente do .env.local manualmente (para preservar # na senha)
+const envContent = readFileSync('.env.local', 'utf-8');
+const envVars = {};
+envContent.split('\n').forEach((line) => {
+  // Ignora comentários e linhas vazias
+  if (line.startsWith('#') || !line.trim()) return;
+  const match = line.match(/^([^=]+)=(.*)$/);
+  if (match) {
+    const key = match[1].trim();
+    let value = match[2].trim();
+    // Remove aspas se existirem
+    if ((value.startsWith("'") && value.endsWith("'")) || (value.startsWith('"') && value.endsWith('"'))) {
+      value = value.slice(1, -1);
+    }
+    envVars[key] = value;
+  }
+});
+
+// Aplica as variáveis ao process.env
+Object.assign(process.env, envVars);
 
 // Valida se as credenciais estão configuradas
 const requiredEnvVars = ['FTP_HOST', 'FTP_USER', 'FTP_PASSWORD'];
