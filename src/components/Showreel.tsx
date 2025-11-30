@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
+import { Play, Pause, Volume2, VolumeX, Maximize, Loader2 } from 'lucide-react';
 import { Reveal } from './Reveal';
 import { GradientLine, OptimizedImage } from './ui';
 
@@ -8,22 +8,69 @@ const VIDEO_POSTER = '/video-poster.webp';
 
 export const Showreel = () => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const togglePlay = () => {
-    if (videoRef.current) {
+  // Carrega o vídeo apenas no primeiro clique (Load on Interaction)
+  const loadAndPlay = useCallback(async () => {
+    if (!videoRef.current) return;
+
+    // Se já carregou, apenas toggle play/pause
+    if (videoLoaded) {
       if (isPlaying) {
         videoRef.current.pause();
+        setIsPlaying(false);
       } else {
-        videoRef.current.play();
+        await videoRef.current.play();
+        setIsPlaying(true);
       }
-      setIsPlaying(!isPlaying);
+      return;
     }
+
+    // Primeira vez: carregar o vídeo
+    setIsLoading(true);
+
+    // Define o src apenas agora - ZERO bytes até este momento
+    videoRef.current.src = VIDEO_SRC;
+    videoRef.current.load();
+
+    // Espera o vídeo ter dados suficientes para tocar
+    videoRef.current.oncanplay = async () => {
+      setIsLoading(false);
+      setVideoLoaded(true);
+      try {
+        await videoRef.current?.play();
+        setIsPlaying(true);
+      } catch (e) {
+        console.warn('Autoplay bloqueado:', e);
+      }
+    };
+
+    videoRef.current.onerror = () => {
+      setIsLoading(false);
+      console.error('Erro ao carregar vídeo');
+    };
+  }, [videoLoaded, isPlaying]);
+
+  const togglePlay = () => {
+    loadAndPlay();
   };
+
+  // Preload on hover - antecipa intenção do usuário
+  const handlePlayButtonHover = useCallback(() => {
+    if (!videoLoaded && !isLoading) {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = VIDEO_SRC;
+      link.as = 'video';
+      document.head.appendChild(link);
+    }
+  }, [videoLoaded, isLoading]);
 
   const toggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -138,19 +185,32 @@ export const Showreel = () => {
               <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-white/20 z-20 pointer-events-none" />
               <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-white/20 z-20 pointer-events-none" />
 
-              {/* Video */}
+              {/* Video - src definido apenas no clique (Load on Interaction) */}
               <video
                 ref={videoRef}
-                src={VIDEO_SRC}
+                // src removido - será definido dinamicamente no primeiro clique
                 poster={VIDEO_POSTER}
                 muted={isMuted}
                 playsInline
-                preload="metadata"
+                preload="none"
                 className="w-full h-full object-cover"
                 onTimeUpdate={handleTimeUpdate}
                 onEnded={handleVideoEnd}
                 onClick={togglePlay}
               />
+
+              {/* Loading State */}
+              {isLoading && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-harpia-carbon/80 z-30">
+                  <div className="relative w-16 h-16 mb-4">
+                    <div className="absolute inset-0 border-2 border-white/20 rounded-full" />
+                    <Loader2 className="w-16 h-16 text-white animate-spin" />
+                  </div>
+                  <span className="text-white/50 text-sm tracking-wider uppercase">
+                    Carregando vídeo...
+                  </span>
+                </div>
+              )}
 
               {/* Overlay Gradient (fades when playing) */}
               <div
@@ -159,12 +219,13 @@ export const Showreel = () => {
                 }`}
               />
 
-              {/* Center Play Button (shows when paused) */}
+              {/* Center Play Button (shows when paused and not loading) */}
               <div
                 className={`absolute inset-0 flex items-center justify-center transition-all duration-500 cursor-pointer ${
-                  isPlaying ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  isPlaying || isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'
                 }`}
                 onClick={togglePlay}
+                onMouseEnter={handlePlayButtonHover}
               >
                 <div className="relative group/play">
                   {/* Pulse ring */}

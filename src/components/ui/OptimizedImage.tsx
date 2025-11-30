@@ -38,11 +38,14 @@ export const OptimizedImage: React.FC<OptimizedImageProps> = ({
 }) => {
   // Calcula aspect-ratio automaticamente se não fornecido
   const computedAspectRatio = aspectRatio || `${width}/${height}`;
-  const [imgSrc, setImgSrc] = useState(src);
+  const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Usa src ou fallback (em caso de erro ou src vazio)
+  const imgSrc = hasError || !src ? fallback : src;
+
   const handleError = () => {
-    setImgSrc(fallback);
+    setHasError(true);
     setIsLoading(false);
   };
 

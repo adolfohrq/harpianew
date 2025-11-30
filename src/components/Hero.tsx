@@ -13,6 +13,8 @@ const getInitialMotionPreference = () => {
 export const Hero: React.FC = () => {
   const parallaxRef = useRef<HTMLVideoElement>(null);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(getInitialMotionPreference);
+  const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   // Escuta mudanças na preferência de movimento reduzido
   useEffect(() => {
@@ -25,6 +27,43 @@ export const Hero: React.FC = () => {
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
+
+  // Lazy load do vídeo - só carrega quando entra no viewport
+  useEffect(() => {
+    // Se prefere movimento reduzido, não carrega vídeo
+    if (prefersReducedMotion) return;
+
+    const video = parallaxRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !videoSrc) {
+          // Só agora define o src - ZERO bytes até este momento
+          setVideoSrc('/video-hero.mp4');
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion, videoSrc]);
+
+  // Tenta autoplay quando o src é definido
+  useEffect(() => {
+    if (videoSrc && parallaxRef.current && !isVideoLoaded) {
+      parallaxRef.current.load();
+      parallaxRef.current
+        .play()
+        .then(() => setIsVideoLoaded(true))
+        .catch(() => {
+          // Autoplay bloqueado - fallback silencioso para poster
+          setIsVideoLoaded(true);
+        });
+    }
+  }, [videoSrc, isVideoLoaded]);
 
   // Parallax com throttle e respeito a prefers-reduced-motion
   useEffect(() => {
@@ -76,24 +115,22 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-harpia-black">
-      {/* Background Video */}
+      {/* Background Video - Lazy loaded */}
       <div className="absolute inset-0 z-0">
         <video
           ref={parallaxRef}
-          autoPlay
+          src={videoSrc}
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="none"
           poster="/video-poster.webp"
           className="w-full h-full object-cover opacity-30 grayscale will-change-transform"
           style={{ transform: 'scale(1.1)' }}
           onError={(e) => {
             (e.target as HTMLVideoElement).style.display = 'none';
           }}
-        >
-          <source src="/video-hero.mp4" type="video/mp4" />
-        </video>
+        />
 
         {/* Gradient Overlays */}
         <div className="absolute inset-0 bg-linear-to-b from-harpia-black via-harpia-black/40 to-harpia-black" />
