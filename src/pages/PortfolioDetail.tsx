@@ -15,11 +15,11 @@ import {
   HARPIA_ORGANIZATION,
   createPortfolioSchema,
 } from '../hooks/useStructuredData';
-import { HeroSection } from '../components/ui';
+import { useWordPressProject, useWordPressProjects } from '../hooks/useWordPressProjects';
+import { HeroSection, ProjectDetailSkeleton } from '../components/ui';
 import { OptimizedImage } from '../components/ui/OptimizedImage';
 import { Reveal } from '../components/Reveal';
 import { CTASection } from '../components/CTASection';
-import { PROJECTS } from '../data';
 
 export const PortfolioDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -33,23 +33,29 @@ export const PortfolioDetail: React.FC = () => {
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
 
-  const projectIndex = useMemo(() => {
-    return PROJECTS.findIndex((p) => p.slug === slug);
-  }, [slug]);
+  // Busca projeto do WordPress (com fallback para dados estáticos)
+  const { project, isLoading: projectLoading } = useWordPressProject(slug || '');
 
-  const project = useMemo(() => {
-    return projectIndex >= 0 ? PROJECTS[projectIndex] : undefined;
-  }, [projectIndex]);
+  // Busca todos os projetos para navegação anterior/próximo
+  const { projects: allProjects, isLoading: allProjectsLoading } = useWordPressProjects();
+
+  const isLoading = projectLoading || allProjectsLoading;
+
+  const projectIndex = useMemo(() => {
+    return allProjects.findIndex((p) => p.slug === slug);
+  }, [slug, allProjects]);
 
   const prevProject = useMemo(() => {
-    if (projectIndex <= 0) return PROJECTS[PROJECTS.length - 1];
-    return PROJECTS[projectIndex - 1];
-  }, [projectIndex]);
+    if (allProjects.length === 0) return null;
+    if (projectIndex <= 0) return allProjects[allProjects.length - 1];
+    return allProjects[projectIndex - 1];
+  }, [projectIndex, allProjects]);
 
   const nextProject = useMemo(() => {
-    if (projectIndex >= PROJECTS.length - 1) return PROJECTS[0];
-    return PROJECTS[projectIndex + 1];
-  }, [projectIndex]);
+    if (allProjects.length === 0) return null;
+    if (projectIndex >= allProjects.length - 1) return allProjects[0];
+    return allProjects[projectIndex + 1];
+  }, [projectIndex, allProjects]);
 
   useMetaTags({
     title: project ? `${project.title} - Portfólio Harpia` : 'Projeto não encontrado',
@@ -168,6 +174,11 @@ export const PortfolioDetail: React.FC = () => {
       window.removeEventListener('keydown', handleTabKey);
     };
   }, [lightboxOpen]);
+
+  // Estado de carregamento
+  if (isLoading) {
+    return <ProjectDetailSkeleton />;
+  }
 
   if (!project) {
     return <Navigate to="/portfolio" replace />;
@@ -551,53 +562,59 @@ export const PortfolioDetail: React.FC = () => {
       )}
 
       {/* Project Navigation */}
-      <section className="bg-harpia-black border-t border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-stretch">
-            {/* Previous Project */}
-            <Link
-              to={`/portfolio/${prevProject.slug}`}
-              className="group flex-1 flex items-center gap-4 md:gap-6 p-6 md:p-8 border-r border-white/10 hover:bg-white/5 transition-all duration-300"
-            >
-              <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:border-white transition-all duration-300">
-                <ArrowLeft
-                  size={18}
-                  className="text-white/60 group-hover:text-harpia-black group-hover:-translate-x-0.5 transition-all duration-300"
-                />
-              </span>
-              <div className="min-w-0">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
-                  Anterior
-                </span>
-                <h3 className="font-serif text-base md:text-lg text-white truncate">
-                  {prevProject.title}
-                </h3>
-              </div>
-            </Link>
+      {(prevProject || nextProject) && (
+        <section className="bg-harpia-black border-t border-white/10">
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-stretch">
+              {/* Previous Project */}
+              {prevProject && (
+                <Link
+                  to={`/portfolio/${prevProject.slug}`}
+                  className="group flex-1 flex items-center gap-4 md:gap-6 p-6 md:p-8 border-r border-white/10 hover:bg-white/5 transition-all duration-300"
+                >
+                  <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:border-white transition-all duration-300">
+                    <ArrowLeft
+                      size={18}
+                      className="text-white/60 group-hover:text-harpia-black group-hover:-translate-x-0.5 transition-all duration-300"
+                    />
+                  </span>
+                  <div className="min-w-0">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
+                      Anterior
+                    </span>
+                    <h3 className="font-serif text-base md:text-lg text-white truncate">
+                      {prevProject.title}
+                    </h3>
+                  </div>
+                </Link>
+              )}
 
-            {/* Next Project */}
-            <Link
-              to={`/portfolio/${nextProject.slug}`}
-              className="group flex-1 flex items-center justify-end gap-4 md:gap-6 p-6 md:p-8 hover:bg-white/5 transition-all duration-300"
-            >
-              <div className="min-w-0 text-right">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
-                  Próximo
-                </span>
-                <h3 className="font-serif text-base md:text-lg text-white truncate">
-                  {nextProject.title}
-                </h3>
-              </div>
-              <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:border-white transition-all duration-300">
-                <ArrowRight
-                  size={18}
-                  className="text-white/60 group-hover:text-harpia-black group-hover:translate-x-0.5 transition-all duration-300"
-                />
-              </span>
-            </Link>
+              {/* Next Project */}
+              {nextProject && (
+                <Link
+                  to={`/portfolio/${nextProject.slug}`}
+                  className="group flex-1 flex items-center justify-end gap-4 md:gap-6 p-6 md:p-8 hover:bg-white/5 transition-all duration-300"
+                >
+                  <div className="min-w-0 text-right">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 block mb-1">
+                      Próximo
+                    </span>
+                    <h3 className="font-serif text-base md:text-lg text-white truncate">
+                      {nextProject.title}
+                    </h3>
+                  </div>
+                  <span className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0 group-hover:bg-white group-hover:border-white transition-all duration-300">
+                    <ArrowRight
+                      size={18}
+                      className="text-white/60 group-hover:text-harpia-black group-hover:translate-x-0.5 transition-all duration-300"
+                    />
+                  </span>
+                </Link>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA Section */}
       <CTASection />

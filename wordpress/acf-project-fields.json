@@ -1,0 +1,173 @@
+[
+  {
+    "key": "group_harpia_project_details",
+    "title": "Detalhes do Projeto",
+    "fields": [
+      {
+        "key": "field_project_client",
+        "label": "Cliente",
+        "name": "client",
+        "type": "text",
+        "instructions": "Nome da empresa ou cliente do projeto",
+        "required": 1,
+        "placeholder": "Ex: Studio Architettura"
+      },
+      {
+        "key": "field_project_year",
+        "label": "Ano",
+        "name": "year",
+        "type": "text",
+        "instructions": "Ano de realizacao do projeto",
+        "required": 1,
+        "placeholder": "Ex: 2024"
+      },
+      {
+        "key": "field_project_slug",
+        "label": "Slug (URL)",
+        "name": "slug",
+        "type": "text",
+        "instructions": "Identificador unico para URL. Use apenas letras minusculas, numeros e hifens. Ex: essencia-minimalista",
+        "required": 1,
+        "placeholder": "essencia-minimalista"
+      },
+      {
+        "key": "field_project_services",
+        "label": "Servicos Realizados",
+        "name": "services",
+        "type": "repeater",
+        "instructions": "Lista de servicos prestados neste projeto",
+        "required": 0,
+        "min": 0,
+        "max": 10,
+        "layout": "table",
+        "button_label": "Adicionar Servico",
+        "sub_fields": [
+          {
+            "key": "field_service_name",
+            "label": "Servico",
+            "name": "service_name",
+            "type": "text",
+            "placeholder": "Ex: Direcao de Arte"
+          }
+        ]
+      },
+      {
+        "key": "field_project_challenge",
+        "label": "Desafio",
+        "name": "challenge",
+        "type": "textarea",
+        "instructions": "Descreva o desafio ou problema que o cliente enfrentava",
+        "required": 0,
+        "rows": 4,
+        "new_lines": "br"
+      },
+      {
+        "key": "field_project_solution",
+        "label": "Solucao",
+        "name": "solution",
+        "type": "textarea",
+        "instructions": "Descreva a solucao desenvolvida pela Harpia",
+        "required": 0,
+        "rows": 4,
+        "new_lines": "br"
+      },
+      {
+        "key": "field_project_results",
+        "label": "Resultados",
+        "name": "results",
+        "type": "repeater",
+        "instructions": "Metricas e resultados alcancados",
+        "required": 0,
+        "min": 0,
+        "max": 6,
+        "layout": "table",
+        "button_label": "Adicionar Resultado",
+        "sub_fields": [
+          {
+            "key": "field_result_metric",
+            "label": "Metrica",
+            "name": "metric",
+            "type": "text",
+            "instructions": "Nome da metrica",
+            "placeholder": "Ex: Engajamento"
+          },
+          {
+            "key": "field_result_value",
+            "label": "Valor",
+            "name": "value",
+            "type": "text",
+            "instructions": "Valor alcancado",
+            "placeholder": "Ex: +340%"
+          },
+          {
+            "key": "field_result_description",
+            "label": "Descricao",
+            "name": "description",
+            "type": "text",
+            "instructions": "Breve descricao do resultado",
+            "placeholder": "Ex: Aumento no engajamento das redes sociais"
+          }
+        ]
+      },
+      {
+        "key": "field_project_gallery",
+        "label": "Galeria de Imagens",
+        "name": "gallery",
+        "type": "gallery",
+        "instructions": "Adicione as imagens do projeto. A primeira imagem tera destaque maior.",
+        "required": 0,
+        "return_format": "array",
+        "preview_size": "medium",
+        "library": "all",
+        "min": 0,
+        "max": 20,
+        "mime_types": "jpg, jpeg, png, webp"
+      },
+      {
+        "key": "field_project_testimonial_text",
+        "label": "Depoimento - Texto",
+        "name": "testimonial_text",
+        "type": "textarea",
+        "instructions": "Depoimento do cliente sobre o projeto",
+        "required": 0,
+        "rows": 3,
+        "new_lines": "br"
+      },
+      {
+        "key": "field_project_testimonial_author",
+        "label": "Depoimento - Autor",
+        "name": "testimonial_author",
+        "type": "text",
+        "instructions": "Nome da pessoa que deu o depoimento",
+        "required": 0,
+        "placeholder": "Ex: Ricardo Mendes"
+      },
+      {
+        "key": "field_project_testimonial_role",
+        "label": "Depoimento - Cargo",
+        "name": "testimonial_role",
+        "type": "text",
+        "instructions": "Cargo e empresa da pessoa",
+        "required": 0,
+        "placeholder": "Ex: Diretor Criativo, Studio Architettura"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "harpia_project"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Campos customizados para projetos do portfolio da Harpia Agencia"
+  }
+]

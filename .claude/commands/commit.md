@@ -30,8 +30,6 @@ Exemplos:
 
 1. Mensagem em português
 2. Primeira linha com no máximo 72 caracteres
-3. Use escopo quando a mudança for específica de uma área
-4. Commits devem ser atômicos (uma unidade lógica de mudança)
 
 ## Arquivos sensíveis (NUNCA commitar)
 

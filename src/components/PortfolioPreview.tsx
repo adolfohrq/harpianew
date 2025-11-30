@@ -1,12 +1,10 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { PROJECTS, SERVICES } from '../data';
+import { SERVICES } from '../data';
 import { Reveal } from './Reveal';
-import { OptimizedImage, GradientLine } from './ui';
-
-// Categorias baseadas nos serviços
-const CATEGORIES = ['Todos', ...SERVICES.map((s) => s.title)];
+import { OptimizedImage, GradientLine, PortfolioSkeleton, PortfolioErrorFallback } from './ui';
+import { useWordPressProjects } from '@/hooks/useWordPressProjects';
 
 interface PortfolioPreviewProps {
   showAllProjects?: boolean;
@@ -16,20 +14,50 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [activeCategory, setActiveCategory] = useState('Todos');
 
+  // Busca projetos do WordPress (com fallback automático para dados estáticos)
+  const { projects, isLoading, error, refetch, isUsingFallback } = useWordPressProjects();
+
+  // Categorias baseadas nos serviços
+  const CATEGORIES = useMemo(() => {
+    return ['Todos', ...SERVICES.map((s) => s.title)];
+  }, []);
+
   // Filtra projetos baseado na categoria selecionada
   const filteredProjects = useMemo(() => {
-    if (activeCategory === 'Todos') return PROJECTS;
-    return PROJECTS.filter((project) => project.category === activeCategory);
-  }, [activeCategory]);
+    if (activeCategory === 'Todos') return projects;
+    return projects.filter((project) => project.category === activeCategory);
+  }, [activeCategory, projects]);
 
   // Conta projetos por categoria
   const categoryCount = useMemo(() => {
-    const counts: Record<string, number> = { Todos: PROJECTS.length };
+    const counts: Record<string, number> = { Todos: projects.length };
     SERVICES.forEach((service) => {
-      counts[service.title] = PROJECTS.filter((p) => p.category === service.title).length;
+      counts[service.title] = projects.filter((p) => p.category === service.title).length;
     });
     return counts;
-  }, []);
+  }, [projects]);
+
+  // Estado de carregamento
+  if (isLoading) {
+    return (
+      <section className="py-24 md:py-32 lg:py-40 bg-harpia-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <PortfolioSkeleton showFilters={true} />
+        </div>
+      </section>
+    );
+  }
+
+  // Estado de erro (sem fallback)
+  if (error && !isUsingFallback) {
+    return (
+      <section className="py-24 md:py-32 lg:py-40 bg-harpia-black relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6">
+          <PortfolioErrorFallback onRetry={refetch} />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-24 md:py-32 lg:py-40 bg-harpia-black relative overflow-hidden">
@@ -270,7 +298,7 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
           <div className="mt-12 md:mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/10">
             {/* Project Counter */}
             <div className="flex items-center gap-4 text-white/50">
-              <span className="text-xs uppercase tracking-[0.2em]">{PROJECTS.length} Projetos</span>
+              <span className="text-xs uppercase tracking-[0.2em]">{projects.length} Projetos</span>
               <div className="w-8 h-px bg-white/10" />
               <span className="text-xs uppercase tracking-[0.2em]">Portfolio Completo</span>
             </div>

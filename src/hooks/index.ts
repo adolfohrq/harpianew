@@ -15,3 +15,9 @@ export type {
   BreadcrumbSchema,
   StructuredDataType,
 } from './useStructuredData';
+export {
+  useWordPressProjects,
+  useWordPressProject,
+  useAllProjects,
+  usePrefetchProjects,
+} from './useWordPressProjects';

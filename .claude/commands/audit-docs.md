@@ -8,9 +8,6 @@ Execute uma auditoria completa da documentação, SEO e sincronização do proje
 - `README.md` - Documentação pública do projeto
 - `docs/ARCHITECTURE.md` - Arquitetura e padrões
 - `docs/DESIGN_SYSTEM.md` - Sistema de design e UI
-- `docs/PLAYWRIGHT_GUIDE.md` - Guia de testes
-- `docs/TAILWIND_GUIDE.md` - Guia de Tailwind v4
-- `docs/VIDEO_OPTIMIZATION.md` - Otimização de vídeos
 
 ### Código Fonte
 
