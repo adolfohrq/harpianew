@@ -159,61 +159,53 @@ export const Hero: React.FC = () => {
         <div className="absolute bottom-32 right-12 w-24 h-px bg-linear-to-l from-white/20 to-transparent hidden lg:block" />
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - CSS animations para LCP rápido (não depende de JS) */}
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         {/* Badge */}
-        <Reveal>
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <GradientLine direction="right" />
-            <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/40 font-medium">
-              Agência de Marketing Digital
-            </span>
-            <GradientLine direction="left" />
-          </div>
-        </Reveal>
+        <div className="flex items-center justify-center gap-3 mb-8 animate-fade-in-up">
+          <GradientLine direction="right" />
+          <span className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-white/40 font-medium">
+            Agência de Marketing Digital
+          </span>
+          <GradientLine direction="left" />
+        </div>
 
-        {/* Main Headline */}
-        <Reveal delay={0.1}>
-          <h1 className="leading-[0.95] mb-6">
-            <span className="block">ENXERGUE</span>
-            <span className="block">MAIS LONGE.</span>
-            <span className="block">VOE MAIS ALTO.</span>
-          </h1>
-        </Reveal>
+        {/* Main Headline - Elemento crítico para LCP */}
+        <h1 className="leading-[0.95] mb-6 animate-fade-in-up animate-delay-100">
+          <span className="block">ENXERGUE</span>
+          <span className="block">MAIS LONGE.</span>
+          <span className="block">VOE MAIS ALTO.</span>
+        </h1>
 
         {/* Description */}
-        <Reveal delay={0.2}>
-          <p className="text-white/80 font-light text-base md:text-2xl max-w-xl mx-auto mb-10">
-            Conectamos sua marca ao público certo com estratégias digitais que transformam visão em
-            resultados extraordinários.
-          </p>
-        </Reveal>
+        <p className="text-white/80 font-light text-base md:text-2xl max-w-xl mx-auto mb-10 animate-fade-in-up animate-delay-200">
+          Conectamos sua marca ao público certo com estratégias digitais que transformam visão em
+          resultados extraordinários.
+        </p>
 
         {/* CTAs */}
-        <Reveal delay={0.3}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-            <Link
-              to="/servicos"
-              aria-label="Ver nossos serviços de marketing digital"
-              className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-harpia-black font-medium text-xs uppercase tracking-[0.15em] hover:bg-harpia-white hover:shadow-xl hover:shadow-white/10 transition-all duration-300"
-            >
-              Nossos Serviços
-              <ArrowRight
-                size={14}
-                className="group-hover:translate-x-1 transition-transform duration-300"
-              />
-            </Link>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 animate-fade-in-up animate-delay-300">
+          <Link
+            to="/servicos"
+            aria-label="Ver nossos serviços de marketing digital"
+            className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-harpia-black font-medium text-xs uppercase tracking-[0.15em] hover:bg-harpia-white hover:shadow-xl hover:shadow-white/10 transition-all duration-300"
+          >
+            Nossos Serviços
+            <ArrowRight
+              size={14}
+              className="group-hover:translate-x-1 transition-transform duration-300"
+            />
+          </Link>
 
-            <Link
-              to="/contato"
-              aria-label="Iniciar um novo projeto conosco"
-              className="group inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/70 font-medium text-xs uppercase tracking-[0.15em] hover:bg-white/5 hover:border-white/30 hover:text-white transition-all duration-300"
-            >
-              <Play size={12} className="fill-current" />
-              Iniciar Projeto
-            </Link>
-          </div>
-        </Reveal>
+          <Link
+            to="/contato"
+            aria-label="Iniciar um novo projeto conosco"
+            className="group inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/70 font-medium text-xs uppercase tracking-[0.15em] hover:bg-white/5 hover:border-white/30 hover:text-white transition-all duration-300"
+          >
+            <Play size={12} className="fill-current" />
+            Iniciar Projeto
+          </Link>
+        </div>
       </div>
 
       {/* Bottom gradient fade */}

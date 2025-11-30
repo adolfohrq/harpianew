@@ -297,6 +297,65 @@
   }
 }
 
+/* ==========================================================================
+   LCP Optimization - Animação CSS pura para Hero (não depende de JS)
+   ========================================================================== */
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+/* Delays progressivos para sequência visual */
+.animate-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animate-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animate-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animate-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animate-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* Estado inicial para elementos com delay (evita flash) */
+.animate-fade-in-up[style*='animation-delay'],
+.animate-fade-in-up.animate-delay-100,
+.animate-fade-in-up.animate-delay-200,
+.animate-fade-in-up.animate-delay-300,
+.animate-fade-in-up.animate-delay-400,
+.animate-fade-in-up.animate-delay-500 {
+  opacity: 0;
+}
+
+/* Respeitar preferência de movimento reduzido */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Utility to hide scrollbar while keeping scroll functionality */
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */

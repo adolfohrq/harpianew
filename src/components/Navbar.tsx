@@ -76,6 +76,7 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
               width={180}
               height={32}
               className="h-6 sm:h-7 md:h-8 w-auto"
+              fetchPriority="high"
             />
           </Link>
 
