@@ -516,6 +516,8 @@ export const PortfolioDetail: React.FC = () => {
             <img
               src={project.gallery[lightboxIndex]}
               alt={`${project.title} - Imagem ${lightboxIndex + 1}`}
+              width={1200}
+              height={800}
               loading="lazy"
               className="max-w-full max-h-full object-contain pointer-events-auto"
             />

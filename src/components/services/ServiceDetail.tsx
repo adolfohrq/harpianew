@@ -88,6 +88,8 @@ export const ServiceDetail: React.FC<ServiceDetailProps> = ({ service, index }) 
             <img
               src={`${service.image}?grayscale`}
               alt={service.title}
+              width={800}
+              height={600}
               loading="lazy"
               className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 grayscale"
             />

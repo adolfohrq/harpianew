@@ -80,6 +80,8 @@ export const Footer: React.FC = () => {
                 <img
                   src="/harpia-logo.webp"
                   alt="Harpia Logo"
+                  width={180}
+                  height={32}
                   loading="lazy"
                   className="h-6 sm:h-7 md:h-8 w-auto group-hover:opacity-70 transition-opacity"
                 />
