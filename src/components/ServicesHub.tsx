@@ -36,13 +36,15 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, isHovered, on
       <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-harpia-black/20 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-harpia-black/20 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-      {/* Background Image */}
+      {/* Background Image - Com aspectRatio para prevenir CLS */}
       <OptimizedImage
         src={service.image}
         alt={`${service.title} - Serviço da Harpia Agência`}
-        width={600}
-        height={400}
-        className={`w-full h-full object-cover transition-all duration-700 ease-out ${
+        width={400}
+        height={500}
+        aspectRatio="4/5"
+        containerClassName="w-full h-full"
+        className={`transition-all duration-700 ease-out ${
           isHovered ? 'scale-110 grayscale-0' : 'scale-100 grayscale'
         }`}
       />

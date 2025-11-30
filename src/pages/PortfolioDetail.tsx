@@ -445,7 +445,9 @@ export const PortfolioDetail: React.FC = () => {
                       alt={`${project.title} - Imagem ${idx + 1}`}
                       width={idx === 0 ? 1200 : 800}
                       height={idx === 0 ? 514 : 600}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      aspectRatio={idx === 0 ? '21/9' : '4/3'}
+                      containerClassName="w-full h-full"
+                      className="transition-transform duration-700 group-hover:scale-105"
                     />
                     {/* Hover overlay */}
                     <div className="absolute inset-0 bg-harpia-black/0 group-hover:bg-harpia-black/40 transition-colors duration-500 flex items-center justify-center">
