@@ -5,26 +5,27 @@
 
 ---
 
-## 📋 Índice
+## Índice
 
-1. [Visão Geral](#-visão-geral)
-2. [Stack Tecnológica](#-stack-tecnológica)
-3. [Estrutura de Diretórios](#-estrutura-de-diretórios)
-4. [Arquitetura de Componentes](#-arquitetura-de-componentes)
-5. [Gerenciamento de Estado e Dados](#-gerenciamento-de-estado-e-dados)
-6. [Roteamento](#-roteamento)
-7. [Estilização](#-estilização)
-8. [Padrões de Código](#-padrões-de-código)
-9. [Convenções de Nomenclatura](#-convenções-de-nomenclatura)
-10. [Performance e Otimização](#-performance-e-otimização)
-11. [Testes](#-testes)
-12. [Qualidade de Código](#-qualidade-de-código)
-13. [Fluxo de Desenvolvimento](#-fluxo-de-desenvolvimento)
-14. [Guia de Implementação](#-guia-de-implementação)
+1. [Visão Geral](#visão-geral)
+2. [Stack Tecnológica](#stack-tecnológica)
+3. [Estrutura de Diretórios](#estrutura-de-diretórios)
+4. [Arquitetura de Componentes](#arquitetura-de-componentes)
+5. [Gerenciamento de Estado e Dados](#gerenciamento-de-estado-e-dados)
+6. [Roteamento](#roteamento)
+7. [Estilização](#estilização)
+8. [Padrões de Código](#padrões-de-código)
+9. [Convenções de Nomenclatura](#convenções-de-nomenclatura)
+10. [Performance e Otimização](#performance-e-otimização)
+11. [Testes](#testes)
+12. [Qualidade de Código](#qualidade-de-código)
+13. [Fluxo de Desenvolvimento](#fluxo-de-desenvolvimento)
+14. [Guia de Implementação](#guia-de-implementação)
+15. [Melhores Práticas](#melhores-práticas)
 
 ---
 
-## 🎯 Visão Geral
+## Visão Geral
 
 **Harpia Agência** é um website institucional moderno desenvolvido para uma agência de marketing e branding. O projeto prioriza:
 
@@ -36,7 +37,7 @@
 
 ---
 
-## 🛠 Stack Tecnológica
+## Stack Tecnológica
 
 ### Core
 
@@ -80,7 +81,7 @@
 
 ---
 
-## 📁 Estrutura de Diretórios
+## Estrutura de Diretórios
 
 ```
 harpianew/
@@ -94,15 +95,25 @@ harpianew/
 ├── src/
 │   ├── components/           # Componentes React reutilizáveis
 │   │   ├── ui/              # Componentes de UI base
+│   │   │   ├── Container.tsx
 │   │   │   ├── DifferentialCard.tsx
+│   │   │   ├── ErrorBoundary.tsx
+│   │   │   ├── GradientLine.tsx
 │   │   │   ├── HeroSection.tsx
+│   │   │   ├── LazyVideo.tsx
 │   │   │   ├── OptimizedImage.tsx
 │   │   │   ├── SectionHeader.tsx
+│   │   │   ├── Skeleton.tsx
 │   │   │   ├── TestimonialCard.tsx
+│   │   │   ├── icons/
+│   │   │   │   ├── SocialIcons.tsx
+│   │   │   │   └── index.ts
 │   │   │   └── index.ts
 │   │   ├── services/        # Componentes da página Serviços
 │   │   │   ├── ServiceDetail.tsx
+│   │   │   ├── ServicesBenefits.tsx
 │   │   │   ├── ServicesCTA.tsx
+│   │   │   ├── ServicesGrid.tsx
 │   │   │   ├── ServicesHero.tsx
 │   │   │   ├── ServicesManifesto.tsx
 │   │   │   ├── ServicesStats.tsx
@@ -112,9 +123,13 @@ harpianew/
 │   │   │   ├── ContactForm.tsx
 │   │   │   ├── ContactInfo.tsx
 │   │   │   └── index.ts
+│   │   ├── AboutFeatures.tsx
+│   │   ├── AboutPillars.tsx
+│   │   ├── AboutStatement.tsx
+│   │   ├── AboutTimeline.tsx
 │   │   ├── ClientLogos.tsx
+│   │   ├── ContactMain.tsx
 │   │   ├── CTASection.tsx
-│   │   ├── ErrorBoundary.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Hero.tsx
 │   │   ├── Manifesto.tsx
@@ -130,6 +145,10 @@ harpianew/
 │   │   ├── Testimonials.tsx
 │   │   ├── WhyHarpia.tsx
 │   │   └── index.ts         # Barrel export
+│   ├── config/              # Configurações da aplicação
+│   │   ├── api.config.ts    # Configuração de API (WordPress)
+│   │   ├── seo.config.ts    # Configuração centralizada de SEO
+│   │   └── index.ts         # Barrel export
 │   ├── data/                # Dados estáticos e constantes
 │   │   ├── about.ts         # Dados da página Sobre
 │   │   ├── navigation.ts    # Links de navegação
@@ -142,10 +161,12 @@ harpianew/
 │   │   ├── useAnalytics.ts  # Hook para Google Analytics 4 (pageviews e eventos)
 │   │   ├── useMetaTags.ts   # Hook para gerenciamento de meta tags e SEO
 │   │   ├── useStructuredData.ts  # Hook para Schema.org (JSON-LD) e SEO técnico
+│   │   ├── useWordPressProjects.ts  # Hook para integração com WordPress
 │   │   └── index.ts         # Barrel export
-│   ├── config/              # Configurações da aplicação
-│   │   ├── seo.config.ts    # Configuração centralizada de SEO
-│   │   └── index.ts         # Barrel export
+│   ├── lib/                 # Utilitários e helpers
+│   │   └── validations/     # Validações com Zod
+│   │       ├── contact.ts   # Validação do formulário de contato
+│   │       └── index.ts
 │   ├── pages/               # Páginas/rotas da aplicação
 │   │   ├── AboutPage.tsx
 │   │   ├── Contact.tsx
@@ -158,13 +179,15 @@ harpianew/
 │   │   ├── Terms.tsx        # Termos de Serviço
 │   │   ├── VisualGovernance.tsx
 │   │   └── index.ts         # Barrel export
+│   ├── services/            # Serviços externos e APIs
+│   │   ├── wordpress.ts     # Cliente API WordPress
+│   │   └── index.ts
 │   ├── test/                # Configuração de testes
 │   │   └── setup.ts
 │   ├── App.tsx              # Componente raiz com routing
 │   ├── index.tsx            # Entry point da aplicação
 │   ├── index.css            # Estilos globais e Tailwind config
-│   ├── types.ts             # Type definitions globais
-│   └── Simple.test.tsx      # Exemplo de teste
+│   └── types.ts             # Type definitions globais
 ├── .env.local               # Variáveis de ambiente (não commitado)
 ├── .gitignore
 ├── .prettierrc              # Prettier configuration
@@ -187,7 +210,7 @@ harpianew/
 
 ---
 
-## 🧩 Arquitetura de Componentes
+## Arquitetura de Componentes
 
 ### Hierarquia de Componentes
 
@@ -365,7 +388,7 @@ export const Home: React.FC = () => {
 
 ---
 
-## 🗄 Gerenciamento de Estado e Dados
+## Gerenciamento de Estado e Dados
 
 ### Estratégia de Estado
 
@@ -504,7 +527,7 @@ export interface MilestoneItem {
 
 ---
 
-## 🚦 Roteamento
+## Roteamento
 
 ### Configuração
 
@@ -603,7 +626,7 @@ const ScrollToTop = () => {
 
 ---
 
-## 🎨 Estilização
+## Estilização
 
 ### Tailwind CSS v4
 
@@ -699,28 +722,9 @@ Animações customizadas definidas em CSS:
 </div>
 ```
 
-### Custom Scrollbar
-
-```css
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #191919;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-```
-
 ### Padrões de Estilização
+
+> **Nota**: Custom scrollbar e outros estilos visuais estão documentados em [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md).
 
 1. **Utility-First**: Priorizar classes Tailwind
 2. **Responsive**: Mobile-first com breakpoints `md:`, `lg:`
@@ -731,7 +735,7 @@ Animações customizadas definidas em CSS:
 
 ---
 
-## 📐 Padrões de Código
+## Padrões de Código
 
 ### Componentes React
 
@@ -1081,7 +1085,7 @@ const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => { ... };
 
 ---
 
-## 🏷 Convenções de Nomenclatura
+## Convenções de Nomenclatura
 
 ### Arquivos
 
@@ -1143,7 +1147,7 @@ className = 'animate-marquee';
 
 ---
 
-## ⚡ Performance e Otimização
+## Performance e Otimização
 
 ### Code Splitting
 
@@ -1223,7 +1227,7 @@ Usar `will-change` para animações contínuas:
 
 ---
 
-## 🧪 Testes
+## Testes
 
 ### Configuração
 
@@ -1292,7 +1296,7 @@ describe('Component', () => {
 
 ---
 
-## ✅ Qualidade de Código
+## Qualidade de Código
 
 ### ESLint
 
@@ -1400,7 +1404,7 @@ docs(architecture): update component patterns
 
 ---
 
-## 🔄 Fluxo de Desenvolvimento
+## Fluxo de Desenvolvimento
 
 ### Setup Inicial
 
@@ -1458,7 +1462,7 @@ git push origin feat/nova-funcionalidade
 
 ---
 
-## 🚀 Guia de Implementação
+## Guia de Implementação
 
 ### Criar Novo Componente
 
@@ -1673,7 +1677,7 @@ export const Services = () => {
 
 ---
 
-## 📚 Recursos Adicionais
+## Recursos Adicionais
 
 ### Documentação Oficial
 
@@ -1692,27 +1696,9 @@ export const Services = () => {
   - Tailwind CSS IntelliSense
   - TypeScript and JavaScript Language Features
 
-### Comandos Úteis
-
-```bash
-# Desenvolvimento
-npm run dev              # Dev server (porta 5020)
-npm run build            # Build de produção
-npm run preview          # Preview do build
-
-# Qualidade
-npm run lint             # Rodar ESLint
-npm run format           # Rodar Prettier
-npm test                 # Rodar testes
-npm test -- --watch      # Testes em watch mode
-
-# Git
-npm run prepare          # Setup Husky (automático no install)
-```
-
 ---
 
-## 🎓 Melhores Práticas
+## Melhores Práticas
 
 ### Performance
 
@@ -1749,7 +1735,7 @@ npm run prepare          # Setup Husky (automático no install)
 
 ---
 
-## 🔮 Roadmap de Melhorias
+## Roadmap de Melhorias
 
 Melhorias planejadas para o projeto:
 
@@ -1762,7 +1748,7 @@ Melhorias planejadas para o projeto:
 
 ---
 
-## 📞 Suporte
+## Suporte
 
 Para dúvidas ou sugestões sobre a arquitetura do projeto:
 
@@ -1773,6 +1759,6 @@ Para dúvidas ou sugestões sobre a arquitetura do projeto:
 
 ---
 
-**Última atualização**: 2025-11-25
-**Versão**: 1.2.0
+**Última atualização**: 2025-11-30
+**Versão**: 1.3.0
 **Mantido por**: Equipe Harpia

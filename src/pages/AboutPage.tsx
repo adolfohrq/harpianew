@@ -6,8 +6,7 @@ import {
   createPageSchema,
 } from '@/hooks/useStructuredData';
 import { PAGE_SEO, getKeywords, getCanonicalUrl } from '@/config/seo.config';
-import { ErrorBoundary } from '@/components/ErrorBoundary';
-import { HeroSection } from '@/components/ui';
+import { HeroSection, ErrorBoundary } from '@/components/ui';
 import { AboutStatement } from '@/components/AboutStatement';
 import { AboutPillars } from '@/components/AboutPillars';
 import { AboutTimeline } from '@/components/AboutTimeline';

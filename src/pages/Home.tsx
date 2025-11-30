@@ -10,13 +10,13 @@ import {
   Stats,
   WhyHarpia,
   ClientLogos,
-  ErrorBoundary,
   Hero,
   Manifesto,
   ServicesHub,
   PortfolioPreview,
   CTASection,
 } from '@/components';
+import { ErrorBoundary } from '@/components/ui';
 
 export const Home: React.FC = () => {
   useMetaTags({

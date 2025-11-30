@@ -270,6 +270,29 @@ aspect-16/10        /* 16:10 - Portfolio */
 />
 ```
 
+### `<LazyVideo>`
+
+**Propósito**: Wrapper para vídeos com lazy loading otimizado.
+
+**Localização**: `src/components/ui/LazyVideo.tsx`
+
+**Props**:
+
+- `src`: URL do vídeo (obrigatório)
+- `poster`: URL da imagem de poster (opcional)
+- `className`: Classes adicionais (opcional)
+- `autoPlay`: Iniciar automaticamente (default: `true`)
+- `loop`: Loop infinito (default: `true`)
+- `muted`: Silenciado (default: `true`)
+
+**Uso**:
+
+```tsx
+import { LazyVideo } from '@/components/ui';
+
+<LazyVideo src="/video.mp4" poster="/video-poster.webp" className="w-full h-full object-cover" />;
+```
+
 ### `<GradientLine>`
 
 **Propósito**: Linha decorativa com gradiente, usada para separadores e labels de seção.
@@ -328,11 +351,13 @@ import { GradientLine } from '@/components/ui';
 
 **Componentes disponíveis**:
 
-| Componente       | Descrição                                        |
-| ---------------- | ------------------------------------------------ |
-| `<Skeleton>`     | Elemento básico de skeleton                      |
-| `<PageSkeleton>` | Skeleton para página inteira (usado no Suspense) |
-| `<CardSkeleton>` | Skeleton para cards individuais                  |
+| Componente                | Descrição                                        |
+| ------------------------- | ------------------------------------------------ |
+| `<Skeleton>`              | Elemento básico de skeleton                      |
+| `<PageSkeleton>`          | Skeleton para página inteira (usado no Suspense) |
+| `<CardSkeleton>`          | Skeleton para cards individuais                  |
+| `<PortfolioSkeleton>`     | Skeleton para grid de portfolio                  |
+| `<ProjectDetailSkeleton>` | Skeleton para detalhe de projeto                 |
 
 **Props do Skeleton**:
 
@@ -349,7 +374,7 @@ import { GradientLine } from '@/components/ui';
 **Uso**:
 
 ```tsx
-import { Skeleton, PageSkeleton, CardSkeleton } from '@/components/ui';
+import { Skeleton, PageSkeleton, CardSkeleton, PortfolioSkeleton, ProjectDetailSkeleton } from '@/components/ui';
 
 // Skeleton básico
 <Skeleton variant="text" width="60%" height={24} />
@@ -363,6 +388,12 @@ import { Skeleton, PageSkeleton, CardSkeleton } from '@/components/ui';
 
 // Skeleton de card
 <CardSkeleton className="w-full" />
+
+// Skeleton para portfolio
+<PortfolioSkeleton />
+
+// Skeleton para detalhe de projeto
+<ProjectDetailSkeleton />
 ```
 
 ---
@@ -417,21 +448,64 @@ import { Skeleton, PageSkeleton, CardSkeleton } from '@/components/ui';
 - `company`: Empresa
 - `isActive`: Boolean para controlar visibilidade
 
-### `<ErrorBoundary>`
+### `<ErrorBoundary>` / `<PortfolioErrorFallback>`
 
 **Propósito**: Captura erros de seções sem quebrar a página inteira.
 
-**Props**:
+**Localização**: `src/components/ui/ErrorBoundary.tsx`
+
+**Componentes disponíveis**:
+
+| Componente                 | Descrição                                   |
+| -------------------------- | ------------------------------------------- |
+| `<ErrorBoundary>`          | Boundary genérico para qualquer seção       |
+| `<PortfolioErrorFallback>` | Fallback específico para erros no portfolio |
+
+**Props do ErrorBoundary**:
 
 - `children`: Componentes filhos
 - `sectionName`: Nome da seção para log
+- `fallback`: Componente de fallback customizado (opcional)
 
 **Uso**:
 
 ```tsx
+import { ErrorBoundary, PortfolioErrorFallback } from '@/components/ui';
+
+// Uso básico
 <ErrorBoundary sectionName="estatísticas">
   <Stats />
 </ErrorBoundary>
+
+// Com fallback customizado para portfolio
+<ErrorBoundary sectionName="portfolio" fallback={<PortfolioErrorFallback />}>
+  <Portfolio />
+</ErrorBoundary>
+```
+
+### Social Icons (`<InstagramIcon>`, `<WhatsAppIcon>`)
+
+**Propósito**: Ícones SVG customizados para redes sociais.
+
+**Localização**: `src/components/ui/icons/SocialIcons.tsx`
+
+**Componentes disponíveis**:
+
+- `<InstagramIcon />` - Ícone do Instagram
+- `<WhatsAppIcon />` - Ícone do WhatsApp
+
+**Props**:
+
+- `size`: Tamanho do ícone em pixels (default: `24`)
+- `className`: Classes adicionais (opcional)
+
+**Uso**:
+
+```tsx
+import { InstagramIcon, WhatsAppIcon } from '@/components/ui';
+
+<InstagramIcon size={32} className="text-white hover:text-gray-300" />
+<WhatsAppIcon size={24} />
 ```
 
 ### `<HeroSection>`
@@ -880,47 +954,9 @@ const handleNext = useCallback(() => {
 
 ---
 
-## Padrões de Código
-
-### Nomenclatura de Componentes
-
-```
-PascalCase para arquivos: Hero.tsx, ServicesHub.tsx
-Named exports: export const Hero: React.FC = () => ...
-```
-
-### Estrutura de Pastas
-
-```
-src/
-├── components/          # Seções da página
-│   └── ui/             # Componentes reutilizáveis
-├── pages/              # Páginas de rotas
-├── data/               # Dados estáticos tipados
-└── types.ts            # Interfaces compartilhadas
-```
-
-### Import Order
-
-```tsx
-// 1. React
-import React from 'react';
-
-// 2. Third-party
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-
-// 3. Components
-import { Reveal, OptimizedImage } from './components';
-
-// 4. Data & Types
-import { SERVICES } from '../data';
-import type { ServiceItem } from '../types';
-```
-
----
-
 ## Exemplos de Componentes Comuns
+
+> **Nota**: Para padrões de código, nomenclatura e estrutura de pastas, consulte [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ### Seção Hero (Dark)
 
@@ -1055,11 +1091,3 @@ Ao criar novos componentes, garantir:
 - [ ] Usar `rounded-sm` (não `rounded-lg`)
 - [ ] Aplicar `will-change-transform` em animações
 - [ ] Testar em mobile e desktop
-
----
-
-## Recursos
-
-- [Arquitetura do Projeto](./ARCHITECTURE.md)
-- [Tailwind CSS Docs](https://tailwindcss.com)
-- [Lucide Icons](https://lucide.dev)

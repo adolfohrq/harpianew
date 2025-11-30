@@ -1,7 +1,6 @@
 export { ClientLogos } from './ClientLogos';
 export { ContactMain } from './ContactMain';
 export { CTASection } from './CTASection';
-export { ErrorBoundary } from './ErrorBoundary';
 export { Footer } from './Footer';
 export { Hero } from './Hero';
 export { Manifesto } from './Manifesto';
