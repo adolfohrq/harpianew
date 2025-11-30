@@ -156,10 +156,10 @@ Imagens em grids e cards não têm containers com aspect-ratio definido, permiti
 
 - [x] **ServiceDetail.tsx:88** - Adicionar dimensões na imagem (800x600) ✅ _Concluído em 29/11/2025_
 - [x] **PortfolioDetail.tsx:516** - Adicionar dimensões na imagem (1200x800) ✅ _Concluído em 29/11/2025_
-- [ ] **ClientLogos.tsx** - Verificar se OptimizedImage tem dimensões
-- [ ] **PortfolioPreview.tsx** - Verificar containers com aspect-ratio
-- [ ] **CTASection.tsx** - Verificar imagem de background
-- [ ] **Showreel.tsx** - Verificar imagem de background
+- [x] **ClientLogos.tsx** - OptimizedImage já tem dimensões (150x80) ✅ _Verificado em 29/11/2025_
+- [x] **PortfolioPreview.tsx** - Containers já usam aspect-ratio CSS (aspect-4/3, aspect-21/9) ✅ _Verificado em 29/11/2025_
+- [x] **CTASection.tsx** - Adicionado width/height (1920x1080) na imagem de background ✅ _Concluído em 29/11/2025_
+- [x] **Showreel.tsx** - Adicionado width/height (1920x1080) na imagem de background ✅ _Concluído em 29/11/2025_
 
 ## Prioridade 🟡 MÉDIA (Otimizações)
 
@@ -440,6 +440,8 @@ npx vite-bundle-visualizer
 | 29/11/2025 | 1    | ✅ PortfolioDetail.tsx com dimensões            |
 | 29/11/2025 | 2    | ✅ Otimização de chunking no Vite (-80% bundle) |
 | 29/11/2025 | 2    | ✅ Preload de fonte Silk Serif                  |
+| 29/11/2025 | 1    | ✅ CTASection.tsx com dimensões (1920x1080)     |
+| 29/11/2025 | 1    | ✅ Showreel.tsx com dimensões (1920x1080)       |
 
 ---
 

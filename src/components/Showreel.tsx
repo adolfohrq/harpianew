@@ -76,6 +76,8 @@ export const Showreel = () => {
           src="/5.webp"
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
           className="w-full h-full object-cover opacity-50 bg-position-showreel"
           loading="lazy"
         />

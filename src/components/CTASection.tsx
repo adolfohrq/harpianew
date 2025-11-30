@@ -13,6 +13,8 @@ export const CTASection: React.FC = () => {
           src="/3.webp"
           alt=""
           aria-hidden="true"
+          width={1920}
+          height={1080}
           className="w-full h-full object-cover bg-position-cta"
           loading="eager"
         />
