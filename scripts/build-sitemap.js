@@ -139,11 +139,9 @@ function generateRobots(config) {
 
   return `# Robots.txt para ${companyName}
 User-agent: *
-Allow: /
+Disallow: /404
 
 Sitemap: ${baseUrl}/sitemap.xml
-
-Disallow: /404
 `;
 }
 

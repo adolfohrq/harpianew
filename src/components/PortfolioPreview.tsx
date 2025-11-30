@@ -189,14 +189,17 @@ export const PortfolioPreview: React.FC<PortfolioPreviewProps> = ({ showAllProje
                 <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-white/20 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-white/20 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                {/* Image Layer */}
+                {/* Image Layer - Com aspectRatio para prevenir CLS */}
                 <OptimizedImage
                   src={project.image}
                   alt={`${project.title} - Projeto de ${project.category}`}
-                  className={`w-full h-full object-cover transition-all duration-700 ease-out ${
+                  width={idx === 0 && filteredProjects.length > 2 ? 1200 : 800}
+                  height={idx === 0 && filteredProjects.length > 2 ? 514 : 600}
+                  aspectRatio={idx === 0 && filteredProjects.length > 2 ? '21/9' : '4/3'}
+                  containerClassName="w-full h-full"
+                  className={`transition-all duration-700 ease-out ${
                     hoveredIndex === idx ? 'scale-110 grayscale-0' : 'scale-100 grayscale'
                   }`}
-                  loading="lazy"
                 />
 
                 {/* Gradient Overlay */}

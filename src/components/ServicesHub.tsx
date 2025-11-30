@@ -40,10 +40,11 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, isHovered, on
       <OptimizedImage
         src={service.image}
         alt={`${service.title} - Serviço da Harpia Agência`}
+        width={600}
+        height={400}
         className={`w-full h-full object-cover transition-all duration-700 ease-out ${
           isHovered ? 'scale-110 grayscale-0' : 'scale-100 grayscale'
         }`}
-        loading="lazy"
       />
 
       {/* Gradient Overlay */}

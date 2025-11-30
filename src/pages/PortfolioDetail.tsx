@@ -443,6 +443,8 @@ export const PortfolioDetail: React.FC = () => {
                     <OptimizedImage
                       src={image}
                       alt={`${project.title} - Imagem ${idx + 1}`}
+                      width={idx === 0 ? 1200 : 800}
+                      height={idx === 0 ? 514 : 600}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     {/* Hover overlay */}
