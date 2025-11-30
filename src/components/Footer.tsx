@@ -2,7 +2,7 @@ import React from 'react';
 import { Mail, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { NAV_LINKS } from '../data';
-import { InstagramIcon, WhatsAppIcon } from './ui/icons';
+import { InstagramIcon, WhatsAppIcon, YouTubeIcon } from './ui/icons';
 
 export const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -174,6 +174,20 @@ export const Footer: React.FC = () => {
                 >
                   <span className="relative z-10 text-gray-400 group-hover:text-harpia-black transition-colors duration-300">
                     <InstagramIcon size={16} />
+                  </span>
+                  <div className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
+                </a>
+
+                {/* YouTube */}
+                <a
+                  href="https://www.youtube.com/@harpiaagencia1043"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex items-center justify-center w-11 h-11 bg-white/5 hover:bg-white border border-white/10 hover:border-white rounded-full transition-all duration-500 overflow-hidden"
+                  aria-label="YouTube"
+                >
+                  <span className="relative z-10 text-gray-400 group-hover:text-harpia-black transition-colors duration-300">
+                    <YouTubeIcon size={16} />
                   </span>
                   <div className="absolute inset-0 bg-white scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full" />
                 </a>

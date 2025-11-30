@@ -1,1 +1,1 @@
-export { InstagramIcon, WhatsAppIcon } from './SocialIcons';
+export { InstagramIcon, WhatsAppIcon, YouTubeIcon } from './SocialIcons';

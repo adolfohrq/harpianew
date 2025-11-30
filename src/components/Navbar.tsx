@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from '../types';
 import { ArrowUpRight, Mail } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { InstagramIcon, WhatsAppIcon } from './ui/icons';
+import { InstagramIcon, WhatsAppIcon, YouTubeIcon } from './ui/icons';
 
 interface NavbarProps {
   links: NavLink[];
@@ -168,6 +168,23 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
 
         {/* Menu Content */}
         <div className="relative h-full flex flex-col justify-center px-8 pt-24 pb-12">
+          {/* Botão de Fechar */}
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className={`absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300 ${
+              isMobileOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+            }`}
+            style={{
+              transitionDelay: isMobileOpen ? '100ms' : '0ms',
+            }}
+            aria-label="Fechar menu"
+          >
+            <div className="relative w-5 h-5">
+              <span className="absolute left-0 top-1/2 w-full h-[2px] bg-current -translate-y-1/2 rotate-45" />
+              <span className="absolute left-0 top-1/2 w-full h-[2px] bg-current -translate-y-1/2 -rotate-45" />
+            </div>
+          </button>
+
           {/* Navigation Links */}
           <nav className="flex-1 flex flex-col justify-center">
             <ul className="space-y-2">
@@ -245,31 +262,40 @@ export const Navbar: React.FC<NavbarProps> = ({ links }) => {
             {/* Social & Contact */}
             <div className="flex items-center justify-between">
               {/* Social Links */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <a
                   href="https://wa.me/5548999661913"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
                   aria-label="WhatsApp"
                 >
-                  <WhatsAppIcon size={18} />
+                  <WhatsAppIcon size={16} />
                 </a>
                 <a
                   href="https://www.instagram.com/harpia.agencia"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
                   aria-label="Instagram"
                 >
-                  <InstagramIcon size={18} />
+                  <InstagramIcon size={16} />
+                </a>
+                <a
+                  href="https://www.youtube.com/@harpiaagencia1043"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  aria-label="YouTube"
+                >
+                  <YouTubeIcon size={16} />
                 </a>
                 <a
                   href="mailto:contato@agenciaharpia.com.br"
-                  className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
                   aria-label="Email"
                 >
-                  <Mail size={18} />
+                  <Mail size={16} />
                 </a>
               </div>
 
