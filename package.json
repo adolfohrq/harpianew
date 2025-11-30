@@ -10,7 +10,8 @@
     "test": "vitest",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "node scripts/deploy-ftp.js"
   },
   "dependencies": {
     "lucide-react": "^0.554.0",
@@ -34,6 +35,7 @@
     "@typescript-eslint/parser": "^8.47.0",
     "@vitejs/plugin-react": "^5.0.0",
     "autoprefixer": "^10.4.22",
+    "basic-ftp": "^5.0.5",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
