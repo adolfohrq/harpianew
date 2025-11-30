@@ -165,7 +165,7 @@ Imagens em grids e cards não têm containers com aspect-ratio definido, permiti
 
 - [x] Analisar e remover JavaScript não utilizado (87 KiB) ✅ _Otimizado via chunking - redução de 80%_
 - [ ] Verificar imports desnecessários nos componentes
-- [ ] Otimizar tamanho das imagens (meta: < 5MB total)
+- [x] Otimizar tamanho das imagens (meta: < 5MB total) ✅ _Total: 192KB - Convertido JPG para WebP_
 - [ ] Implementar code splitting mais agressivo
 
 ## Prioridade 🟢 BAIXA (Melhorias)
@@ -329,26 +329,49 @@ Todas as páginas já estavam com lazy loading implementado em `App.tsx`.
 
 ---
 
-## Fase 3: Otimização de Rede
+## Fase 3: Otimização de Rede ✅ CONCLUÍDA
 
-### Tarefa 3.1: Auditar tamanho das imagens
+> **Status:** ✅ Concluída em 29/11/2025
+> **Impacto esperado:** Redução de ~160KB no payload de imagens
+
+### Tarefa 3.1: Auditar tamanho das imagens ✅
+
+**Resultado da auditoria:**
+
+| Arquivo            | Tamanho Original | Tamanho Otimizado | Redução  |
+| ------------------ | ---------------- | ----------------- | -------- |
+| `video-poster.jpg` | 178 KB           | 79 KB (webp)      | **-56%** |
+| `6.jpg`            | 50 KB            | 19 KB (webp)      | **-62%** |
+
+**Total de imagens após otimização:** ~192 KB (0.19 MB) ✅
+
+### Tarefa 3.2: Converter JPG para WebP ✅
+
+Todas as imagens JPG foram convertidas para WebP:
 
 ```bash
-# Listar imagens por tamanho
-find public -type f \( -name "*.webp" -o -name "*.jpg" -o -name "*.png" \) -exec ls -lh {} \;
+# Comandos executados
+npx sharp-cli -i public/video-poster.jpg -o public/video-poster.webp -f webp -q 80
+npx sharp-cli -i public/6.jpg -o public/6.webp -f webp -q 80
 ```
 
-### Tarefa 3.2: Comprimir imagens grandes
+Arquivos JPG removidos após conversão.
 
-```bash
-# Usando sharp ou squoosh
-npx @squoosh/cli --webp auto public/*.jpg
-```
+### Tarefa 3.3: Auditar vídeos ✅
 
-### Tarefa 3.3: Verificar vídeos
+| Arquivo          | Tamanho | Status                               |
+| ---------------- | ------- | ------------------------------------ |
+| `video-hero.mp4` | 1.2 MB  | ✅ Aceitável (hero background)       |
+| `video.mp4`      | 9.0 MB  | ⚠️ Grande, mas necessário (showreel) |
 
-- video-hero.mp4 - verificar tamanho e compressão
-- video.mp4 (showreel) - verificar tamanho
+**Total de vídeos:** ~10 MB
+
+**Nota:** O video.mp4 (showreel) é grande mas é carregado sob demanda com `preload="metadata"` e só reproduz quando o usuário clica. Otimização adicional requer recodificação do vídeo original.
+
+### Tarefa 3.4: Atualizar referências no código ✅
+
+- `Showreel.tsx`: VIDEO_POSTER alterado de `.jpg` para `.webp`
+- `LazyVideo.tsx`: Exemplo atualizado para usar `.webp`
 
 ---
 
@@ -423,9 +446,10 @@ npx vite-bundle-visualizer
 1. ✅ Documento criado
 2. ✅ Implementar Fase 1 (CLS) - **CONCLUÍDA**
 3. ✅ Implementar Fase 2 (TBT) - **CONCLUÍDA**
-4. ⏳ Re-testar no PageSpeed após deploy
-5. ⏳ Implementar Fases 3-5 conforme prioridade
-6. ⏳ Monitorar métricas no Search Console
+4. ✅ Implementar Fase 3 (Rede) - **CONCLUÍDA**
+5. ⏳ Re-testar no PageSpeed após deploy
+6. ⏳ Implementar Fases 4-5 conforme prioridade
+7. ⏳ Monitorar métricas no Search Console
 
 ---
 
@@ -442,6 +466,9 @@ npx vite-bundle-visualizer
 | 29/11/2025 | 2    | ✅ Preload de fonte Silk Serif                  |
 | 29/11/2025 | 1    | ✅ CTASection.tsx com dimensões (1920x1080)     |
 | 29/11/2025 | 1    | ✅ Showreel.tsx com dimensões (1920x1080)       |
+| 29/11/2025 | 3    | ✅ video-poster.jpg → webp (-56%, 178→79KB)     |
+| 29/11/2025 | 3    | ✅ 6.jpg → webp (-62%, 50→19KB)                 |
+| 29/11/2025 | 3    | ✅ Atualizado referências no código             |
 
 ---
 

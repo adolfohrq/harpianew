@@ -4,7 +4,7 @@ import { Reveal } from './Reveal';
 import { GradientLine, OptimizedImage } from './ui';
 
 const VIDEO_SRC = '/video.mp4';
-const VIDEO_POSTER = '/video-poster.jpg';
+const VIDEO_POSTER = '/video-poster.webp';
 
 export const Showreel = () => {
   const [isPlaying, setIsPlaying] = useState(false);

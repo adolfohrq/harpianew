@@ -22,7 +22,7 @@ interface LazyVideoProps extends VideoHTMLAttributes<HTMLVideoElement> {
  * @example
  * <LazyVideo
  *   src="/video.mp4"
- *   poster="/video-poster.jpg"
+ *   poster="/video-poster.webp"
  *   lazyLoad
  *   muted
  *   playsInline
