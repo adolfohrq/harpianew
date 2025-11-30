@@ -35,8 +35,10 @@ src/
 │   └── contact/    # Componentes de Contato
 ├── pages/          # Páginas (lazy-loaded)
 ├── data/           # Dados estáticos
-├── hooks/          # Custom hooks (useMetaTags, useStructuredData)
-├── config/         # Configurações (SEO, sitemap)
+├── hooks/          # Custom hooks (useMetaTags, useStructuredData, useAnalytics, useWordPressProjects)
+├── config/         # Configurações (SEO, API)
+├── lib/            # Utilitários (validações com Zod)
+├── services/       # Serviços externos (WordPress API)
 ├── test/           # Configuração de testes
 └── types.ts        # TypeScript interfaces
 ```
@@ -45,7 +47,7 @@ src/
 
 - [Arquitetura](docs/ARCHITECTURE.md) - Estrutura, rotas, padrões
 - [Design System](docs/DESIGN_SYSTEM.md) - Cores, tipografia, UI
-- [Playwright Guide](docs/PLAYWRIGHT_GUIDE.md) - Testes de UI e automação
+- [Playwright Guide](guide/PLAYWRIGHT_GUIDE.md) - Testes de UI e automação
 
 ## Scripts
 
@@ -56,6 +58,7 @@ src/
 | `npm test`       | Executar testes             |
 | `npm run lint`   | Verificar código            |
 | `npm run format` | Formatar código             |
+| `npm run deploy` | Deploy via FTP              |
 
 ## Licença
 
