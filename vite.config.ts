@@ -39,9 +39,16 @@ export default defineConfig({
     cssMinify: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          icons: ['lucide-react'],
+        manualChunks: (id) => {
+          // Vendor chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react-dom')) return 'vendor';
+            if (id.includes('react-router')) return 'vendor';
+            if (id.includes('react')) return 'vendor';
+            if (id.includes('lucide-react')) return 'icons';
+            if (id.includes('react-helmet-async')) return 'seo';
+            if (id.includes('zod')) return 'validation';
+          }
         },
       },
     },
